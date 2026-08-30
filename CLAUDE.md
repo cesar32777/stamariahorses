@@ -68,8 +68,16 @@ llevar es lo que todavía no está escrito en el repo; **lo que ya está en un t
   y esa verificación está en el `Hecho cuando:` de T-03 y T-09.
 - **No reabras las decisiones cerradas** de `docs/tickets/README.md`. Si crees que una está mal,
   **dilo y sigue**; no la cambies por tu cuenta.
-- **El deploy a Vercel lo hace César.** No intentes autenticarte.
 - **No edites `docs/tickets/ESTADO.md` a mano.**
+
+## Deploy
+
+Resuelto en T-01 (2026-08-30). El sitio vive en Vercel, proyecto `stamariahorses`, enlazado por
+integración de GitHub al repo `github.com/cesar32777/stamariahorses`. **Rama de producción:
+`master`. Cada push a `master` dispara un build de producción automático** — publicar es
+`git push`, no hay paso manual de César. Estado de un build: MCP de Vercel (`get_deployment`,
+`get_deployment_build_logs`), team `team_wSQzNEiZ6JNwrBWQ796nePAR`. La cuenta de GitHub
+`cesar32777` es independiente de las de trabajo y ya está logueada en `gh` en la máquina de César.
 
 ## Metodología de verificación
 

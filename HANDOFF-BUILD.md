@@ -134,9 +134,9 @@ Al cerrar cada ticket, tres gestos y ni uno más: `Estado:` del ticket · una l�
 T-01 → T-02 → T-03 → T-04 → T-05 → T-06 → T-07 → T-08a → T-08b → T-09 → T-10 → T-13 → T-14
 ```
 
-- **T-01 tiene un límite que no podés cruzar.** Podés hacer git init, scaffolding, instalar
-  dependencias y correr el dev server local. **El deploy a Vercel lo hace César**, necesita su
-  cuenta. Dejá el proyecto listo para desplegar y decilo; no intentes autenticarte.
+- **T-01 y su deploy: cerrados** (2026-08-30). El sitio está en Vercel enlazado a
+  `github.com/cesar32777/stamariahorses`, rama de producción `master`, **auto-deploy en cada
+  push**. Ver `## Deploy` en `CLAUDE.md`.
 - **T-11 y T-12 están bloqueados** por fotos que no existen. No los toques.
 - **T-08b lleva una decisión de diseño abierta dentro** (el largo de scroll de la galería en
   móvil). Está escrita en el cuerpo de su ticket; resuélvela con el prototipo delante.

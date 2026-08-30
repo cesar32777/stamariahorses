@@ -147,7 +147,6 @@ Ninguno bloquea la maqueta. Todos bloquean publicar. Registrados también en `HA
 | Los 14 nombres reales | `T-13` (alt real), `T-15` |
 | ¿Existen originales de ≥1600 px? | `T-11`, `T-12`. **Riesgo #1 del proyecto** |
 | Sobre qué se corrió Magnific (originales de cámara o imágenes del PDF) | `T-11`, `T-15` |
-| El deploy a Vercel necesita la cuenta de César | La mitad del `Hecho cuando:` de `T-01` |
 
 Y **una decisión de diseño abierta que sí se resuelve construyendo**, dentro de `T-08b`: el largo de
 scroll de la galería en móvil (5711 px en el caballo 08).
