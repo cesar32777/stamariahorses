@@ -82,6 +82,14 @@ medido en este proyecto (`HANDOFF-BUILD.md` §6).
   devolvió "General Sans" en vez de "Satoshi" — sin error, sin aviso. Pedir cada familia en su
   propia llamada evita el problema.
 
+## Seam B — asignación de bucket (T-04)
+
+- **El bucket se asigna por distancia logarítmica, no lineal.** Medido: con distancia lineal
+  entre ratios, 2 de las 86 fotos (ratio ~0.708) caen en `2:3` cuando `data/caballos.json` dice
+  `3:4`. El dato original se midió con la frontera en la **media geométrica** de dos buckets
+  (`Math.abs(Math.log(ratioBucket) - Math.log(ratioFoto))`). Si tocas `bucketDeRatio`, el ciclo 2
+  del test (86 fotos vs el dato) es el que lo caza.
+
 ## Datos de este proyecto
 
 - **0 de 88 imágenes llegan a 1200 px.** No extraigas las del PDF ni las uses.
