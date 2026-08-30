@@ -3,18 +3,18 @@
 
 # Estado del backlog
 
-**3 de 17 tickets cerrados (18%)** · 0 en curso · 14 pendientes
+**4 de 17 tickets cerrados (24%)** · 0 en curso · 13 pendientes
 
 Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-tickets.js --escribir`.
 
 | Fase | Total | Hechos | En curso | Pendientes |
 |---|---|---|---|---|
-| `A` | 4 | 3 | 0 | 1 |
+| `A` | 4 | 4 | 0 | 0 |
 | `B` | 2 | 0 | 0 | 2 |
 | `C` | 6 | 0 | 0 | 6 |
 | `D` | 2 | 0 | 0 | 2 |
 | `E` | 3 | 0 | 0 | 3 |
-| **Total** | **17** | **3** | **0** | **14** |
+| **Total** | **17** | **4** | **0** | **13** |
 
 ## Cerrados
 
@@ -22,11 +22,10 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 |---|---|---|---|
 | [`T-01`](T-01.md) | Bootstrap del repo y despliegue vacío | ✅ | ✅ |
 | [`T-02`](T-02.md) | Tipado y validación del dato | ✅ | ✅ |
+| [`T-03`](T-03.md) | Capa de acceso al Catálogo | ✅ | ✅ |
 | [`T-16`](T-16.md) | Gate del baseline del linter | ✅ | ✅ |
 
 ## Pendientes
-
-**`A`** — [`T-03`](T-03.md)
 
 **`B`** — [`T-04`](T-04.md) · [`T-05`](T-05.md)
 
@@ -38,7 +37,7 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 
 ## Listos para tomar ahora
 
-[`T-03`](T-03.md) · [`T-04`](T-04.md) · [`T-06`](T-06.md)
+[`T-04`](T-04.md) · [`T-06`](T-06.md)
 
 ## Coherencia
 
