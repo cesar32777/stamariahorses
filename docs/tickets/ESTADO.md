@@ -3,22 +3,28 @@
 
 # Estado del backlog
 
-**0 de 16 tickets cerrados (0%)** · 0 en curso · 16 pendientes
+**0 de 16 tickets cerrados (0%)** · 1 en curso · 15 pendientes
 
 Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-tickets.js --escribir`.
 
 | Fase | Total | Hechos | En curso | Pendientes |
 |---|---|---|---|---|
-| `A` | 3 | 0 | 0 | 3 |
+| `A` | 3 | 0 | 1 | 2 |
 | `B` | 2 | 0 | 0 | 2 |
 | `C` | 6 | 0 | 0 | 6 |
 | `D` | 2 | 0 | 0 | 2 |
 | `E` | 3 | 0 | 0 | 3 |
-| **Total** | **16** | **0** | **0** | **16** |
+| **Total** | **16** | **0** | **1** | **15** |
+
+## En curso
+
+### Falta trabajo propio por completar (1)
+
+- [`T-01`](T-01.md) — Bootstrap del repo y despliegue vacío
 
 ## Pendientes
 
-**`A`** — [`T-01`](T-01.md) · [`T-02`](T-02.md) · [`T-03`](T-03.md)
+**`A`** — [`T-02`](T-02.md) · [`T-03`](T-03.md)
 
 **`B`** — [`T-04`](T-04.md) · [`T-05`](T-05.md)
 
@@ -30,7 +36,7 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 
 ## Listos para tomar ahora
 
-[`T-01`](T-01.md)
+_Ninguno: todo pendiente espera a otro ticket._
 
 ## Coherencia
 

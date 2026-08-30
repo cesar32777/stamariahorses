@@ -2,7 +2,7 @@
   "_comentario": "Baseline del linter fijado en T-01, contra el scaffold recién creado. El objetivo de aquí en adelante es no superar este conteo, no llegar a cero: estas 4 ofensas son heredadas de scripts/estado-tickets.js y scripts/handoff.js (commit 7810e86, previo a T-01), que usan require() de CommonJS a propósito. Regenerar: npm run lint.",
   "comando": "npm run lint",
   "fijadoEn": "2026-08-30",
-  "commit": "pendiente-de-commit-T-01",
+  "commit": "5fbb095",
   "totalErrors": 4,
   "totalWarnings": 0,
   "porArchivo": [
