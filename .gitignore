@@ -15,6 +15,10 @@ dist/
 Thumbs.db
 *.log
 
+# Next.js / TypeScript generados — no se editan a mano
+next-env.d.ts
+*.tsbuildinfo
+
 # WIP de ticket: es un artefacto de traspaso, no estado del repo.
 # El estado vive en el campo `Estado:` de cada ticket.
 docs/tickets/*-wip.md

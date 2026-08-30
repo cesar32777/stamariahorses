@@ -68,6 +68,20 @@ medido en este proyecto (`HANDOFF-BUILD.md` §6).
   `recorte_pct` medidos **antes** de que existiera el código de render: ese archivo es el esperado.
   Derivarlo otra vez con la misma fórmula pasa por construcción y no mide nada.
 
+## Next.js 16 (medido en T-01)
+
+- **`create-next-app` se niega a scaffoldear un directorio no vacío**, incluso con flags no
+  interactivos. Scaffoldear en un directorio temporal y copiar a mano lo generado.
+- **`next dev` reescribe `CLAUDE.md` con un bloque de "agent rules"** propio de Next 16
+  (`node_modules/next/dist/server/lib/generate-agent-files.js`, marca
+  `<!-- BEGIN:nextjs-agent-rules -->`). Este proyecto tiene su propio `CLAUDE.md`: hay que poner
+  `agentRules: false` en `next.config.ts` **antes** del primer `npm run dev`, o el archivo se
+  ensucia solo. Si ya pasó, `git checkout -- CLAUDE.md` lo revierte sin drama.
+- **`api.fontshare.com/v2/css` con dos familias en la misma query puede sustituir una en
+  silencio.** Pedir `f[]=cabinet-grotesk@700,500&f[]=satoshi@400,500,700` en una sola llamada
+  devolvió "General Sans" en vez de "Satoshi" — sin error, sin aviso. Pedir cada familia en su
+  propia llamada evita el problema.
+
 ## Datos de este proyecto
 
 - **0 de 88 imágenes llegan a 1200 px.** No extraigas las del PDF ni las uses.

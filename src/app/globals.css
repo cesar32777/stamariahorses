@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/*
+ * Tokens base — fondo claro, neutro frío. Un solo acento (no latón, no
+ * terracota, no crema: los caballos son bayos y un fondo cálido los
+ * disuelve). El sistema visual completo se cierra en T-06; esto es solo
+ * lo mínimo coherente para que T-01 no arranque con el default de
+ * create-next-app.
+ */
+:root {
+  --color-background: #f4f5f6;
+  --color-foreground: #16181b;
+  --color-accent: #2b5f6b;
+}
+
+@theme inline {
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-accent: var(--color-accent);
+  --font-display: var(--font-display);
+  --font-text: var(--font-text);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-text), system-ui, sans-serif;
+}
