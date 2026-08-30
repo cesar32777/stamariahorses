@@ -139,6 +139,69 @@ p {
   margin-block-end: var(--space-6);
 }
 
+/* --- Ficha: hero partido 50/50 (T-08a). La foto va en una caja casi cuadrada
+   con semántica `contain`: una hero vertical y una horizontal caben en la MISMA
+   caja sin recortar ninguna (RF12), y la que no llena deja banda de
+   --color-surface, que sobre fondo liso se lee como marco de galería. Colapsa a
+   una columna abajo de 768px (MOBILE OVERRIDE, igual que el grid), con la caja
+   pasando de 1:1 a proporción apaisada. El detalle de contener la foto dentro
+   de la caja lo pone el hijo (ver Ficha), no esta clase. --- */
+.ficha-hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+.ficha-hero__caja {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+@media (min-width: 768px) {
+  .ficha-hero {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+  }
+
+  .ficha-hero__caja {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+/* Lista de datos: `etiqueta : valor`, una por línea, sin bordes ni tabla
+   (PLAN §1.5). Un campo ausente no rinde su línea -- pero ESO es T-09; T-08a
+   solo fija el markup y el ritmo con filas placeholder visibles. */
+.ficha-datos {
+  margin: 0;
+  padding: 0;
+}
+
+.ficha-datos__fila {
+  display: flex;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.ficha-datos__fila dt {
+  color: var(--color-muted);
+}
+
+.ficha-datos__fila dt::after {
+  content: ":";
+}
+
+.ficha-datos__fila dd {
+  margin: 0;
+  color: var(--color-foreground);
+}
+
 /* scale(0.98) en :active sobre la tarjeta (PLAN §1.2, movimiento 2): confirma
    el toque en móvil. */
 .tarjeta-caballo {
