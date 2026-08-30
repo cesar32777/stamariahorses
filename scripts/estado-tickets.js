@@ -47,6 +47,7 @@ const CAMPO_FASE = 'Fase';
 // aqui solo cuando su `Estado:` pasa a ✅.
 const BLOQUEO_EXTERNO = {
   // 'APP-01': 'BASE-07 (catálogo real)',
+  'T-01': 'el deploy a Vercel, que necesita la cuenta de César',
 };
 
 // ==== FIN CONFIG ============================================================
