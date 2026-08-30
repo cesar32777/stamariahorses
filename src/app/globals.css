@@ -113,6 +113,69 @@ p {
   text-wrap: pretty;
 }
 
+/* --- Grid del Catálogo (T-07). Columnas, no celdas: escalona las 5
+   proporciones sin huecos y sin desborde horizontal. Móvil = 1 columna. --- */
+.grid-catalogo {
+  columns: 1;
+  column-gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .grid-catalogo {
+    columns: 2;
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid-catalogo {
+    columns: 3;
+  }
+}
+
+.grid-catalogo__item {
+  break-inside: avoid;
+  margin-block-end: var(--space-6);
+}
+
+/* scale(0.98) en :active sobre la tarjeta (PLAN §1.2, movimiento 2): confirma
+   el toque en móvil. */
+.tarjeta-caballo {
+  transition: transform var(--duration) var(--ease);
+}
+
+.tarjeta-caballo:active {
+  transform: scale(0.98);
+}
+
+@keyframes tarjeta-entra {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade + translateY al entrar en viewport (PLAN §1.2, movimiento 1): ordena la
+   lectura de un grid largo. Scroll-driven puro, sin JS ni IntersectionObserver.
+   `@supports` porque Safari y Firefox aún no lo implementan -- sin soporte la
+   tarjeta simplemente aparece. `prefers-reduced-motion` lo desactiva (dial
+   motion 4 > 3, obligatorio; el bloque `reduce` de abajo también lo neutraliza,
+   esto es explícito a propósito). */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .grid-catalogo__item {
+      animation: tarjeta-entra linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
