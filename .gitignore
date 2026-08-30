@@ -1,0 +1,28 @@
+# Dependencias y build
+node_modules/
+.next/
+out/
+dist/
+.vercel/
+
+# Entorno
+.env
+.env.local
+.env*.local
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# WIP de ticket: es un artefacto de traspaso, no estado del repo.
+# El estado vive en el campo `Estado:` de cada ticket.
+docs/tickets/*-wip.md
+
+# Config local de worktree, si algún día se monta el carril paralelo.
+# Nunca debe llegar a la rama de integración.
+/CLAUDE.local.md
+
+# Python del prototipo
+__pycache__/
+*.pyc
