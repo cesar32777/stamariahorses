@@ -1,10 +1,10 @@
-import { caballos } from "@/data/caballos";
+import { caballosPublicos } from "@/data/catalogo";
 
 const SITE_NAME = "Santa Maria Performance Horses";
 
-// Consume el dato validado en build (T-02) para que el módulo no se elimine
-// como import muerto. El Catálogo real (Ficha, Galería) llega en fase C.
-const EN_CATALOGO = caballos.filter((c) => c.estado === "disponible").length;
+// El Catálogo (solo Disponibles, Retirados ya filtrados) llega desde la capa de
+// acceso de T-03. El grid real de la portada llega en fase C (T-07).
+const EN_CATALOGO = caballosPublicos.length;
 
 export default function Home() {
   return (
