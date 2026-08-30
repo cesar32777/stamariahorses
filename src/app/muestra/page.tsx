@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import { MarcadorDeFoto } from "@/components/MarcadorDeFoto";
+import { BUCKETS } from "@/data/imagen";
+
 // Página de muestra del sistema visual (T-06). No es una pantalla del sitio:
 // es el espécimen que ejercita cada token de DESIGN.md para poder revisarlo en
 // móvil real y escritorio. No lleva datos de caballos -- los textos de ejemplo
@@ -42,8 +45,6 @@ const ESPACIO = [
   "--space-16",
   "--space-24",
 ] as const;
-
-const BUCKETS = ["2:3", "3:4", "1:1", "4:3", "3:2"] as const;
 
 function Seccion({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
@@ -248,28 +249,8 @@ export default function Muestra() {
       <Seccion titulo="Marcador de foto en los 5 buckets">
         <div className="flex flex-wrap gap-4">
           {BUCKETS.map((b) => (
-            <figure key={b} className="flex flex-col gap-2">
-              <div
-                aria-hidden
-                className="bg-surface"
-                style={{
-                  inlineSize: "9rem",
-                  aspectRatio: b.replace(":", " / "),
-                  borderRadius: "var(--radius)",
-                  border: "1px solid var(--color-line)",
-                  display: "grid",
-                  placeItems: "center",
-                }}
-              >
-                <span
-                  style={{
-                    inlineSize: "60%",
-                    aspectRatio: "1",
-                    background: "var(--color-placeholder)",
-                    borderRadius: "4px",
-                  }}
-                />
-              </div>
+            <figure key={b} className="flex flex-col gap-2" style={{ inlineSize: "9rem" }}>
+              <MarcadorDeFoto bucket={b} />
               <figcaption className="text-muted" style={{ fontSize: "var(--text-xs)" }}>
                 bucket {b}
               </figcaption>
@@ -284,8 +265,9 @@ export default function Muestra() {
             maxWidth: "var(--measure)",
           }}
         >
-          El cuadro interior gris claro es el marcador: se ve como marcador, no como dato. El mapeo
-          real de bucket a <code>aspect-ratio</code> es T-04.
+          El bloque sólido con la etiqueta <code>sin foto</code> es el componente{" "}
+          <code>MarcadorDeFoto</code> (T-05): se ve como marcador, no como dato. Reserva el{" "}
+          <code>aspect-ratio</code> del bucket (T-04) para que al llegar la foto no haya salto.
         </p>
       </Seccion>
     </main>

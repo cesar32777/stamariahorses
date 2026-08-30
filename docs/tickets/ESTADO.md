@@ -3,18 +3,18 @@
 
 # Estado del backlog
 
-**6 de 17 tickets cerrados (35%)** · 0 en curso · 11 pendientes
+**7 de 17 tickets cerrados (41%)** · 0 en curso · 10 pendientes
 
 Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-tickets.js --escribir`.
 
 | Fase | Total | Hechos | En curso | Pendientes |
 |---|---|---|---|---|
 | `A` | 4 | 4 | 0 | 0 |
-| `B` | 2 | 1 | 0 | 1 |
+| `B` | 2 | 2 | 0 | 0 |
 | `C` | 6 | 1 | 0 | 5 |
 | `D` | 2 | 0 | 0 | 2 |
 | `E` | 3 | 0 | 0 | 3 |
-| **Total** | **17** | **6** | **0** | **11** |
+| **Total** | **17** | **7** | **0** | **10** |
 
 ## Cerrados
 
@@ -24,12 +24,11 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 | [`T-02`](T-02.md) | Tipado y validación del dato | ✅ | ✅ |
 | [`T-03`](T-03.md) | Capa de acceso al Catálogo | ✅ | ✅ |
 | [`T-04`](T-04.md) | Mapeo bucket → CSS y `focus` → `object-position` | ✅ | ✅ |
+| [`T-05`](T-05.md) | Marcador de posición en color sólido | ✅ | ✅ |
 | [`T-06`](T-06.md) | Sistema visual: tokens, tipografía, color | ✅ | ✅ |
 | [`T-16`](T-16.md) | Gate del baseline del linter | ✅ | ✅ |
 
 ## Pendientes
-
-**`B`** — [`T-05`](T-05.md)
 
 **`C`** — [`T-07`](T-07.md) · [`T-08a`](T-08a.md) · [`T-08b`](T-08b.md) · [`T-09`](T-09.md) · [`T-10`](T-10.md)
 
@@ -39,7 +38,7 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 
 ## Listos para tomar ahora
 
-[`T-05`](T-05.md) · [`T-10`](T-10.md)
+[`T-07`](T-07.md) · [`T-08a`](T-08a.md) · [`T-10`](T-10.md) · [`T-11`](T-11.md)
 
 ## Coherencia
 
