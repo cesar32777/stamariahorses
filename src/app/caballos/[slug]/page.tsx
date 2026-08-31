@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Galeria } from "@/components/Galeria";
 import { MarcadorDeFoto } from "@/components/MarcadorDeFoto";
 import { getCaballoPorSlug, slugsPublicos } from "@/data/catalogo";
+import type { Caballo } from "@/data/schema";
 
 // Ficha del Caballo (T-03 la enrutó; T-08a le pone cuerpo). Este ticket
 // construye dos bloques de la estructura tomada de la página del jet
@@ -16,9 +17,8 @@ import { getCaballoPorSlug, slugsPublicos } from "@/data/catalogo";
 // los 14 caballos en `prototipo/ficha-proto.html`. No sustituir por un `cover`
 // con `object-position`.
 //
-// Lo que NO es de T-08a: el borrado real de campos vacíos (T-09 -- hoy las
-// filas van como placeholder visible "pendiente"), la Galería (T-08b), el
-// bloque de descripción, "otros caballos" y el contacto (T-10).
+// Lo que NO es de T-09: la Galería (T-08b, ya hecha), el bloque de descripción,
+// "otros caballos" y el contacto (T-10).
 
 export const dynamicParams = false;
 
@@ -26,12 +26,42 @@ export function generateStaticParams() {
   return slugsPublicos().map((slug) => ({ slug }));
 }
 
-// Los 5 campos del hero (DOCUMENTO-FUNDACIONAL §4). `descripcion` no está: es
-// texto libre y tiene bloque propio (PLAN §1.5), no cabe en esta lista.
-// Hoy los 5 son `null` en `data/caballos.json`; se renderizan como placeholder
-// que SE VE como placeholder ("pendiente"), no se inventa el dato. La lógica de
-// "campo ausente desaparece" es T-09.
-const CAMPOS_HERO = ["Sexo", "Nacimiento", "Raza", "Capa", "Alzada"] as const;
+// T-09 -- Principio 2: un dato ausente DESAPARECE. La lista `<dl>` se arma solo
+// con los campos presentes; si no hay ninguno, no se rinde el `<dl>` (ni "N/A",
+// ni guion, ni etiqueta huérfana, ni hueco de espaciado). `descripcion` no
+// entra aquí: es texto libre con bloque propio (PLAN §1.5, T-10).
+//
+// La edad se CALCULA desde `nacimiento`, nunca se guarda (así no queda vieja).
+// Unidad de `alzada`: metros a la cruz (alzada en m es la convención en español
+// ecuestre); si el dato real llega en otra unidad, se corrige aquí y en T-11.
+const AÑO_ACTUAL = new Date().getFullYear();
+
+function capitalizar(texto: string): string {
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
+
+function filasDeDatos(caballo: Caballo): Array<{ etiqueta: string; valor: string }> {
+  const filas: Array<{ etiqueta: string; valor: string }> = [];
+
+  if (caballo.sexo) {
+    filas.push({ etiqueta: "Sexo", valor: capitalizar(caballo.sexo) });
+  }
+  if (caballo.nacimiento != null) {
+    const edad = AÑO_ACTUAL - caballo.nacimiento;
+    filas.push({ etiqueta: "Edad", valor: edad === 1 ? "1 año" : `${edad} años` });
+  }
+  if (caballo.raza) {
+    filas.push({ etiqueta: "Raza", valor: caballo.raza });
+  }
+  if (caballo.capa) {
+    filas.push({ etiqueta: "Capa", valor: caballo.capa });
+  }
+  if (caballo.alzada != null) {
+    filas.push({ etiqueta: "Alzada", valor: `${caballo.alzada} m` });
+  }
+
+  return filas;
+}
 
 // Los buckets verticales: la foto se contiene por su alto y deja banda a los
 // lados. Los demás (1:1, 4:3, 3:2) se contienen por el ancho.
@@ -45,6 +75,7 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
     notFound();
   }
 
+  const filas = filasDeDatos(caballo);
   const hero = caballo.fotos.find((foto) => foto.hero) ?? caballo.fotos[0];
   const esVertical = BUCKETS_VERTICALES.has(hero.bucket);
 
@@ -93,19 +124,24 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
           <div>
             <h1
               className="text-foreground"
-              style={{ fontSize: "var(--text-2xl)", marginBlockEnd: "var(--space-8)" }}
+              style={{
+                fontSize: "var(--text-2xl)",
+                marginBlockEnd: filas.length > 0 ? "var(--space-8)" : "0",
+              }}
             >
               {caballo.nombre}
             </h1>
 
-            <dl className="ficha-datos">
-              {CAMPOS_HERO.map((etiqueta) => (
-                <div key={etiqueta} className="ficha-datos__fila">
-                  <dt>{etiqueta}</dt>
-                  <dd>pendiente</dd>
-                </div>
-              ))}
-            </dl>
+            {filas.length > 0 && (
+              <dl className="ficha-datos">
+                {filas.map(({ etiqueta, valor }) => (
+                  <div key={etiqueta} className="ficha-datos__fila">
+                    <dt>{etiqueta}</dt>
+                    <dd>{valor}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
           </div>
         </div>
 
