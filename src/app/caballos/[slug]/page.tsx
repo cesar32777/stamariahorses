@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { Contacto } from "@/components/Contacto";
+import { CONTACTO_ETIQUETA, Contacto } from "@/components/Contacto";
 import { Galeria } from "@/components/Galeria";
 import { MarcadorDeFoto } from "@/components/MarcadorDeFoto";
 import { datosDeEjemplo, getCaballoPorSlug, slugsPublicos } from "@/data/catalogo";
@@ -37,6 +37,9 @@ export function generateStaticParams() {
 // ecuestre); si el dato real llega en otra unidad, se corrige aquí y en T-11.
 const AÑO_ACTUAL = new Date().getFullYear();
 
+/** Origen del Caballo. Dato real de CONTEXT.md, no una categoría inventada. */
+const ORIGEN = "Rancho Santa María";
+
 function capitalizar(texto: string): string {
   return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
@@ -58,7 +61,23 @@ function filasDeDatos(caballo: Caballo): Array<{ etiqueta: string; valor: string
     filas.push({ etiqueta: "Capa", valor: caballo.capa });
   }
   if (caballo.alzada != null) {
-    filas.push({ etiqueta: "Alzada", valor: `${caballo.alzada} m` });
+    // Dos decimales SIEMPRE: `1.6` se lee como dato a medias, `1.60` como medida.
+    filas.push({ etiqueta: "Alzada", valor: `${caballo.alzada.toFixed(2)} m` });
+  }
+  // T-18 -- los cuatro campos de ADR-0004 §4. Mismo criterio que arriba: si el
+  // campo es `null` la fila no existe. El orden es el del jet: primero lo que
+  // describe al animal, despues lo administrativo.
+  if (caballo.peso != null) {
+    filas.push({ etiqueta: "Peso", valor: `${caballo.peso} kg` });
+  }
+  if (caballo.padre) {
+    filas.push({ etiqueta: "Padre", valor: caballo.padre });
+  }
+  if (caballo.madre) {
+    filas.push({ etiqueta: "Madre", valor: caballo.madre });
+  }
+  if (caballo.registro) {
+    filas.push({ etiqueta: "Registro", valor: caballo.registro });
   }
 
   return filas;
@@ -94,19 +113,28 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
         <div
           className="mx-auto w-full"
           style={{
-            maxWidth: "var(--content-max)",
+            maxWidth: "var(--content-wide)",
             paddingInline: "var(--gutter)",
-            paddingBlock: "var(--space-16)",
+            paddingBlock: "var(--space-12)",
           }}
         >
+          {/* T-21 -- miga de tres niveles, como la de la referencia. El nivel
+              del medio NO es un enlace: el catálogo y la portada son la misma
+              ruta, y dos enlaces al mismo destino con nombres distintos es
+              ruido para un lector de pantalla. Es una categoría, no una
+              página. */}
           <nav
             aria-label="Miga de pan"
             className="text-muted"
             style={{ fontSize: "var(--text-xs)" }}
           >
             <Link href="/" className="hover:text-foreground">
-              Catálogo
+              Inicio
             </Link>
+            <span aria-hidden="true" style={{ marginInline: "var(--space-2)" }}>
+              ›
+            </span>
+            <span>Caballos</span>
             <span aria-hidden="true" style={{ marginInline: "var(--space-2)" }}>
               ›
             </span>
@@ -124,11 +152,17 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
             </div>
 
             <div>
+              {/* El ÚNICO eyebrow del sitio (DESIGN.md: presupuesto de uno).
+                  Dice el origen del caballo, que es dato real de CONTEXT.md,
+                  no una categoría inventada. La raza no va aquí: ya es una
+                  fila del bloque y repetirla es ruido. */}
+              <p className="ficha-eyebrow">{ORIGEN}</p>
+
               <h1
                 className="text-foreground"
                 style={{
                   fontSize: "var(--text-2xl)",
-                  marginBlockEnd: filas.length > 0 ? "var(--space-8)" : "0",
+                  marginBlockEnd: filas.length > 0 ? "var(--space-12)" : "0",
                 }}
               >
                 {caballo.nombre}
@@ -159,6 +193,20 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
                   </dl>
                 </>
               )}
+
+              {/* Cierre de la columna, el equivalente del `Consulter la fiche
+                  détaillée` de la referencia. Misma etiqueta que la barra y el
+                  pie: una sola por intención. */}
+              <Link
+                href="/contacto"
+                className="enlace-cta"
+                style={{ marginBlockStart: "var(--space-12)" }}
+              >
+                {CONTACTO_ETIQUETA}
+                <span aria-hidden="true" className="enlace-cta__flecha">
+                  ↗
+                </span>
+              </Link>
             </div>
           </div>
 

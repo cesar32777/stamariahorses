@@ -58,7 +58,11 @@
   --space-24: 6rem;
   --space-section: clamp(6rem, 3.5rem + 11vw, 10rem);
   --gutter: clamp(1.25rem, 5vw, 3rem);
-  --content-max: 1120px; /* el grid de la flota es angosto: 2 columnas grandes */
+  --content-max: 1120px; /* SOLO donde importa la medida de lectura: /contacto */
+  /* ADR-0004 §2: medida la captura de la referencia, su grid va de borde a
+     borde con ~15px de margen, no centrado. La barra, la portada y la Ficha
+     usan este; `--content-max` queda para el texto de /contacto. */
+  --content-wide: 100%;
 
   /* --- Esquina viva (ADR-0003). Como el jet y como un catalogo impreso. Una
      sola escala: el mismo radio (0) en controles y en cajas de imagen. --- */
@@ -126,6 +130,124 @@ p {
   block-size: 2px;
   background: var(--color-accent);
   margin-block-start: var(--space-6);
+}
+
+/* --- Enlace de llamada a la accion (T-20 / T-21). Es el `Consulter la fiche
+   detaillee` de la referencia: enlace subrayado con flecha, no boton relleno.
+   Caja de toque >= 44px por el padding vertical. La flecha se desplaza un
+   pelo en hover -- movimiento dentro del dial 4, solo `transform`. --- */
+.enlace-cta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45em;
+  padding-block: var(--space-3);
+  font-size: var(--text-base);
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
+  white-space: nowrap;
+  transition: color var(--duration) var(--ease);
+}
+
+.enlace-cta:hover,
+.enlace-cta:focus-visible {
+  color: var(--color-accent-strong);
+}
+
+.enlace-cta__flecha {
+  display: inline-block;
+  transition: transform var(--duration) var(--ease);
+}
+
+.enlace-cta:hover .enlace-cta__flecha {
+  transform: translate(0.15em, -0.15em);
+}
+
+/* --- Barra de navegacion (T-19, ADR-0004 §1). Marca a la izquierda, dos
+   enlaces a la derecha, filete de 1px abajo de borde a borde. Alto 64px: el de
+   la referencia mide 57 y el tope de la skill es 80. Sin `position: sticky` --
+   la referencia no la tiene pegada y en movil comeria alto. --- */
+.barra {
+  border-block-end: 1px solid var(--color-line);
+  background: var(--color-background);
+}
+
+.barra__interior {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  max-inline-size: var(--content-wide);
+  padding-inline: var(--gutter);
+  min-block-size: 64px;
+}
+
+.barra__marca {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  font-family: var(--font-text), system-ui, sans-serif;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  color: var(--color-foreground);
+  white-space: nowrap;
+  transition: color var(--duration) var(--ease);
+}
+
+.barra__marca:hover {
+  color: var(--color-accent-strong);
+}
+
+.barra__marca-cola {
+  font-weight: 500;
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+/* Abajo de 640px la cola no cabe junto a los dos enlaces sin partir la barra
+   en dos lineas, que la skill marca como roto. Se oculta la cola, no se
+   encoge la fuente: a 13px con 0.1em de tracking ya esta en el piso. */
+@media (max-width: 639.98px) {
+  .barra__marca-cola {
+    display: none;
+  }
+}
+
+.barra__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.barra__enlace {
+  display: block;
+  padding-block: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--duration) var(--ease);
+}
+
+.barra__enlace:hover,
+.barra__enlace:focus-visible {
+  color: var(--color-accent-strong);
+}
+
+/* La seccion actual se distingue por PESO y SUBRAYADO, no solo por color: un
+   enlace que solo cambia de tono falla para daltonismo. */
+.barra__enlace[aria-current="page"] {
+  color: var(--color-foreground);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.4em;
+  text-decoration-thickness: 1px;
 }
 
 /* --- Grid del Catalogo (T-07, reskin T-17). Grid de 2 columnas iguales, cada
@@ -223,6 +345,21 @@ p {
   }
 }
 
+/* El UNICO eyebrow del sitio (DESIGN.md: presupuesto de uno, recomendacion
+   cero). Se gasta aqui, sobre el titulo de la Ficha, como el `Light jets` de la
+   referencia. El <h2> de la Galeria bajo a titular normal para no gastar un
+   segundo (T-21). Los rotulos "Datos de ejemplo" y "sin foto" usan el mismo
+   tracking pero NO son eyebrows: son marcas de placeholder, y su presencia es
+   una prohibicion dura del proyecto. */
+.ficha-eyebrow {
+  font-family: var(--font-text), system-ui, sans-serif;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-block-end: var(--space-3);
+}
+
 /* Lista de datos: `etiqueta : valor`, una por linea, sin bordes ni tabla
    (PLAN §1.5). Un campo ausente no rinde su linea (T-09). */
 .ficha-datos {
@@ -250,12 +387,11 @@ p {
   color: var(--color-foreground);
 }
 
-/* Datos de ejemplo (flag `ejemplo` en el JSON): el valor va en cursiva y en
-   `muted` para que no se lea como dato real. */
-.ficha-datos[data-ejemplo] dd {
-  font-style: italic;
-  color: var(--color-muted);
-}
+/* Datos de ejemplo (flag `ejemplo` en el JSON). T-18 / ADR-0004 §3: la cursiva
+   `muted` se retira a pedido de Cesar -- el bloque tiene que leerse como la
+   ficha tecnica de la referencia. La senal de "esto es muestra" queda en la
+   banda de `AvisoEjemplo` y en el rotulo pegado arriba del bloque, no en cada
+   valor. El riesgo de esa concentracion esta escrito en el ADR. */
 
 /* --- Ficha: Galeria de longitud variable (T-08b). Masonry por columnas, cada
    foto en SU bucket real, sin un segundo recorte. 2 columnas de 768 a 1199 px,
@@ -334,6 +470,29 @@ p {
 .contacto__enlace:hover,
 .contacto__enlace:active {
   color: var(--color-accent-strong);
+}
+
+/* --- Pagina de Contacto (T-22). Dos columnas a partir de 768px, una abajo.
+   Sin cajas de tarjeta: se agrupa por filete y espacio, como el resto del
+   sitio (DESIGN.md). --- */
+.contacto-pagina {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-12);
+  border-block-start: 1px solid var(--color-line);
+  padding-block-start: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .contacto-pagina {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+  }
+}
+
+.contacto-pagina__titulo {
+  font-size: var(--text-lg);
+  color: var(--color-foreground);
 }
 
 @keyframes tarjeta-entra {

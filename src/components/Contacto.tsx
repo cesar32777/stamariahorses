@@ -19,13 +19,14 @@ import { datosDeEjemplo, vendedor } from "@/data/catalogo";
 //                          (`datosDeEjemplo`, prohibicion dura: se ve como tal).
 //   - dato real         -> enlaces, sin marca.
 
-const ORIGEN = "Rancho Santa María";
+/** El Vendedor es el rancho, no una persona (CONTEXT.md). */
+export const ORIGEN = "Rancho Santa María";
 
 /** La unica etiqueta de la intencion de contacto en todo el sitio. */
 export const CONTACTO_ETIQUETA = "Contacto";
 
 /** `tel:` solo admite digitos y `+`; el texto a la vista conserva el formato. */
-function hrefTelefono(telefono: string): string {
+export function hrefTelefono(telefono: string): string {
   return `tel:${telefono.replace(/[^\d+]/g, "")}`;
 }
 

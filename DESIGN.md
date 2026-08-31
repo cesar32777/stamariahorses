@@ -101,8 +101,15 @@ Medida de lectura: `--measure: 65ch`.
 ### Eyebrow — presupuesto de UNO en todo el sitio
 
 `--tracking-eyebrow: 0.08em`. La skill (§4.7) da máximo 1 eyebrow cada 3 secciones; con 5 bloques,
-**máximo 1 en todo el sitio, y la recomendación es cero**. El token existe para el espécimen y por
-si ese único uso aparece; no es una invitación a ponerlo en cada sección.
+**máximo 1 en todo el sitio, y la recomendación es cero**.
+
+**Ese único uso ya se gastó (T-21):** `.ficha-eyebrow`, "Rancho Santa María" en el acento, sobre
+el título de la Ficha. Por eso el `<h2>` "Galería" bajó de caja alta con tracking a titular normal
+en Playfair: era un segundo eyebrow. **No queda presupuesto.**
+
+Los rótulos "Datos de ejemplo" y "sin foto" usan el mismo tracking pero **no son eyebrows**: son
+marcas de placeholder, y su presencia es una prohibición dura del proyecto. Ni se cuentan ni se
+quitan.
 
 ---
 
@@ -116,9 +123,35 @@ Base 4px. El ritmo entre secciones es grande a propósito (densidad 3, "la foto 
 | ----------------- | ----------------------------------- | -------------------------------------------------------- |
 | `--space-section` | `clamp(6rem, 3.5rem + 11vw, 10rem)` | Padding vertical de cada sección                         |
 | `--gutter`        | `clamp(1.25rem, 5vw, 3rem)`         | Canal lateral                                            |
-| `--content-max`   | `1120px`                            | Ancho máximo — el grid de la flota es angosto (ADR-0003) |
+| `--content-wide`  | `100%`                              | **Ancho de casi todo el sitio** (ADR-0004 §2): barra, portada y Ficha van de borde a borde, con `--gutter` de canal. Medida la referencia, su grid NO está centrado |
+| `--content-max`   | `1120px`                            | Solo donde importa la medida de lectura: `/contacto`. ADR-0003 lo puso en todo el sitio con el argumento de que "el grid de la flota es angosto"; **ese argumento era falso** y ADR-0004 lo corrige |
 
 ---
+
+## Barra de navegación — T-19, ADR-0004 §1
+
+Marca a la izquierda, **dos** enlaces a la derecha (`Caballos`, `Contacto`), filete de 1px en
+`--color-line` abajo, de borde a borde. Alto **64px** (la referencia mide 57; el tope de la skill
+es 80). Medido: 65px a 1440 y a 390.
+
+- La marca va en **Satoshi**, no en Playfair: es UI, no titular. Caja alta, `0.1em` de tracking.
+  La cola ("Performance Horses") se oculta abajo de 640px — a 13px con ese tracking ya está en el
+  piso, así que se oculta en vez de encogerse, y la barra no se parte en dos líneas.
+- **Dos enlaces, no cinco.** La referencia tiene cinco porque tiene cinco secciones. Inventar
+  "Nosotros" o "Servicios" para llenarla es lo que prohíbe la decisión 5 del backlog.
+- **Sin hamburguesa**: dos etiquetas cortas caben en 390px (medido: la marca acaba en 137, el
+  primer enlace empieza en 225).
+- **Sin `position: sticky`**, sin selector de idioma, sin franja de ciudad ni de hora.
+- La sección actual se marca con `aria-current="page"` y se distingue por **peso más subrayado**,
+  no solo por color: un enlace que solo cambia de tono falla para daltonismo.
+
+## Llamada a la acción — `.enlace-cta`
+
+Enlace subrayado con flecha `↗`, **no botón relleno**: es el `Consulter la fiche détaillée` de la
+referencia. Aparece en la portada y al cierre de cada Ficha, siempre con la etiqueta
+`CONTACTO_ETIQUETA` de `Contacto.tsx` — barra, CTA y pie dicen lo mismo, porque dos etiquetas para
+una misma intención es un fallo de la skill. La flecha es `aria-hidden` y se desplaza `0.15em` en
+hover (solo `transform`, dial 4).
 
 ## Radio — UNA sola escala: esquina viva
 

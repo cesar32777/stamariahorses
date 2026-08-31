@@ -32,14 +32,12 @@ export function Galeria({ fotos, hero }: GaleriaProps) {
 
   return (
     <section style={{ marginBlockStart: "var(--space-section)" }}>
+      {/* T-21: era caja alta con `--tracking-eyebrow`, o sea un segundo
+          eyebrow, y el presupuesto del sitio es UNO (se gasta en la Ficha).
+          Baja a titular normal en Playfair. */}
       <h2
-        className="text-muted uppercase"
-        style={{
-          fontSize: "var(--text-xs)",
-          fontWeight: 500,
-          letterSpacing: "var(--tracking-eyebrow)",
-          marginBlockEnd: "var(--space-6)",
-        }}
+        className="text-foreground"
+        style={{ fontSize: "var(--text-xl)", marginBlockEnd: "var(--space-6)" }}
       >
         Galería
       </h2>

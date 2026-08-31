@@ -101,3 +101,32 @@ medido en este proyecto (`HANDOFF-BUILD.md` §6).
   Decisión abierta dentro de T-08b.
 - **Teléfono, correo, nombres, sexo, nacimiento, raza, capa, alzada y descripción son `null`.** Lo
   que no existe **no se fabrica**.
+
+## Medido en T-18..T-22 (2026-08-30)
+
+- **`git checkout -- <archivo>` revierte a HEAD, no "deshace la prueba".** El patrón del proyecto
+  para las pruebas en rojo es "rompo el JSON, mido, `git checkout` para restaurar". Eso **solo es
+  seguro si el archivo ya está commiteado**. En T-18 el `data/caballos.json` poblado todavía no lo
+  estaba, y el `checkout` borró los 14 caballos de golpe. Se recuperó porque el poblado vive en un
+  script determinista, no en ediciones a mano. **Antes de romper un archivo a propósito:
+  `git status` de ese archivo, y si aparece modificado, `git stash` o copia a scratchpad.**
+- **Un `next start` zombi sirve el build ANTERIOR y el chequeo de "servible" da falso positivo.**
+  El segundo `next start` falló con `EADDRINUSE`, el viejo siguió atendiendo, y `curl | grep` de un
+  texto que existía en los dos builds dijo que todo estaba bien. Se cazó al buscar una cadena que
+  **solo** existe en el build nuevo. **El texto que valida "servible" tiene que ser algo que el
+  build anterior NO tenía.** Para liberar el puerto:
+  ```powershell
+  Get-NetTCPConnection -LocalPort 3111 -State Listen |
+    ForEach-Object { Stop-Process -Id $_.OwningProcess -Force }
+  ```
+- **`print()` de Python revienta con `UnicodeEncodeError` al imprimir acentos o iconos** (la salida
+  va a cp1252). El archivo se escribe bien igual: el error es del `print`, no de `io.open(...,
+  encoding='utf-8')`. **No imprimas el contenido, verifícalo con `grep`.**
+- **`cd` dentro de una llamada de Bash persiste entre llamadas.** Un `cd .next/server/app` para
+  inspeccionar el HTML dejó las llamadas siguientes fuera de la raíz del repo. Usa rutas absolutas
+  o vuelve con `cd` explícito.
+- **`emulate` del MCP de Chrome no expone `prefers-reduced-motion`.** La otra mitad sí se puede
+  verificar por ejecución: inyectar las mismas declaraciones del bloque `reduce` **sin** el
+  `@media` y leer `transitionDuration` antes y después. Si pasan a `1e-05s` (así lo reporta
+  Chrome, no `0.01ms`) y vuelven al quitarlo, la cascada gana. Lo que queda sin probar es que el
+  `@media` **dispare**, no que sus reglas funcionen.

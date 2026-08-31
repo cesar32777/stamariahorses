@@ -3,7 +3,7 @@
 
 # Estado del backlog
 
-**12 de 18 tickets cerrados (67%)** · 1 en curso · 5 pendientes
+**17 de 23 tickets cerrados (74%)** · 1 en curso · 5 pendientes
 
 Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-tickets.js --escribir`.
 
@@ -11,10 +11,10 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 |---|---|---|---|---|
 | `A` | 4 | 4 | 0 | 0 |
 | `B` | 2 | 2 | 0 | 0 |
-| `C` | 7 | 6 | 1 | 0 |
+| `C` | 12 | 11 | 1 | 0 |
 | `D` | 2 | 0 | 0 | 2 |
 | `E` | 3 | 0 | 0 | 3 |
-| **Total** | **18** | **12** | **1** | **5** |
+| **Total** | **23** | **17** | **1** | **5** |
 
 ## Cerrados
 
@@ -32,6 +32,11 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 | [`T-09`](T-09.md) | Ficha: datos, con borrado de campos vacíos | ✅ | ✅ |
 | [`T-16`](T-16.md) | Gate del baseline del linter | ✅ | ✅ |
 | [`T-17`](T-17.md) | Reskin a la identidad del catálogo impreso | ✅ | ✅ |
+| [`T-18`](T-18.md) | (sin título) | ✅ | ✅ |
+| [`T-19`](T-19.md) | (sin título) | ✅ | ✅ |
+| [`T-20`](T-20.md) | (sin título) | ✅ | ✅ |
+| [`T-21`](T-21.md) | (sin título) | ✅ | ✅ |
+| [`T-22`](T-22.md) | (sin título) | ✅ | ✅ |
 
 ## En curso
 
@@ -51,5 +56,8 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 
 ## Coherencia
 
-✅ Sin problemas: todos los tickets tienen los 10 campos, ámbito válido, dependencias que existen, y ningún ticket cerrado depende de uno abierto.
+⚠️ **2 problema(s):**
+
+- T-18 está ✅ pero su dependencia `T-10` sigue en `🟡`
+- T-22 está ✅ pero su dependencia `T-10` sigue en `🟡`
 
