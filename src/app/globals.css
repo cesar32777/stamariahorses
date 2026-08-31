@@ -276,6 +276,26 @@ p {
   }
 }
 
+/* --- Contacto (T-10). Pie de la portada y cierre de cada Ficha, mismo
+   componente y misma etiqueta. Los enlaces `tel:`/`mailto:` van en el acento
+   -- 6.5:1 sobre el fondo (AA) -- y con caja de toque holgada para el pulgar en
+   móvil. Sin botón relleno: el dato real todavía no existe, hoy se rinde un
+   marcador visible. --- */
+.contacto__enlace {
+  display: inline-block;
+  color: var(--color-accent);
+  font-size: var(--text-lg);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  padding-block: var(--space-2);
+  transition: color var(--duration) var(--ease);
+}
+
+.contacto__enlace:hover,
+.contacto__enlace:active {
+  color: var(--color-accent-strong);
+}
+
 /* scale(0.98) en :active sobre la tarjeta (PLAN §1.2, movimiento 2): confirma
    el toque en móvil. */
 .tarjeta-caballo {

@@ -1,4 +1,4 @@
-import { caballos as todosLosCaballos, type Caballo } from "./caballos";
+import { caballos as todosLosCaballos, catalogo, type Caballo } from "./caballos";
 
 // Capa de acceso al Catálogo (T-03, Seam A — sin tests, se verifica a mano).
 //
@@ -68,5 +68,11 @@ export function getCaballoPorSlug(slug: string): CaballoPublico | undefined {
 export function slugsPublicos(): string[] {
   return caballosPublicos.map((caballo) => caballo.slug);
 }
+
+/**
+ * El Vendedor: teléfono y correo de Rancho Santa María (CONTEXT.md). Ambos
+ * `null` mientras el dato real no se capture; T-10 rinde un marcador visible.
+ */
+export const vendedor = catalogo.vendedor;
 
 export type { Caballo };

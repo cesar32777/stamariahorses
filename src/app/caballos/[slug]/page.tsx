@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { Contacto } from "@/components/Contacto";
 import { Galeria } from "@/components/Galeria";
 import { MarcadorDeFoto } from "@/components/MarcadorDeFoto";
 import { getCaballoPorSlug, slugsPublicos } from "@/data/catalogo";
@@ -88,65 +89,68 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
     : { inlineSize: "100%", blockSize: "auto", maxBlockSize: "100%", borderRadius: "0" };
 
   return (
-    <main className="flex-1">
-      <div
-        className="mx-auto w-full"
-        style={{
-          maxWidth: "var(--content-max)",
-          paddingInline: "var(--gutter)",
-          paddingBlock: "var(--space-16)",
-        }}
-      >
-        <nav
-          aria-label="Miga de pan"
-          className="text-muted"
-          style={{ fontSize: "var(--text-xs)" }}
+    <>
+      <main className="flex-1">
+        <div
+          className="mx-auto w-full"
+          style={{
+            maxWidth: "var(--content-max)",
+            paddingInline: "var(--gutter)",
+            paddingBlock: "var(--space-16)",
+          }}
         >
-          <Link href="/" className="hover:text-foreground">
-            Catálogo
-          </Link>
-          <span aria-hidden="true" style={{ marginInline: "var(--space-2)" }}>
-            ›
-          </span>
-          <span className="text-foreground">{caballo.nombre}</span>
-        </nav>
+          <nav
+            aria-label="Miga de pan"
+            className="text-muted"
+            style={{ fontSize: "var(--text-xs)" }}
+          >
+            <Link href="/" className="hover:text-foreground">
+              Catálogo
+            </Link>
+            <span aria-hidden="true" style={{ marginInline: "var(--space-2)" }}>
+              ›
+            </span>
+            <span className="text-foreground">{caballo.nombre}</span>
+          </nav>
 
-        <div className="ficha-hero" style={{ marginBlockStart: "var(--space-12)" }}>
-          <div className="ficha-hero__caja">
-            <MarcadorDeFoto
-              bucket={hero.bucket}
-              focus={hero.focus}
-              sizes="(min-width: 768px) 50vw, 100vw"
-              style={contener}
-            />
+          <div className="ficha-hero" style={{ marginBlockStart: "var(--space-12)" }}>
+            <div className="ficha-hero__caja">
+              <MarcadorDeFoto
+                bucket={hero.bucket}
+                focus={hero.focus}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                style={contener}
+              />
+            </div>
+
+            <div>
+              <h1
+                className="text-foreground"
+                style={{
+                  fontSize: "var(--text-2xl)",
+                  marginBlockEnd: filas.length > 0 ? "var(--space-8)" : "0",
+                }}
+              >
+                {caballo.nombre}
+              </h1>
+
+              {filas.length > 0 && (
+                <dl className="ficha-datos">
+                  {filas.map(({ etiqueta, valor }) => (
+                    <div key={etiqueta} className="ficha-datos__fila">
+                      <dt>{etiqueta}</dt>
+                      <dd>{valor}</dd>
+                    </div>
+                  ))}
+                </dl>
+              )}
+            </div>
           </div>
 
-          <div>
-            <h1
-              className="text-foreground"
-              style={{
-                fontSize: "var(--text-2xl)",
-                marginBlockEnd: filas.length > 0 ? "var(--space-8)" : "0",
-              }}
-            >
-              {caballo.nombre}
-            </h1>
-
-            {filas.length > 0 && (
-              <dl className="ficha-datos">
-                {filas.map(({ etiqueta, valor }) => (
-                  <div key={etiqueta} className="ficha-datos__fila">
-                    <dt>{etiqueta}</dt>
-                    <dd>{valor}</dd>
-                  </div>
-                ))}
-              </dl>
-            )}
-          </div>
+          <Galeria fotos={caballo.fotos} hero={hero} />
         </div>
-
-        <Galeria fotos={caballo.fotos} hero={hero} />
-      </div>
-    </main>
+      </main>
+      <Contacto />
+    </>
   );
 }

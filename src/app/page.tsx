@@ -1,3 +1,4 @@
+import { Contacto } from "@/components/Contacto";
 import { GridCatalogo } from "@/components/GridCatalogo";
 import { caballosPublicos } from "@/data/catalogo";
 
@@ -9,36 +10,39 @@ const EN_CATALOGO = caballosPublicos.length;
 
 export default function Home() {
   return (
-    <main className="flex-1">
-      <header
-        className="mx-auto w-full"
-        style={{
-          maxWidth: "var(--content-max)",
-          paddingBlock: "var(--space-section)",
-          paddingInline: "var(--gutter)",
-        }}
-      >
-        <h1 className="text-foreground" style={{ fontSize: "var(--text-3xl)" }}>
-          {SITE_NAME}
-        </h1>
-        <p
-          className="text-muted"
-          style={{ fontSize: "var(--text-lg)", marginBlockStart: "var(--space-4)" }}
+    <>
+      <main className="flex-1">
+        <header
+          className="mx-auto w-full"
+          style={{
+            maxWidth: "var(--content-max)",
+            paddingBlock: "var(--space-section)",
+            paddingInline: "var(--gutter)",
+          }}
         >
-          {EN_CATALOGO} caballos disponibles.
-        </p>
-      </header>
+          <h1 className="text-foreground" style={{ fontSize: "var(--text-3xl)" }}>
+            {SITE_NAME}
+          </h1>
+          <p
+            className="text-muted"
+            style={{ fontSize: "var(--text-lg)", marginBlockStart: "var(--space-4)" }}
+          >
+            {EN_CATALOGO} caballos disponibles.
+          </p>
+        </header>
 
-      <section
-        className="mx-auto w-full"
-        style={{
-          maxWidth: "var(--content-max)",
-          paddingInline: "var(--gutter)",
-          paddingBlockEnd: "var(--space-section)",
-        }}
-      >
-        <GridCatalogo />
-      </section>
-    </main>
+        <section
+          className="mx-auto w-full"
+          style={{
+            maxWidth: "var(--content-max)",
+            paddingInline: "var(--gutter)",
+            paddingBlockEnd: "var(--space-section)",
+          }}
+        >
+          <GridCatalogo />
+        </section>
+      </main>
+      <Contacto />
+    </>
   );
 }
