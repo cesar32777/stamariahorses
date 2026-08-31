@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { Galeria } from "@/components/Galeria";
 import { MarcadorDeFoto } from "@/components/MarcadorDeFoto";
 import { getCaballoPorSlug, slugsPublicos } from "@/data/catalogo";
 
@@ -107,6 +108,8 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
             </dl>
           </div>
         </div>
+
+        <Galeria fotos={caballo.fotos} hero={hero} />
       </div>
     </main>
   );

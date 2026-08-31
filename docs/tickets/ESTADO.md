@@ -3,7 +3,7 @@
 
 # Estado del backlog
 
-**9 de 17 tickets cerrados (53%)** · 0 en curso · 8 pendientes
+**10 de 17 tickets cerrados (59%)** · 0 en curso · 7 pendientes
 
 Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-tickets.js --escribir`.
 
@@ -11,10 +11,10 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 |---|---|---|---|---|
 | `A` | 4 | 4 | 0 | 0 |
 | `B` | 2 | 2 | 0 | 0 |
-| `C` | 6 | 3 | 0 | 3 |
+| `C` | 6 | 4 | 0 | 2 |
 | `D` | 2 | 0 | 0 | 2 |
 | `E` | 3 | 0 | 0 | 3 |
-| **Total** | **17** | **9** | **0** | **8** |
+| **Total** | **17** | **10** | **0** | **7** |
 
 ## Cerrados
 
@@ -28,11 +28,12 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 | [`T-06`](T-06.md) | Sistema visual: tokens, tipografía, color | ✅ | ✅ |
 | [`T-07`](T-07.md) | Grid del Catálogo | ✅ | ✅ |
 | [`T-08a`](T-08a.md) | Ficha: hero partido y lista de datos | ✅ | ✅ |
+| [`T-08b`](T-08b.md) | Ficha: Galería de longitud variable | ✅ | ✅ |
 | [`T-16`](T-16.md) | Gate del baseline del linter | ✅ | ✅ |
 
 ## Pendientes
 
-**`C`** — [`T-08b`](T-08b.md) · [`T-09`](T-09.md) · [`T-10`](T-10.md)
+**`C`** — [`T-09`](T-09.md) · [`T-10`](T-10.md)
 
 **`D`** — [`T-11`](T-11.md) · [`T-12`](T-12.md)
 
@@ -40,7 +41,7 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 
 ## Listos para tomar ahora
 
-[`T-08b`](T-08b.md) · [`T-09`](T-09.md) · [`T-10`](T-10.md) · [`T-11`](T-11.md)
+[`T-09`](T-09.md) · [`T-10`](T-10.md) · [`T-11`](T-11.md)
 
 ## Coherencia
 

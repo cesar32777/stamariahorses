@@ -202,6 +202,80 @@ p {
   color: var(--color-foreground);
 }
 
+/* --- Ficha: Galería de longitud variable (T-08b). Estrategia B del prototipo
+   (PLAN §1.7): masonry por columnas, cada foto en SU bucket real, sin un
+   segundo recorte. De 5 a 9 fotos por Caballo, 5 buckets mezclados: cualquier
+   vista que asuma "siempre 5" o proporción fija está mal.
+
+   Base `column-count` -- fallback obligado, no se da masonry nativo por
+   disponible (soporte partido entre motores). 2 columnas de 768 a 1199 px, 3
+   desde 1200 (mismos cortes que el grid del Catálogo).
+
+   Móvil (< 768 px): carrusel horizontal con scroll-snap nativo. Decisión de
+   César dentro de T-08b -- la masonry a 1 columna daba ~5700 px de página en el
+   Caballo 08. Se sangra a ancho de viewport para que las fotos se vean grandes;
+   `scroll-padding-inline` mantiene la primera y la última alineadas al texto. --- */
+.ficha-galeria {
+  columns: 2;
+  column-gap: var(--space-4);
+}
+
+.ficha-galeria__item {
+  break-inside: avoid;
+  margin-block-end: var(--space-4);
+}
+
+@media (min-width: 1200px) {
+  .ficha-galeria {
+    columns: 3;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .ficha-galeria {
+    columns: auto;
+    display: flex;
+    gap: var(--space-3);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+
+  .ficha-galeria__item {
+    flex: 0 0 82%;
+    margin-block-end: 0;
+    scroll-snap-align: center;
+  }
+}
+
+/* Upgrade a masonry nativo donde exista: da orden de tabulación lógico (mejora
+   real de accesibilidad frente a `column-count`). Donde no, cae al fallback de
+   arriba sin ruido. */
+@supports (grid-template-rows: masonry) {
+  @media (min-width: 768px) {
+    .ficha-galeria {
+      columns: auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: masonry;
+      gap: var(--space-4);
+    }
+
+    .ficha-galeria__item {
+      margin-block-end: 0;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .ficha-galeria {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
 /* scale(0.98) en :active sobre la tarjeta (PLAN §1.2, movimiento 2): confirma
    el toque en móvil. */
 .tarjeta-caballo {
@@ -231,7 +305,8 @@ p {
    esto es explícito a propósito). */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .grid-catalogo__item {
+    .grid-catalogo__item,
+    .ficha-galeria__item {
       animation: tarjeta-entra linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 100%;
