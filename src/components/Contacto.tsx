@@ -1,4 +1,4 @@
-import { vendedor } from "@/data/catalogo";
+import { datosDeEjemplo, vendedor } from "@/data/catalogo";
 
 // T-10 -- Contacto. El recorrido del Interesado termina FUERA del sitio: no hay
 // carrito, ni cotizacion, ni formulario. Solo `tel:` y `mailto:` del rancho, en
@@ -12,10 +12,12 @@ import { vendedor } from "@/data/catalogo";
 // prohibe dos CTA con la misma intencion y etiquetas distintas. Esa etiqueta es
 // `CONTACTO_ETIQUETA`, y este componente es su unico dueno.
 //
-// Bloqueado por un dato, no por trabajo: `telefono` y `email` son `null` en
-// `data/caballos.json`. Se rinde un marcador VISIBLE como marcador (misma
-// prohibicion dura que las fotos) y se desbloquea solo con el dato. Es la unica
-// seccion del sitio que se rinde sin su dato: T-10 lo autoriza explicitamente.
+// Tres estados:
+//   - sin dato          -> marcador "Sin publicar" (T-10 autoriza rendir la
+//                          seccion sin su dato, unica excepcion del sitio).
+//   - dato de ejemplo   -> enlaces reales + marca "Datos de ejemplo" a la vista
+//                          (`datosDeEjemplo`, prohibicion dura: se ve como tal).
+//   - dato real         -> enlaces, sin marca.
 
 const ORIGEN = "Rancho Santa María";
 
@@ -25,6 +27,23 @@ export const CONTACTO_ETIQUETA = "Contacto";
 /** `tel:` solo admite digitos y `+`; el texto a la vista conserva el formato. */
 function hrefTelefono(telefono: string): string {
   return `tel:${telefono.replace(/[^\d+]/g, "")}`;
+}
+
+function MarcaPlaceholder({ children }: { children: string }) {
+  return (
+    <span
+      className="font-text uppercase"
+      style={{
+        display: "block",
+        fontSize: "var(--text-xs)",
+        letterSpacing: "var(--tracking-eyebrow)",
+        color: "var(--color-foreground)",
+        marginBlockEnd: "var(--space-1)",
+      }}
+    >
+      {children}
+    </span>
+  );
 }
 
 export function Contacto() {
@@ -54,43 +73,32 @@ export function Contacto() {
       </p>
 
       {hayDato ? (
-        <ul
-          className="contacto__lista"
-          style={{ marginBlockStart: "var(--space-6)", listStyle: "none", padding: 0 }}
-        >
-          {telefono != null && (
-            <li>
-              <a className="contacto__enlace" href={hrefTelefono(telefono)}>
-                {telefono}
-              </a>
-            </li>
-          )}
-          {email != null && (
-            <li style={{ marginBlockStart: "var(--space-2)" }}>
-              <a className="contacto__enlace" href={`mailto:${email}`}>
-                {email}
-              </a>
-            </li>
-          )}
-        </ul>
+        <div style={{ marginBlockStart: "var(--space-6)" }}>
+          {datosDeEjemplo && <MarcaPlaceholder>Datos de ejemplo</MarcaPlaceholder>}
+          <ul className="contacto__lista" style={{ listStyle: "none", padding: 0 }}>
+            {telefono != null && (
+              <li>
+                <a className="contacto__enlace" href={hrefTelefono(telefono)}>
+                  {telefono}
+                </a>
+              </li>
+            )}
+            {email != null && (
+              <li style={{ marginBlockStart: "var(--space-2)" }}>
+                <a className="contacto__enlace" href={`mailto:${email}`}>
+                  {email}
+                </a>
+              </li>
+            )}
+          </ul>
+        </div>
       ) : (
         <p
           data-contacto-pendiente
           className="text-muted"
           style={{ fontSize: "var(--text-base)", marginBlockStart: "var(--space-6)" }}
         >
-          <span
-            className="font-text uppercase"
-            style={{
-              display: "block",
-              fontSize: "var(--text-xs)",
-              letterSpacing: "var(--tracking-eyebrow)",
-              color: "var(--color-foreground)",
-              marginBlockEnd: "var(--space-1)",
-            }}
-          >
-            Sin publicar
-          </span>
+          <MarcaPlaceholder>Sin publicar</MarcaPlaceholder>
           Teléfono y correo del rancho pendientes.
         </p>
       )}

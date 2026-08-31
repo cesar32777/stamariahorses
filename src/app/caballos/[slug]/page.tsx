@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Contacto } from "@/components/Contacto";
 import { Galeria } from "@/components/Galeria";
 import { MarcadorDeFoto } from "@/components/MarcadorDeFoto";
-import { getCaballoPorSlug, slugsPublicos } from "@/data/catalogo";
+import { datosDeEjemplo, getCaballoPorSlug, slugsPublicos } from "@/data/catalogo";
 import type { Caballo } from "@/data/schema";
 
 // Ficha del Caballo (T-03 la enrutó; T-08a le pone cuerpo). Este ticket
@@ -135,14 +135,29 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
               </h1>
 
               {filas.length > 0 && (
-                <dl className="ficha-datos">
-                  {filas.map(({ etiqueta, valor }) => (
-                    <div key={etiqueta} className="ficha-datos__fila">
-                      <dt>{etiqueta}</dt>
-                      <dd>{valor}</dd>
-                    </div>
-                  ))}
-                </dl>
+                <>
+                  {datosDeEjemplo && (
+                    <p
+                      className="font-text uppercase"
+                      style={{
+                        fontSize: "var(--text-xs)",
+                        letterSpacing: "var(--tracking-eyebrow)",
+                        color: "var(--color-foreground)",
+                        marginBlockEnd: "var(--space-2)",
+                      }}
+                    >
+                      Datos de ejemplo
+                    </p>
+                  )}
+                  <dl className="ficha-datos" data-ejemplo={datosDeEjemplo ? "" : undefined}>
+                    {filas.map(({ etiqueta, valor }) => (
+                      <div key={etiqueta} className="ficha-datos__fila">
+                        <dt>{etiqueta}</dt>
+                        <dd>{valor}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </>
               )}
             </div>
           </div>

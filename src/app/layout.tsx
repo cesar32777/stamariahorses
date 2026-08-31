@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AvisoEjemplo } from "@/components/AvisoEjemplo";
 import { cabinetGrotesk, satoshi } from "@/fonts";
 import "./globals.css";
 
@@ -15,7 +16,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="es-MX"
       className={`${cabinetGrotesk.variable} ${satoshi.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <AvisoEjemplo />
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,17 +1,17 @@
 {
   "vendedor": {
-    "telefono": null,
-    "email": null
+    "telefono": "+52 81 0000 0000",
+    "email": "contacto@ejemplo.com"
   },
   "caballos": [
     {
       "id": "01",
       "nombre": "Caballo 01",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -95,11 +95,11 @@
     {
       "id": "02",
       "nombre": "Caballo 02",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -198,11 +198,11 @@
     {
       "id": "03",
       "nombre": "Caballo 03",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -286,11 +286,11 @@
     {
       "id": "04",
       "nombre": "Caballo 04",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -389,11 +389,11 @@
     {
       "id": "05",
       "nombre": "Caballo 05",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -492,11 +492,11 @@
     {
       "id": "06",
       "nombre": "Caballo 06",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -595,11 +595,11 @@
     {
       "id": "07",
       "nombre": "Caballo 07",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -698,11 +698,11 @@
     {
       "id": "08",
       "nombre": "Caballo 08",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -846,11 +846,11 @@
     {
       "id": "09",
       "nombre": "Caballo 09",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -934,11 +934,11 @@
     {
       "id": "10",
       "nombre": "Caballo 10",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -1052,11 +1052,11 @@
     {
       "id": "11",
       "nombre": "Caballo 11",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -1155,11 +1155,11 @@
     {
       "id": "12",
       "nombre": "Caballo 12",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -1273,11 +1273,11 @@
     {
       "id": "13",
       "nombre": "Caballo 13",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -1361,11 +1361,11 @@
     {
       "id": "14",
       "nombre": "Caballo 14",
-      "sexo": null,
-      "nacimiento": null,
-      "raza": null,
-      "capa": null,
-      "alzada": null,
+      "sexo": "macho",
+      "nacimiento": 2019,
+      "raza": "Raza de ejemplo",
+      "capa": "Capa de ejemplo",
+      "alzada": 1.55,
       "descripcion": null,
       "estado": "disponible",
       "fotos": [
@@ -1483,5 +1483,6 @@
     "1:1": 1.0,
     "4:3": 1.3333,
     "3:2": 1.5
-  }
+  },
+  "ejemplo": true
 }

@@ -51,6 +51,12 @@ export const CatalogoSchema = z.object({
   vendedor: VendedorSchema,
   caballos: z.array(CaballoSchema).min(1),
   ratios: z.record(z.string(), z.number().positive()),
+  // `true` mientras el archivo lleve datos de ejemplo (contacto, sexo, edad,
+  // raza, capa, alzada). La UI pinta un aviso visible en cada página y marca
+  // los valores como muestra: la prohibición dura exige que un placeholder se
+  // VEA como placeholder. Se pone en `false` (o se borra) cuando el dato es
+  // real. Ausente = `false`.
+  ejemplo: z.boolean().optional(),
 });
 
 export type Foto = z.infer<typeof FotoSchema>;

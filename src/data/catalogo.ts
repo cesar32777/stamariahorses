@@ -75,4 +75,11 @@ export function slugsPublicos(): string[] {
  */
 export const vendedor = catalogo.vendedor;
 
+/**
+ * `true` mientras `data/caballos.json` lleve datos de ejemplo. La UI lo usa
+ * para pintar el aviso y marcar los valores como muestra (prohibición dura: un
+ * placeholder tiene que verse como placeholder).
+ */
+export const datosDeEjemplo = catalogo.ejemplo === true;
+
 export type { Caballo };

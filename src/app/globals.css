@@ -202,6 +202,14 @@ p {
   color: var(--color-foreground);
 }
 
+/* Datos de ejemplo (flag `ejemplo` en el JSON): el valor va en cursiva y en
+   `muted` para que no se lea como dato real. El aviso de arriba y la marca
+   "Datos de ejemplo" dan el resto del contexto. */
+.ficha-datos[data-ejemplo] dd {
+  font-style: italic;
+  color: var(--color-muted);
+}
+
 /* --- Ficha: Galería de longitud variable (T-08b). Estrategia B del prototipo
    (PLAN §1.7): masonry por columnas, cada foto en SU bucket real, sin un
    segundo recorte. De 5 a 9 fotos por Caballo, 5 buckets mezclados: cualquier
