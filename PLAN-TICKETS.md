@@ -26,7 +26,7 @@ cualquier pantalla.
 
 > **Reading this as:** un catálogo foto-céntrico de inventario finito, para un comprador de
 > caballos mexicano que llega en móvil y se va del sitio a llamar, con un lenguaje de
-> *galería tranquila* más que de *marca de lujo*, apoyado en CSS nativo + Tailwind, display
+> _galería tranquila_ más que de _marca de lujo_, apoyado en CSS nativo + Tailwind, display
 > sans con carácter, y movimiento contenido.
 
 Las dos palabras que hacen trabajo ahí son **galería** y **contenida**, y las dos salen de
@@ -43,8 +43,8 @@ hechos medidos, no de gusto:
 
 ## 1.2 Los tres dials
 
-Baseline de la skill: `8 / 6 / 4`. Presets cercanos: *Landing premium consumer* `7/6/3`,
-*Portfolio designer* `8/7/3`, *Editorial* `6/4/3`. El proyecto no cae limpio en ninguno, así
+Baseline de la skill: `8 / 6 / 4`. Presets cercanos: _Landing premium consumer_ `7/6/3`,
+_Portfolio designer_ `8/7/3`, _Editorial_ `6/4/3`. El proyecto no cae limpio en ninguno, así
 que se razona cada dial desde el brief en vez de copiar un preset.
 
 ### `DESIGN_VARIANCE: 7`
@@ -67,8 +67,8 @@ ratio mixto y el escalonado, sin comprar el caos.
 ### `MOTION_INTENSITY: 4`
 
 **Por qué no más.** La referencia (jetmonde) usa reveals por scroll en casi todas las
-secciones, y la tentación es copiar eso. Pero la skill tiene una regla dura: *"motion claimed,
-motion shown"* — si se declara 6 o 7 hay que entregar coreografía real, y si no se puede
+secciones, y la tentación es copiar eso. Pero la skill tiene una regla dura: _"motion claimed,
+motion shown"_ — si se declara 6 o 7 hay que entregar coreografía real, y si no se puede
 entregar, hay que bajar el dial y enviar una página estática limpia. Este sitio se abre en un
 teléfono, probablemente con señal de rancho, con una grid de imágenes como contenido
 principal. El presupuesto de rendimiento se gasta en que las fotos carguen, no en Motion ni
@@ -81,11 +81,11 @@ encima de 3, así que `prefers-reduced-motion` es **obligatorio** (skill §6.B),
 **Inventario de movimiento permitido, cerrado.** Cada uno se justifica en una frase, como pide
 §5 ("motion must be motivated"). Nada fuera de esta lista:
 
-| Movimiento | Qué comunica |
-|---|---|
-| Fade + `translateY` de las tarjetas al entrar en viewport (IntersectionObserver o CSS `animation-timeline: view()`) | Jerarquía: ordena la lectura de un grid largo |
-| `scale(0.98)` en `:active` sobre tarjeta y CTA | Feedback: confirma el toque en móvil |
-| Transición de `opacity` al cambiar de foto en la Galería | Transición de estado: indica que cambió la imagen, no la página |
+| Movimiento                                                                                                          | Qué comunica                                                    |
+| ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| Fade + `translateY` de las tarjetas al entrar en viewport (IntersectionObserver o CSS `animation-timeline: view()`) | Jerarquía: ordena la lectura de un grid largo                   |
+| `scale(0.98)` en `:active` sobre tarjeta y CTA                                                                      | Feedback: confirma el toque en móvil                            |
+| Transición de `opacity` al cambiar de foto en la Galería                                                            | Transición de estado: indica que cambió la imagen, no la página |
 
 Prohibido explícitamente: scroll hijack, parallax, marquee, sticky-stack, cursor custom,
 loops infinitos. Ninguno tiene una frase que lo justifique acá.
@@ -98,22 +98,27 @@ densidad baja es lo que hace que una ficha con tres campos no se vea rota al lad
 ocho. Gaps de sección grandes (`py-24` a `py-32`), sin cajas de tarjeta, agrupación por
 espacio negativo y no por borde.
 
-**Resultado: `7 / 4 / 3`.** Toma la variance de *premium consumer* y el motion de *editorial*.
+**Resultado: `7 / 4 / 3`.** Toma la variance de _premium consumer_ y el motion de _editorial_.
 No es ningún preset, y esa es la intención.
+
+> **Reabierta 2026-08-30 por César → [ADR-0003](docs/adr/0003-reskin-identidad-catalogo-impreso.md).**
+> Ahora el sitio va en serif (`Playfair Display`), fondo cream y acento sepia, con la estética de
+> la página de flota de jetmonde. El argumento de abajo sigue siendo el riesgo aceptado; se
+> revierte si las fotos reales (T-11/T-12) delatan la serif. Lo que sigue es el origen histórico.
 
 ## 1.3 La tensión de la serif — CERRADA: sans
 
-La skill es explícita (§4.1, "SERIF DISCIPLINE"): serif es *"very discouraged as default"*, y
+La skill es explícita (§4.1, "SERIF DISCIPLINE"): serif es _"very discouraged as default"_, y
 solo se acepta si el brief nombra una serif, **o** si la familia estética es genuinamente
 editorial / luxury / publication / manuscript / heritage / vintage **y** se puede articular por
-qué *esa* serif encaja con *esta* marca. `Fraunces` e `Instrument_Serif` están prohibidas.
+qué _esa_ serif encaja con _esta_ marca. `Fraunces` e `Instrument_Serif` están prohibidas.
 
 ### El argumento a favor de serif
 
 Es más fuerte de lo que parece, y hay que decirlo antes de descartarlo:
 
-- Un catálogo de venta de caballos con pedigrí **es** un artefacto de la familia *heritage /
-  publication*. El catálogo de remate impreso y el stud book son objetos reales con siglos de
+- Un catálogo de venta de caballos con pedigrí **es** un artefacto de la familia _heritage /
+  publication_. El catálogo de remate impreso y el stud book son objetos reales con siglos de
   tradición tipográfica, y esa tradición es didone y transitional en caja alta. No es la
   asociación floja de "creativo, entonces serif": es el artefacto nativo de la categoría.
 - La portada del PDF de Eduardo Galán ya usa una serif display didone en caja alta
@@ -130,8 +135,8 @@ Tres cosas, en orden de peso:
    una nitidez que la foto de al lado, servida a 772 px, no va a cumplir. La serif de lujo no
    es neutral respecto a la calidad de la imagen — **la delata**.
 2. **Es exactamente el default que las dos skills mandan a evitar.** `impeccable`
-   (`new-work.md` §4) nombra la agrupación literal: *"warm cream ground, high-contrast serif
-   display, and a terracotta or signal-red accent"* como el cúmulo en el que cae la interfaz
+   (`new-work.md` §4) nombra la agrupación literal: _"warm cream ground, high-contrast serif
+   display, and a terracotta or signal-red accent"_ como el cúmulo en el que cae la interfaz
    generada por IA cuando el brief la deja libre. Un rancho de caballos es precisamente el
    brief que aterriza ahí solo. Que el resultado sea predecible desde la categoría es el
    síntoma de que la autocrítica falló.
@@ -153,11 +158,11 @@ utilizables hoy, el piso es lo que hay que comprar.
 
 **Elección:**
 
-| Rol | Fuente | Licencia |
-|---|---|---|
-| Titulares | `Cabinet Grotesk Display` | Fontshare, gratis para uso comercial |
-| Texto y datos | `Satoshi` o stack del sistema | Fontshare, gratis |
-| Alternativa completa | `Geist` + `Geist Mono` | Vercel, código abierto |
+| Rol                  | Fuente                        | Licencia                             |
+| -------------------- | ----------------------------- | ------------------------------------ |
+| Titulares            | `Cabinet Grotesk Display`     | Fontshare, gratis para uso comercial |
+| Texto y datos        | `Satoshi` o stack del sistema | Fontshare, gratis                    |
+| Alternativa completa | `Geist` + `Geist Mono`        | Vercel, código abierto               |
 
 Las tres se autohospedan con `next/font` sin trámite. **No hay fuente que comprar.** Eso también
 era parte del pedido: no batallar.
@@ -188,6 +193,11 @@ bold de la **misma** familia. Nunca metiendo una palabra serif en un titular san
 
 ## 1.4 Color
 
+> **Anulada en parte 2026-08-30 → [ADR-0003](docs/adr/0003-reskin-identidad-catalogo-impreso.md).**
+> Se conserva "claro, no oscuro" y "un solo acento". Se anula "neutro frío / acento no cálido":
+> el fondo va cream (`#f5f0e8`, papel del PDF) y el acento sepia tabaco (`#8a5a3c`), por decisión
+> de César. El riesgo (los bayos se disuelven en un cromo cálido) queda escrito en el ADR.
+
 `impeccable` pide elegir la estrategia antes que los colores, y escribir una frase de escena
 física que fuerce la respuesta de claro contra oscuro.
 
@@ -205,7 +215,7 @@ Eso decide dos cosas de un tirón:
 
 **Y una prohibición dura, que hay que escribir porque es el error que este brief provoca:**
 la skill (§4.2) prohíbe como default para briefs premium-consumer la paleta
-*beige/crema + latón/arcilla/ocre + café casi negro*, con hexadecimales nombrados. Un rancho
+_beige/crema + latón/arcilla/ocre + café casi negro_, con hexadecimales nombrados. Un rancho
 de caballos es el brief que llama a esa paleta con más fuerza que ninguno.
 
 Hay además una razón que no es de skill sino de este catálogo en particular, y es más fuerte:
@@ -225,11 +235,17 @@ sitio, un solo acento en todas las secciones, una sola escala de radio de esquin
 
 ## 1.5 Arquitectura visual — poco alcance, alta ejecución
 
+> **Bloque 2 modificado 2026-08-30 → [ADR-0003](docs/adr/0003-reskin-identidad-catalogo-impreso.md).**
+> El grid del Catálogo pasa a 2 columnas iguales con foto 3:2 `cover` y el **nombre del caballo
+> en serif sobrepuesto abajo-izquierda** (estética de la flota de jetmonde). "Sin pill sobre la
+> imagen" ya no aplica al nombre: no es una pill, es el nombre como en la ficha del jet. La
+> estructura de la Ficha (bloques 4-9) no cambia.
+
 Principio 5 de `PRODUCT.md`. **Dos plantillas, cinco bloques en total.** Nada más.
 
 ### Portada (`/`)
 
-1. **Encabezado con el catálogo empezando en el primer viewport.** El catálogo *es* el hero.
+1. **Encabezado con el catálogo empezando en el primer viewport.** El catálogo _es_ el hero.
    No hay un hero separado con titular y propuesta de valor, y eso es una decisión, no una
    omisión: no existe copy que poner ahí, y escribirlo sería inventar. El nombre del sitio, una
    línea de contexto, y arriba de la línea de scroll ya se ven las primeras fotos.
@@ -293,8 +309,8 @@ hero:
    jet no hace: devolver al Interesado al Catálogo en vez de dejarlo en un callejón. Es la única
    sección agregada, y se paga sola.
 
-8. **Contacto.** Mismo CTA y **la misma etiqueta** que en el pie de la portada: la skill prohíbe
-   dos CTA con la misma intención y etiquetas distintas.
+10. **Contacto.** Mismo CTA y **la misma etiqueta** que en el pie de la portada: la skill prohíbe
+    dos CTA con la misma intención y etiquetas distintas.
 
 **Diferencias deliberadas con la referencia, ya decididas:** fondo claro y no `#1E1F21` (§1.4,
 por el sol), y display sans y no la serif de 80px (§1.3, ADR-0002).
@@ -313,11 +329,11 @@ Se construyó un prototipo estático de la Ficha con los datos reales de `data/c
 marcadores de color sólido en el ratio real (RF7), y se midieron tres estrategias sobre los 14
 caballos. No es opinión: son mediciones del DOM renderizado.
 
-| Estrategia | Resultado |
-|---|---|
+| Estrategia                               | Resultado                                                                                                                                                                                             |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **A. Par 2-up fijo en 3:2**, como el jet | **Falla.** En el caballo 04, 4 de 5 fotos sufren un **segundo recorte** sobre el que ya se les hizo al entrar en su bucket. Con cuenta impar deja una celda vacía al final. Rompe RF11 en la práctica |
-| **B. Columnas masonry, bucket real** | **Funciona.** Los 14 caballos renderizan sin celda vacía y sin desborde. Ninguna foto se recorta dos veces. Absorbe de 4 a 8 fotos de galería sin cambiar nada |
-| C. Filas por orientación | Conserva el bucket pero deja huecos al final cuando la cuenta no cierra. Más reglas para el mismo resultado que B |
+| **B. Columnas masonry, bucket real**     | **Funciona.** Los 14 caballos renderizan sin celda vacía y sin desborde. Ninguna foto se recorta dos veces. Absorbe de 4 a 8 fotos de galería sin cambiar nada                                        |
+| C. Filas por orientación                 | Conserva el bucket pero deja huecos al final cuando la cuenta no cierra. Más reglas para el mismo resultado que B                                                                                     |
 
 **Por qué A falla y no es obvio de antemano.** El par del jet funciona porque **las dos fotos del
 jet ya son 3:2**. Nuestras fotos están repartidas en 5 buckets: el caballo 04 tiene los 5 en 6
@@ -338,8 +354,8 @@ foto-céntrico. **Se decide dentro de T-08b, con el prototipo delante.**
 ## 1.6 Reglas de copy heredadas de la skill, aplicables desde el primer commit
 
 - **Cero em-dash (`—`) en cualquier texto visible del sitio.** Titulares, etiquetas, botones,
-  `alt`, pie. Cero. Se usa guion normal (`-`). *(Esta regla aplica al sitio, no a estos
-  documentos de planeación, que sí los usan.)*
+  `alt`, pie. Cero. Se usa guion normal (`-`). _(Esta regla aplica al sitio, no a estos
+  documentos de planeación, que sí los usan.)_
 - Sin eyebrows numerados (`01 / Catálogo`), sin cues de scroll, sin tiras de locación u hora,
   sin sellos de versión.
 - Máximo 1 eyebrow cada 3 secciones. Con 5 bloques: **máximo 1 en todo el sitio**. La
@@ -373,6 +389,7 @@ con `MOTION_INTENSITY: 4` alcanza CSS nativo, y evita el peso de Motion en móvi
 ## Fase A — cimientos
 
 ### T-01 · Bootstrap del repo y despliegue vacío
+
 Iniciar git, `package.json`, Next.js + TS + Tailwind v4, ESLint, Prettier. Fuentes con
 `next/font`, self-hosted. Conectar a Vercel.
 **Terminado:** una URL de Vercel responde 200 con una página que dice el nombre del sitio, y
@@ -380,6 +397,7 @@ Iniciar git, `package.json`, Next.js + TS + Tailwind v4, ESLint, Prettier. Fuent
 **Depende de:** nada. Es lo primero.
 
 ### T-02 · Tipado y validación del dato
+
 Tipo `Caballo` y `Foto` en TypeScript que espejeen el esquema confirmado de §4 del Documento
 Fundacional. Validación en tiempo de build (Zod o equivalente) para que un `data/caballos.json`
 malformado rompa el build en vez de romper la página.
@@ -388,6 +406,7 @@ con el archivo actual. Probado corriendo el build con el archivo roto a propósi
 **Nota TDD:** sin test. La validación de esquema en build es la red, no un test unitario.
 
 ### T-03 · Capa de acceso al Catálogo
+
 La función que lee `data/caballos.json` y devuelve el Catálogo. Filtra `estado: "retirado"`.
 Resuelve el slug de cada caballo.
 **Terminado:** con un caballo marcado `retirado` en los datos, no aparece en la portada ni
@@ -398,6 +417,7 @@ la de arriba, a mano, y se repite en T-15 antes de publicar. RF1.
 ## Fase B — el sistema de imagen (lo más riesgoso, primero)
 
 ### T-04 · Mapeo bucket → CSS y `focus` → `object-position`
+
 Los 5 buckets (`2:3 · 3:4 · 1:1 · 4:3 · 3:2`) a `aspect-ratio`. El campo `focus` de cada foto a
 `object-position`, con `center` por defecto.
 **Terminado:** una página de prueba renderiza las 86 fotos con su bucket asignado y ninguna
@@ -406,6 +426,7 @@ código fuente.
 **Nota TDD:** **Seam B, acordado.** Es el único seam con tests. RF11, RF13. Ver §3.
 
 ### T-05 · Marcador de posición en color sólido
+
 Mientras no haya fotos, cada hueco se rellena con color sólido **en el ratio real de la foto que
 va a ir ahí** (RF7), para que al llegar la foto no se mueva nada.
 **Terminado:** se sustituye un marcador por una foto real y el CLS medido de esa página no
@@ -416,6 +437,7 @@ fotos**, o sea sin esperar a T0.1. Es el ticket que desbloquea la fase C.
 ## Fase C — las dos plantillas
 
 ### T-06 · Sistema visual: tokens, tipografía, color
+
 Cerrar la elección de display (§1.3), los tokens de color (§1.4), la escala tipográfica, la
 escala de espaciado, y la única escala de radio. Escribirlos en `DESIGN.md` — `impeccable`
 lo exige antes del primer build de UI, no después.
@@ -426,12 +448,14 @@ falta calibrar contra fotos reales son los tokens de color, y eso se puede hacer
 fotos sin rehacer nada más. Este ticket ya no está bloqueado por T0.1.
 
 ### T-07 · Grid del Catálogo
+
 Grid de ratio mixto, escalonado, con las 5 proporciones conviviendo. Móvil primero: columna
 única abajo de 768 px (skill §7, "MOBILE OVERRIDE").
 **Terminado:** las 14 tarjetas se ven correctas en 375 px, 768 px y 1440 px, con los 5 buckets
 presentes, sin desbordes horizontales. Verificado en navegador real a los tres anchos.
 
 ### T-08a · Ficha: hero partido y lista de datos
+
 Estructura del jet: miga de pan, grid 50/50 con la foto a la izquierda en **caja casi cuadrada
 con `object-fit: contain`**, y a la derecha nombre más lista `etiqueta : valor` sin bordes.
 Colapsa a una columna en móvil, con la caja pasando a proporción apaisada.
@@ -443,6 +467,7 @@ restricción más dura del proyecto. Antes de medir la referencia, este ticket e
 probable de rehacer.
 
 ### T-08b · Ficha: Galería de longitud variable
+
 **El único bloque sin equivalente en la referencia.** El jet tiene 2 fotos fijas en 3:2; un
 caballo tiene 5 a 9 en 5 buckets mezclados.
 
@@ -456,6 +481,7 @@ ninguna foto con proporción distinta a su bucket. Verificado leyendo el DOM en 
 **Pendiente dentro de este ticket:** el largo de scroll en móvil (ver §1.7).
 
 ### T-09 · Ficha: datos, con borrado de campos vacíos
+
 Renderiza solo los campos presentes. Un campo ausente **desaparece**: no rinde "N/A", ni un
 guion, ni una etiqueta huérfana, ni un hueco de espaciado. La edad se calcula desde
 `nacimiento`, nunca se guarda.
@@ -466,6 +492,7 @@ mirando las dos fichas juntas.
 mirando las dos fichas juntas. RF5.
 
 ### T-10 · Contacto
+
 `tel:` y `mailto:` del rancho, en el pie de la portada y en cada ficha. **Una sola etiqueta**
 para toda la intención de contacto en todo el sitio. Contraste del botón verificado contra su
 fondo (WCAG AA), etiqueta de una sola línea en escritorio.
@@ -477,6 +504,7 @@ desbloquea con el dato.
 ## Fase D — cuando lleguen las fotos
 
 ### T-11 · Pipeline de imagen
+
 Fotos reales a WebP (RF8), con los tamaños servidos a **2× del tamaño en pantalla como piso**,
 que es el piso medido de la referencia (2.1× a 3.45×), no los 1000 px que se había supuesto.
 `next/image` con `priority` en el hero.
@@ -486,6 +514,7 @@ medición que se le hizo a jetmonde.
 **`[bloqueado]` por T0.1 y T0.3.**
 
 ### T-12 · Reencuadre manual de las 7 fotos con recorte >8%
+
 Las 7 fotos que pierden más del 8% al encajar en su bucket, dos de las cuales son heroes
 (caballo 12 con -15.1% de ancho, caballo 11 con -12.7%). Se ajusta `focus` a mano, foto por
 foto.
@@ -496,6 +525,7 @@ cola, patas ni grupa. Es revisión a ojo: no hay forma de automatizarla.
 ## Fase E — cierre
 
 ### T-13 · Accesibilidad y rendimiento
+
 Texto alternativo real en cada foto (depende de que existan los nombres). Contraste AA en todo.
 `prefers-reduced-motion` honrado en los tres movimientos de §1.2. Navegación por teclado en la
 Galería.
@@ -503,6 +533,7 @@ Galería.
 contra la URL de Vercel y no contra el servidor local.
 
 ### T-14 · Pre-Flight Check
+
 Correr la matriz completa de `design-taste-frontend` §14 contra el sitio desplegado. Incluye el
 conteo mecánico de eyebrows, la búsqueda literal de em-dash en el texto visible, y la
 verificación de tema y acento únicos.
@@ -511,8 +542,10 @@ hizo con cada una. Una casilla que no se puede marcar con honestidad significa q
 está terminado.
 
 ### T-15 · Puerta de publicación
+
 No es un ticket de código. Es la lista de lo que tiene que ser real antes de que la URL se
 comparta con alguien:
+
 - [ ] Teléfono y correo reales de Rancho Santa María.
 - [ ] Los 14 nombres reales (T0.2).
 - [ ] Fotos que pasen el piso de 2× (T0.1).
@@ -544,9 +577,9 @@ construye y se evalúa sin una sola foto real. Sin él, el proyecto queda espera
 
 Método: skill `tdd`. Dos reglas suyas gobiernan todo lo de abajo.
 
-**Regla 1 — ningún test se escribe en un seam no acordado.** Textual: *"Test only at
+**Regla 1 — ningún test se escribe en un seam no acordado.** Textual: _"Test only at
 pre-agreed seams. Before writing any test, write down the seams under test and confirm them
-with the user. No test is written at an unconfirmed seam."*
+with the user. No test is written at an unconfirmed seam."_
 
 **Resuelto 2026-08-29. César acordó solo el Seam B.** Los seams A y C quedan **no acordados**,
 y por lo tanto **no se testean**. No es un pendiente: es una decisión, y abajo está su costo.
@@ -561,11 +594,11 @@ Retirado — no con "item", "record" ni "entity".
 
 ## Estado de los tres seams
 
-| Seam | Qué cubre | Estado |
-|---|---|---|
-| A | El Catálogo excluye a los Retirados (RF1) | **No acordado. Sin tests.** |
-| **B** | **Bucket de ratio y `focus` (RF11, RF13)** | **ACORDADO. Se testea.** |
-| C | Un campo ausente desaparece (RF5) | **No acordado. Sin tests.** |
+| Seam  | Qué cubre                                  | Estado                      |
+| ----- | ------------------------------------------ | --------------------------- |
+| A     | El Catálogo excluye a los Retirados (RF1)  | **No acordado. Sin tests.** |
+| **B** | **Bucket de ratio y `focus` (RF11, RF13)** | **ACORDADO. Se testea.**    |
+| C     | Un campo ausente desaparece (RF5)          | **No acordado. Sin tests.** |
 
 ### Seam B — la asignación de bucket y el respeto de `focus` (el único acordado)
 
@@ -579,6 +612,7 @@ nadie las revisa todas a mano. Los seams A y C fallan de formas que un humano de
 una pantalla; el B no.
 
 **Comportamiento a especificar:**
+
 - Una foto se asigna al bucket más cercano de los 5 (`2:3 · 3:4 · 1:1 · 4:3 · 3:2`).
 - Ninguna foto sale con una proporción fuera de esos 5.
 - El `focus` de la foto se respeta; ausente, es `center`.
@@ -617,7 +651,7 @@ Decirlo importa tanto como decir qué sí:
 
 - **El layout.** Que el grid se vea bien es criterio de ojo, no de aserción. Un test de
   snapshot de un grid de ratio mixto se rompe en cada ajuste de diseño sin haber detectado
-  nunca un bug real. Eso es el anti-patrón *implementation-coupled* de la skill.
+  nunca un bug real. Eso es el anti-patrón _implementation-coupled_ de la skill.
 - **El estilo.** Ningún test toca clases de Tailwind ni valores de CSS.
 - **El renderizado de componentes.** Con 5 bloques y cero interactividad, los tests de
   componente costarían más de lo que informan.
@@ -634,11 +668,11 @@ mocks.
 
 Con un solo seam acordado, el ciclo es corto. Tres rebanadas verticales, todas dentro de T-04:
 
-| Ciclo | Test rojo | Implementación mínima |
-|---|---|---|
-| 1 | Una foto de ratio 1.4988 se asigna al bucket `3:2` | El mapeo al bucket más cercano |
-| 2 | Ninguna de las 86 fotos sale con una proporción fuera de los 5 buckets | El caso límite |
-| 3 | Una foto sin `focus` rinde `center` | El default |
+| Ciclo | Test rojo                                                              | Implementación mínima          |
+| ----- | ---------------------------------------------------------------------- | ------------------------------ |
+| 1     | Una foto de ratio 1.4988 se asigna al bucket `3:2`                     | El mapeo al bucket más cercano |
+| 2     | Ninguna de las 86 fotos sale con una proporción fuera de los 5 buckets | El caso límite                 |
+| 3     | Una foto sin `focus` rinde `center`                                    | El default                     |
 
 Uno a la vez. El ciclo 2 se escribe **después** de que el 1 esté verde, no antes. Rojo antes que
 verde, y solo el código necesario para pasar cada test.
@@ -652,7 +686,7 @@ Registrada en ADR-0002. Criterio de César: ni lo más ambicioso ni algo que se 
 fuentes que comprar. Consecuencia: R1 y R3 vuelven a ser riesgo alto en vez de bloqueante de
 diseño, y T-06 queda desbloqueado.
 
-*Registro:* esta decisión estuvo unas horas cerrada al revés, en serif. Se revirtió el mismo día,
+_Registro:_ esta decisión estuvo unas horas cerrada al revés, en serif. Se revirtió el mismo día,
 antes de que existiera código. El argumento a favor de serif queda documentado en §1.3 y en
 ADR-0002 por si el set de fotos lo reabre.
 

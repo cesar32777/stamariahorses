@@ -1,46 +1,52 @@
 @import "tailwindcss";
 
 /*
- * SISTEMA VISUAL — T-06. La referencia de por qué cada valor es este vive en
- * DESIGN.md; aquí solo están los tokens. Un solo tema, claro y fijo: la escena
- * es un comprador con sol en la pantalla (PLAN §1.4), no hay modo oscuro.
- * Dials 7 / 4 / 3 (variance / motion / density), razonados en PLAN §1.2.
+ * SISTEMA VISUAL — T-06, reskin en T-17 (ADR-0003, reemplaza ADR-0002).
+ * Identidad tomada de la pagina de flota de jetmonde y del catalogo impreso de
+ * Eduardo Galan: fondo cream (papel del PDF), serif display de contraste
+ * (Playfair), acento tierra (sepia tabaco), esquina viva. La referencia de por
+ * que cada valor es este vive en DESIGN.md; aqui solo estan los tokens.
+ * Un solo tema, claro y fijo. Dials 7 / 4 / 3 (variance / motion / density).
  */
 
 :root {
   color-scheme: light;
 
-  /* --- Color. Fondo neutro frío; un solo acento, ni latón ni terracota ni
-     crema, para que lo único cálido de la pantalla sea el caballo bayo. --- */
-  --color-background: #f4f5f6; /* oklch(96.4% 0.002 247) — blanco roto frío */
-  --color-surface: #fafbfc; /* banda tras una foto `contain`: se lee como marco */
-  --color-foreground: #16181b; /* tinta casi negra fría — 16.3:1 sobre el fondo */
-  --color-muted: #545a61; /* texto secundario — 6.4:1 sobre el fondo (AA) */
-  --color-line: #e0e2e5; /* filetes de 1px, sin cajas de tarjeta */
-  --color-accent: #2b5f6b; /* verde-azul profundo — 6.5:1 sobre el fondo */
-  --color-accent-strong: #234e58; /* estado :hover / :active del acento */
-  --color-on-accent: #ffffff; /* texto sobre el acento — 7.1:1 (AA) */
+  /* --- Color. Papel cream del PDF de Eduardo Galan, tinta calida casi negra,
+     un solo acento tierra. El acento va SOLO en tinta (enlaces, foco, filetes,
+     nombre sobre foto), nunca como relleno de bloque: los bayos no se disuelven
+     si lo unico calido saturado es el borde, no el fondo. --- */
+  --color-background: #f5f0e8; /* papel del PDF, medido */
+  --color-surface: #faf6ee; /* banda tras una foto `contain`: se lee como marco */
+  --color-foreground: #1c1a16; /* tinta calida casi negra — 15.8:1 sobre el fondo */
+  --color-muted: #6b6155; /* texto secundario — 5.0:1 sobre el fondo (AA) */
+  --color-line: #ddd5c6; /* filetes de 1px, sin cajas de tarjeta */
+  --color-accent: #8a5a3c; /* sepia tabaco — 5.2:1 sobre el fondo (AA) */
+  --color-accent-strong: #6f4630; /* estado :hover / :active del acento */
+  --color-on-accent: #faf6ee; /* texto sobre el acento — 5.0:1 */
 
-  --color-placeholder: #c3c7cc; /* marcador que TIENE que verse como marcador */
+  --color-placeholder: #c9c0ac; /* marcador que TIENE que verse como marcador */
+  --color-scrim: 28 26 22; /* RGB del degradado bajo el nombre sobre foto */
 
-  /* --- Tipografía. Cabinet Grotesk Display en titulares, Satoshi en texto y
-     datos (ADR-0002). Escala fluida y corta: densidad 3. --- */
+  /* --- Tipografia. Playfair Display (didone, variable 400-700) en titulares y
+     nombres de caballo; Satoshi en texto, datos y UI (ADR-0003). --- */
   --text-xs: 0.8125rem; /* 13px — miga de pan, pies de foto */
   --text-sm: 0.9375rem; /* 15px — etiquetas de la lista de datos */
   --text-base: 1.0625rem; /* 17px — cuerpo */
   --text-lg: 1.25rem; /* 20px — entradilla */
-  --text-xl: clamp(1.5rem, 1.29rem + 1.06vw, 1.875rem); /* subtítulos */
-  --text-2xl: clamp(2rem, 1.57rem + 2.14vw, 2.75rem); /* título de la Ficha */
-  --text-3xl: clamp(2.5rem, 1.71rem + 3.93vw, 4rem); /* nombre del sitio */
+  --text-xl: clamp(1.75rem, 1.4rem + 1.75vw, 2.5rem); /* subtitulos de seccion */
+  --text-2xl: clamp(2.25rem, 1.6rem + 3.2vw, 3.5rem); /* titulo de la Ficha */
+  --text-3xl: clamp(2.75rem, 1.7rem + 5.2vw, 5rem); /* nombre del sitio */
+  --text-nombre: clamp(1.5rem, 1.15rem + 1.75vw, 2.25rem); /* nombre sobre la foto */
 
-  --leading-display: 1.05;
-  --leading-snug: 1.25;
+  --leading-display: 1.15; /* serif con descendentes de italica (regla skill) */
+  --leading-snug: 1.3;
   --leading-body: 1.6;
-  --tracking-display: -0.02em;
-  --tracking-eyebrow: 0.08em; /* máximo UN uso en todo el sitio (PLAN §1.6) */
+  --tracking-display: 0; /* la didone no pide tracking negativo, la grotesca si */
+  --tracking-eyebrow: 0.08em; /* maximo UN uso en todo el sitio (PLAN §1.6) */
   --measure: 65ch;
 
-  /* --- Espaciado. Base 4px; el ritmo de sección es grande a propósito. --- */
+  /* --- Espaciado. Base 4px; el ritmo de seccion es grande a proposito. --- */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -52,13 +58,13 @@
   --space-24: 6rem;
   --space-section: clamp(6rem, 3.5rem + 11vw, 10rem);
   --gutter: clamp(1.25rem, 5vw, 3rem);
-  --content-max: 1400px;
+  --content-max: 1120px; /* el grid de la flota es angosto: 2 columnas grandes */
 
-  /* --- Una sola escala de radio (PLAN §1.4, skill §4.4). Ni pastilla ni
-     esquina viva: el mismo radio en controles y en cajas de imagen. --- */
-  --radius: 0.625rem; /* 10px */
+  /* --- Esquina viva (ADR-0003). Como el jet y como un catalogo impreso. Una
+     sola escala: el mismo radio (0) en controles y en cajas de imagen. --- */
+  --radius: 0px;
 
-  /* --- Movimiento. Dial 4: transiciones CSS, nada de librería. --- */
+  /* --- Movimiento. Dial 4: transiciones CSS, nada de libreria. --- */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --duration: 200ms;
 }
@@ -102,8 +108,8 @@ body {
 h1,
 h2,
 h3 {
-  font-family: var(--font-display), system-ui, sans-serif;
-  font-weight: 700;
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-weight: 500;
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-display);
   text-wrap: balance;
@@ -113,39 +119,82 @@ p {
   text-wrap: pretty;
 }
 
-/* --- Grid del Catálogo (T-07). Columnas, no celdas: escalona las 5
-   proporciones sin huecos y sin desborde horizontal. Móvil = 1 columna. --- */
+/* Regla fina bajo la cabecera de portada -- el eco del guioncito del jet. */
+.regla-acento {
+  display: block;
+  inline-size: 2.5rem;
+  block-size: 2px;
+  background: var(--color-accent);
+  margin-block-start: var(--space-6);
+}
+
+/* --- Grid del Catalogo (T-07, reskin T-17). Grid de 2 columnas iguales, cada
+   tarjeta en caja 3:2 `cover` (ADR-0003). Movil = 1 columna. --- */
 .grid-catalogo {
-  columns: 1;
-  column-gap: var(--space-6);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
   margin: 0;
   padding: 0;
 }
 
 @media (min-width: 768px) {
   .grid-catalogo {
-    columns: 2;
-  }
-}
-
-@media (min-width: 1200px) {
-  .grid-catalogo {
-    columns: 3;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
 .grid-catalogo__item {
-  break-inside: avoid;
-  margin-block-end: var(--space-6);
+  margin: 0;
+}
+
+/* Tarjeta: foto 3:2 con el nombre del caballo en serif sobrepuesto
+   abajo-izquierda, sobre un degradado de scrim. `scale(0.98)` en :active
+   confirma el toque (PLAN §1.2, movimiento 2). */
+.tarjeta-caballo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  transition: transform var(--duration) var(--ease);
+}
+
+.tarjeta-caballo:active {
+  transform: scale(0.98);
+}
+
+.tarjeta-caballo__scrim {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: 62%;
+  background: linear-gradient(
+    to top,
+    rgb(var(--color-scrim) / 0.82),
+    rgb(var(--color-scrim) / 0.36) 45%,
+    rgb(var(--color-scrim) / 0)
+  );
+  pointer-events: none;
+}
+
+.tarjeta-caballo__nombre {
+  position: absolute;
+  inset-inline-start: var(--space-4);
+  inset-block-end: var(--space-3);
+  z-index: 1;
+  max-inline-size: calc(100% - var(--space-8));
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
+  font-size: var(--text-nombre);
+  line-height: 1.1;
+  color: #fdfbf7;
+  text-wrap: balance;
 }
 
 /* --- Ficha: hero partido 50/50 (T-08a). La foto va en una caja casi cuadrada
-   con semántica `contain`: una hero vertical y una horizontal caben en la MISMA
+   con semantica `contain`: una hero vertical y una horizontal caben en la MISMA
    caja sin recortar ninguna (RF12), y la que no llena deja banda de
-   --color-surface, que sobre fondo liso se lee como marco de galería. Colapsa a
-   una columna abajo de 768px (MOBILE OVERRIDE, igual que el grid), con la caja
-   pasando de 1:1 a proporción apaisada. El detalle de contener la foto dentro
-   de la caja lo pone el hijo (ver Ficha), no esta clase. --- */
+   --color-surface, que sobre fondo liso se lee como marco de galeria. Colapsa a
+   una columna abajo de 768px, con la caja pasando de 1:1 a proporcion apaisada. --- */
 .ficha-hero {
   display: grid;
   grid-template-columns: 1fr;
@@ -174,9 +223,8 @@ p {
   }
 }
 
-/* Lista de datos: `etiqueta : valor`, una por línea, sin bordes ni tabla
-   (PLAN §1.5). Un campo ausente no rinde su línea -- pero ESO es T-09; T-08a
-   solo fija el markup y el ritmo con filas placeholder visibles. */
+/* Lista de datos: `etiqueta : valor`, una por linea, sin bordes ni tabla
+   (PLAN §1.5). Un campo ausente no rinde su linea (T-09). */
 .ficha-datos {
   margin: 0;
   padding: 0;
@@ -203,26 +251,15 @@ p {
 }
 
 /* Datos de ejemplo (flag `ejemplo` en el JSON): el valor va en cursiva y en
-   `muted` para que no se lea como dato real. El aviso de arriba y la marca
-   "Datos de ejemplo" dan el resto del contexto. */
+   `muted` para que no se lea como dato real. */
 .ficha-datos[data-ejemplo] dd {
   font-style: italic;
   color: var(--color-muted);
 }
 
-/* --- Ficha: Galería de longitud variable (T-08b). Estrategia B del prototipo
-   (PLAN §1.7): masonry por columnas, cada foto en SU bucket real, sin un
-   segundo recorte. De 5 a 9 fotos por Caballo, 5 buckets mezclados: cualquier
-   vista que asuma "siempre 5" o proporción fija está mal.
-
-   Base `column-count` -- fallback obligado, no se da masonry nativo por
-   disponible (soporte partido entre motores). 2 columnas de 768 a 1199 px, 3
-   desde 1200 (mismos cortes que el grid del Catálogo).
-
-   Móvil (< 768 px): carrusel horizontal con scroll-snap nativo. Decisión de
-   César dentro de T-08b -- la masonry a 1 columna daba ~5700 px de página en el
-   Caballo 08. Se sangra a ancho de viewport para que las fotos se vean grandes;
-   `scroll-padding-inline` mantiene la primera y la última alineadas al texto. --- */
+/* --- Ficha: Galeria de longitud variable (T-08b). Masonry por columnas, cada
+   foto en SU bucket real, sin un segundo recorte. 2 columnas de 768 a 1199 px,
+   3 desde 1200. Movil: carrusel horizontal con scroll-snap nativo. --- */
 .ficha-galeria {
   columns: 2;
   column-gap: var(--space-4);
@@ -259,9 +296,6 @@ p {
   }
 }
 
-/* Upgrade a masonry nativo donde exista: da orden de tabulación lógico (mejora
-   real de accesibilidad frente a `column-count`). Donde no, cae al fallback de
-   arriba sin ruido. */
 @supports (grid-template-rows: masonry) {
   @media (min-width: 768px) {
     .ficha-galeria {
@@ -284,11 +318,9 @@ p {
   }
 }
 
-/* --- Contacto (T-10). Pie de la portada y cierre de cada Ficha, mismo
-   componente y misma etiqueta. Los enlaces `tel:`/`mailto:` van en el acento
-   -- 6.5:1 sobre el fondo (AA) -- y con caja de toque holgada para el pulgar en
-   móvil. Sin botón relleno: el dato real todavía no existe, hoy se rinde un
-   marcador visible. --- */
+/* --- Contacto (T-10). Pie de la portada y cierre de cada Ficha. Enlaces
+   `tel:`/`mailto:` en el acento -- 5.2:1 sobre el fondo (AA) -- con caja de
+   toque holgada. Sin boton relleno: el CTA del jet es un enlace subrayado. --- */
 .contacto__enlace {
   display: inline-block;
   color: var(--color-accent);
@@ -304,16 +336,6 @@ p {
   color: var(--color-accent-strong);
 }
 
-/* scale(0.98) en :active sobre la tarjeta (PLAN §1.2, movimiento 2): confirma
-   el toque en móvil. */
-.tarjeta-caballo {
-  transition: transform var(--duration) var(--ease);
-}
-
-.tarjeta-caballo:active {
-  transform: scale(0.98);
-}
-
 @keyframes tarjeta-entra {
   from {
     opacity: 0;
@@ -325,12 +347,10 @@ p {
   }
 }
 
-/* Fade + translateY al entrar en viewport (PLAN §1.2, movimiento 1): ordena la
-   lectura de un grid largo. Scroll-driven puro, sin JS ni IntersectionObserver.
-   `@supports` porque Safari y Firefox aún no lo implementan -- sin soporte la
-   tarjeta simplemente aparece. `prefers-reduced-motion` lo desactiva (dial
-   motion 4 > 3, obligatorio; el bloque `reduce` de abajo también lo neutraliza,
-   esto es explícito a propósito). */
+/* Fade + translateY al entrar en viewport (PLAN §1.2, movimiento 1). Scroll-driven
+   puro, sin JS. `@supports` porque Safari y Firefox aun no lo implementan.
+   `prefers-reduced-motion` lo desactiva (el bloque `reduce` de abajo tambien lo
+   neutraliza; esto es explicito a proposito). */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .grid-catalogo__item,

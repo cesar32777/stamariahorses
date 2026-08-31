@@ -3,7 +3,7 @@
 
 # Estado del backlog
 
-**11 de 17 tickets cerrados (65%)** · 1 en curso · 5 pendientes
+**12 de 18 tickets cerrados (67%)** · 1 en curso · 5 pendientes
 
 Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-tickets.js --escribir`.
 
@@ -11,10 +11,10 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 |---|---|---|---|---|
 | `A` | 4 | 4 | 0 | 0 |
 | `B` | 2 | 2 | 0 | 0 |
-| `C` | 6 | 5 | 1 | 0 |
+| `C` | 7 | 6 | 1 | 0 |
 | `D` | 2 | 0 | 0 | 2 |
 | `E` | 3 | 0 | 0 | 3 |
-| **Total** | **17** | **11** | **1** | **5** |
+| **Total** | **18** | **12** | **1** | **5** |
 
 ## Cerrados
 
@@ -31,6 +31,7 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 | [`T-08b`](T-08b.md) | Ficha: Galería de longitud variable | ✅ | ✅ |
 | [`T-09`](T-09.md) | Ficha: datos, con borrado de campos vacíos | ✅ | ✅ |
 | [`T-16`](T-16.md) | Gate del baseline del linter | ✅ | ✅ |
+| [`T-17`](T-17.md) | Reskin a la identidad del catálogo impreso | ✅ | ✅ |
 
 ## En curso
 

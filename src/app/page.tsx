@@ -23,9 +23,10 @@ export default function Home() {
           <h1 className="text-foreground" style={{ fontSize: "var(--text-3xl)" }}>
             {SITE_NAME}
           </h1>
+          <span className="regla-acento" aria-hidden="true" />
           <p
             className="text-muted"
-            style={{ fontSize: "var(--text-lg)", marginBlockStart: "var(--space-4)" }}
+            style={{ fontSize: "var(--text-lg)", marginBlockStart: "var(--space-6)" }}
           >
             {EN_CATALOGO} caballos disponibles.
           </p>

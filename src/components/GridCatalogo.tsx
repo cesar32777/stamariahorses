@@ -1,12 +1,11 @@
 import { TarjetaCaballo } from "@/components/TarjetaCaballo";
 import { caballosPublicos } from "@/data/catalogo";
 
-// Grid del Catálogo (T-07). Layout de columnas (`columns`), no `grid` de celdas:
-// con 5 proporciones conviviendo, un grid de filas deja huecos grandes cuando
-// los altos no cuadran, y `display: grid-lanes` aún tiene soporte parcial
-// (README §trampas). `columns` escalona por construcción y no puede desbordar en
-// horizontal. Móvil: una sola columna (MOBILE OVERRIDE de la skill, dial
-// variance 7). El estilo vive en `globals.css` (`.grid-catalogo`).
+// Grid del Catálogo (T-07, reskin T-17). Grid de 2 columnas iguales con cada
+// tarjeta en caja 3:2 `cover` -- la estética de la página de flota de jetmonde
+// (ADR-0003). Antes era `columns` (masonry) para escalonar los 5 buckets; el
+// reskin unifica la proporción de la portada y acepta el segundo recorte ahí.
+// Móvil: una sola columna. El estilo vive en `globals.css` (`.grid-catalogo`).
 export function GridCatalogo() {
   return (
     <ul className="grid-catalogo list-none">

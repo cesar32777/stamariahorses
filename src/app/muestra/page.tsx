@@ -14,20 +14,20 @@ export const metadata: Metadata = {
 };
 
 const COLORES = [
-  { token: "--color-background", nombre: "background", uso: "fondo único del sitio" },
+  { token: "--color-background", nombre: "background", uso: "papel cream del PDF" },
   { token: "--color-surface", nombre: "surface", uso: "banda tras foto contain" },
-  { token: "--color-foreground", nombre: "foreground", uso: "tinta, 16.3:1" },
-  { token: "--color-muted", nombre: "muted", uso: "texto secundario, 6.4:1" },
+  { token: "--color-foreground", nombre: "foreground", uso: "tinta cálida, 15.8:1" },
+  { token: "--color-muted", nombre: "muted", uso: "texto secundario, 5.0:1" },
   { token: "--color-line", nombre: "line", uso: "filete de 1px" },
-  { token: "--color-accent", nombre: "accent", uso: "único acento, 6.5:1" },
+  { token: "--color-accent", nombre: "accent", uso: "sepia tabaco, 5.2:1" },
   { token: "--color-accent-strong", nombre: "accent-strong", uso: ":hover / :active" },
   { token: "--color-placeholder", nombre: "placeholder", uso: "marcador visible" },
 ] as const;
 
 const TIPO = [
-  { token: "--text-3xl", clase: "font-display font-bold", ej: "Rancho Santa Maria" },
-  { token: "--text-2xl", clase: "font-display font-bold", ej: "Titulo de la Ficha" },
-  { token: "--text-xl", clase: "font-display font-medium", ej: "Subtitulo de seccion" },
+  { token: "--text-3xl", clase: "font-display", ej: "Rancho Santa Maria" },
+  { token: "--text-2xl", clase: "font-display", ej: "Titulo de la Ficha" },
+  { token: "--text-xl", clase: "font-display", ej: "Subtitulo de seccion" },
   { token: "--text-lg", clase: "font-text", ej: "Entradilla de un parrafo" },
   { token: "--text-base", clase: "font-text", ej: "Cuerpo de texto corrido" },
   { token: "--text-sm", clase: "font-text font-medium", ej: "Etiqueta de dato" },
@@ -167,8 +167,8 @@ export default function Muestra() {
             }}
           >
             Parrafo de cuerpo a medida de lectura (65ch). La familia de texto es Satoshi; la de
-            titulares, Cabinet Grotesk Display. El enfasis dentro de un titular se hace con{" "}
-            <strong>bold</strong> o <em>italica</em> de la misma familia, nunca metiendo una serif.
+            titulares, Playfair Display (didone, ADR-0003). El enfasis dentro de un titular se hace
+            con <em>italica</em> o <strong>bold</strong> de la misma familia.
           </p>
         </div>
       </Seccion>

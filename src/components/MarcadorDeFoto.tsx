@@ -35,6 +35,12 @@ type MarcadorDeFotoProps = {
   alt?: string;
   /** `sizes` de `next/image`. El ajuste fino por layout es T-07/T-08. */
   sizes?: string;
+  /**
+   * Proporcion de la caja, si NO es la del bucket. La portada (T-17) fuerza
+   * `"3 / 2"` en todas las tarjetas para el grid de la flota, aceptando un
+   * segundo recorte; la Ficha deja el bucket real (sin recorte, RF12).
+   */
+  ratio?: string;
   className?: string;
   style?: CSSProperties;
 };
@@ -45,6 +51,7 @@ export function MarcadorDeFoto({
   src,
   alt = "",
   sizes = "100vw",
+  ratio,
   className,
   style,
 }: MarcadorDeFotoProps) {
@@ -57,7 +64,7 @@ export function MarcadorDeFoto({
       style={{
         position: "relative",
         inlineSize: "100%",
-        aspectRatio: aspectRatioDeBucket(bucket),
+        aspectRatio: ratio ?? aspectRatioDeBucket(bucket),
         overflow: "hidden",
         borderRadius: "var(--radius)",
         background: "var(--color-placeholder)",
@@ -79,7 +86,7 @@ export function MarcadorDeFoto({
           style={{
             position: "absolute",
             insetInlineStart: "var(--space-2)",
-            insetBlockEnd: "var(--space-2)",
+            insetBlockStart: "var(--space-2)",
             fontSize: "var(--text-xs)",
             letterSpacing: "var(--tracking-eyebrow)",
             color: "var(--color-foreground)",
