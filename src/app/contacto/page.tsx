@@ -55,8 +55,13 @@ export default function PaginaContacto() {
 
   return (
     <main className="flex-1">
+      {/* Alineado a la IZQUIERDA, no centrado: con la barra a ancho completo, un
+          bloque centrado a 1120 arranca en x=208 mientras la marca arranca en
+          x=48, y se lee desalineado. El tope de `--content-max` se conserva --
+          es lo que protege la medida de lectura a 1920 px -- pero el borde
+          izquierdo coincide con el resto del sitio. */}
       <div
-        className="mx-auto w-full"
+        className="w-full"
         style={{
           maxWidth: "var(--content-max)",
           paddingInline: "var(--gutter)",
