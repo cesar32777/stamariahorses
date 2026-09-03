@@ -128,6 +128,45 @@ Base 4px. El ritmo entre secciones es grande a propósito (densidad 3, "la foto 
 
 ---
 
+## Hero de portada y pie del sitio — T-23 / T-24
+
+Los dos bloques que replican la portada y el cierre de la referencia. Los dos llevan **foto con
+texto encima**, que es el único sitio del sitio donde hay fondo oscuro.
+
+**No es invertir el tema** (skill §4.11, DESIGN §Tema): es una foto con scrim, el mismo idioma que
+el nombre del caballo sobre la tarjeta del grid. El tema de la página sigue siendo claro y cream.
+
+- **Hero:** alto `max(480px, min(800px, 100dvh - 100px))` para que la barra y el hero entren juntos
+  en 900 px de alto. Titular en `--text-3xl` a la izquierda, párrafo y dos botones a la derecha,
+  los dos alineados abajo. La barra se le monta encima (transparente, texto claro) metiendo el hero
+  bajo ella con `margin-block-start: calc(-1 * var(--barra-alto))` más el relleno equivalente.
+- **Scrim del hero: tres capas, no una.** De arriba protege la barra, de la izquierda el titular,
+  de abajo la columna derecha. Con una sola capa el centro claro de la foto se come el texto.
+- **Pie:** banda de foto con el CTA centrado, logotipo gigante (`clamp(2.25rem, 17vw, 15.5rem)`,
+  calibrado sobre el dato medido: "Santa María" en Playfair ocupa **5.18 px de ancho por px de
+  cuerpo**), filete, y fila con los datos a la izquierda y la navegación a la derecha.
+- **Único botón relleno del sitio:** `.hero__boton`, en `--color-accent` con `--color-on-accent`
+  (5.40:1). Ese token existía justamente "por si algún día hay botón relleno".
+
+### Cómo se verifica el contraste aquí, y por qué no vale el token
+
+El texto va sobre una foto: **el contraste se mide contra el píxel real**, no contra
+`--color-background`. Método usado: esconder el texto con `visibility: hidden`, capturar, y
+muestrear cada caja de texto pixel a pixel calculando el peor caso, no el promedio.
+
+Medido así sobre **61.427 píxeles** del hero: peor caso **6.39:1** (el párrafo). La primera versión
+del scrim daba **4.21** en ese mismo bloque, bajo AA, sobre un parche amarillo de la foto que el
+promedio escondía. **El promedio no sirve: mide el peor píxel.**
+
+## Lo que se quitó: el filete de acento
+
+`.regla-acento` (un guioncito sepia de 40 × 2 px bajo cada titular de sección) **se eliminó del
+sitio entero en T-23**, a pedido de César. La skill lo respalda (§9.F): un filete decorativo que
+solo existe para que la sección "se vea diseñada" es un tell, no jerarquía. La separación entre
+titular y cuerpo la da el espacio, que ya está.
+
+**No lo reintroduzcas** en secciones nuevas.
+
 ## Barra de navegación — T-19, ADR-0004 §1
 
 Marca a la izquierda, **dos** enlaces a la derecha (`Caballos`, `Contacto`), filete de 1px en

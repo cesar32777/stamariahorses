@@ -130,3 +130,16 @@ medido en este proyecto (`HANDOFF-BUILD.md` §6).
   `@media` y leer `transitionDuration` antes y después. Si pasan a `1e-05s` (así lo reporta
   Chrome, no `0.01ms`) y vuelven al quitarlo, la cascada gana. Lo que queda sin probar es que el
   `@media` **dispare**, no que sus reglas funcionen.
+- **`naturalWidth` MIENTE en una imagen con `srcset`.** El navegador corrige las dimensiones
+  intrinsecas por la densidad que el mismo calculo: `naturalWidth = pixeles reales / (w elegido /
+  ancho de `sizes`)`. Medido: el hero devolvia `1125` con una fuente de **3000 px** reales, y la
+  banda del pie `900` con una de **2400** -- las dos exactamente x0.375, que es `1440/3840`. Con
+  eso, la verificacion de T-11 tal como esta escrita ("`naturalWidth` >= 2x el ancho renderizado")
+  da **falsos rojos** en cuanto la imagen tiene `srcset`.
+  **Mide los pixeles de verdad**: saca el `w=` de `currentSrc`, pide esa URL y lee el tamano del
+  archivo servido. Anotado tambien en `docs/tickets/T-11.md`.
+- **`getClientRects().length` sobre un elemento de bloque siempre da 1**, aunque el texto ocupe
+  tres lineas: devuelve la caja del bloque, no las cajas de linea. Para contar lineas de verdad hay
+  que envolver el contenido en un `Range` y leer `rg.getClientRects().length`. Confundir los dos
+  hizo reportar "titular de 1 linea" sobre un titular de 3.
+

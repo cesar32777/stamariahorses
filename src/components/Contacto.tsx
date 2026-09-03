@@ -1,34 +1,45 @@
+import Image from "next/image";
+import Link from "next/link";
+
 import { datosDeEjemplo, vendedor } from "@/data/catalogo";
 
-// T-10 -- Contacto. El recorrido del Interesado termina FUERA del sitio: no hay
-// carrito, ni cotizacion, ni formulario. Solo `tel:` y `mailto:` del rancho, en
-// el pie de la portada y al cierre de cada Ficha (PLAN 1.5, bloques 3 y 8).
+// Pie del sitio (T-10, reconstruido en T-24 con la estructura del pie de la
+// referencia): banda de foto con el CTA encima, logotipo gigante a todo el
+// ancho, filete, y fila de abajo con los datos a la izquierda y la navegación a
+// la derecha. Idéntico en las tres plantillas: portada, Ficha y `/contacto`.
+//
+// El recorrido del Interesado termina FUERA del sitio: no hay carrito, ni
+// cotización, ni formulario. Solo `tel:` y `mailto:` del rancho.
 //
 // El Vendedor es el rancho, no una persona (CONTEXT.md, cerrado 2026-08-29):
-// nada de nombre propio en el llamado a la accion, solo telefono y correo de
-// Rancho Santa Maria. Eduardo Galan es el autor del PDF, no el contacto.
+// nada de nombre propio en el llamado a la acción.
 //
-// UNA sola etiqueta para toda la intencion de contacto del sitio: la skill
-// prohibe dos CTA con la misma intencion y etiquetas distintas. Esa etiqueta es
-// `CONTACTO_ETIQUETA`, y este componente es su unico dueno.
+// Lo que la referencia tiene aquí y este pie NO lleva, porque no existe y
+// fabricarlo está prohibido: iconos de redes sociales, crédito de agencia,
+// aviso legal y política de privacidad (serían enlaces a páginas que no hay).
 //
-// Tres estados:
-//   - sin dato          -> marcador "Sin publicar" (T-10 autoriza rendir la
-//                          seccion sin su dato, unica excepcion del sitio).
-//   - dato de ejemplo   -> enlaces reales + marca "Datos de ejemplo" a la vista
-//                          (`datosDeEjemplo`, prohibicion dura: se ve como tal).
-//   - dato real         -> enlaces, sin marca.
+// UNA sola etiqueta para toda la intención de contacto del sitio. Esa etiqueta
+// es `CONTACTO_ETIQUETA`, y este componente es su único dueño.
+//
+// Tres estados: sin dato -> marcador "Sin publicar"; dato de ejemplo -> enlaces
+// más la marca a la vista; dato real -> enlaces, sin marca.
 
 /** El Vendedor es el rancho, no una persona (CONTEXT.md). */
 export const ORIGEN = "Rancho Santa María";
 
-/** La unica etiqueta de la intencion de contacto en todo el sitio. */
+/** La marca corta, la misma de la barra. El logotipo del pie usa esta: con
+ *  `ORIGEN` completo el texto desbordaba 380px a 1440 (medido). */
+const MARCA = "Santa María";
+
+/** La única etiqueta de la intención de contacto en todo el sitio. */
 export const CONTACTO_ETIQUETA = "Contacto";
 
-/** `tel:` solo admite digitos y `+`; el texto a la vista conserva el formato. */
+/** `tel:` solo admite dígitos y `+`; el texto a la vista conserva el formato. */
 export function hrefTelefono(telefono: string): string {
   return `tel:${telefono.replace(/[^\d+]/g, "")}`;
 }
+
+const AÑO = new Date().getFullYear();
 
 function MarcaPlaceholder({ children }: { children: string }) {
   return (
@@ -52,57 +63,81 @@ export function Contacto() {
   const hayDato = telefono != null || email != null;
 
   return (
-    <footer
-      className="contacto mx-auto w-full"
-      aria-labelledby="contacto-titulo"
-      style={{
-        maxWidth: "var(--content-max)",
-        paddingInline: "var(--gutter)",
-        paddingBlock: "var(--space-section)",
-        borderBlockStart: "1px solid var(--color-line)",
-      }}
-    >
-      <h2 id="contacto-titulo" className="text-foreground" style={{ fontSize: "var(--text-xl)" }}>
+    <footer className="pie" aria-labelledby="pie-titulo">
+      <h2 id="pie-titulo" className="sr-only">
         {CONTACTO_ETIQUETA}
       </h2>
 
-      <p
-        className="text-muted"
-        style={{ fontSize: "var(--text-sm)", marginBlockStart: "var(--space-2)" }}
-      >
-        {ORIGEN}
-      </p>
-
-      {hayDato ? (
-        <div style={{ marginBlockStart: "var(--space-6)" }}>
-          {datosDeEjemplo && <MarcaPlaceholder>Datos de ejemplo</MarcaPlaceholder>}
-          <ul className="contacto__lista" style={{ listStyle: "none", padding: 0 }}>
-            {telefono != null && (
-              <li>
-                <a className="contacto__enlace" href={hrefTelefono(telefono)}>
-                  {telefono}
-                </a>
-              </li>
-            )}
-            {email != null && (
-              <li style={{ marginBlockStart: "var(--space-2)" }}>
-                <a className="contacto__enlace" href={`mailto:${email}`}>
-                  {email}
-                </a>
-              </li>
-            )}
-          </ul>
+      {/* Banda de foto con el CTA encima, como el cierre de la referencia. Si no
+          hay teléfono no hay banda: una banda con una foto y sin acción no cierra
+          nada. */}
+      {telefono != null && (
+        <div className="pie__banda">
+          <Image
+            src="/hero/pie-caballos.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="pie__banda-foto"
+          />
+          <span className="pie__banda-scrim" aria-hidden="true" />
+          <a className="hero__boton pie__banda-cta" href={hrefTelefono(telefono)}>
+            {telefono}
+          </a>
         </div>
-      ) : (
-        <p
-          data-contacto-pendiente
-          className="text-muted"
-          style={{ fontSize: "var(--text-base)", marginBlockStart: "var(--space-6)" }}
-        >
-          <MarcaPlaceholder>Sin publicar</MarcaPlaceholder>
-          Teléfono y correo del rancho pendientes.
-        </p>
       )}
+
+      <div className="pie__cuerpo mx-auto w-full">
+        {/* El logotipo gigante: la firma del pie de la referencia. Es texto, no
+            una imagen: escala solo y se puede seleccionar. */}
+        <p className="pie__logotipo" aria-hidden="true">
+          {MARCA}
+        </p>
+
+        <div className="pie__fila">
+          <div>
+            {hayDato ? (
+              <>
+                {datosDeEjemplo && <MarcaPlaceholder>Datos de ejemplo</MarcaPlaceholder>}
+                <ul className="pie__datos">
+                  {telefono != null && (
+                    <li>
+                      <a className="contacto__enlace" href={hrefTelefono(telefono)}>
+                        {telefono}
+                      </a>
+                    </li>
+                  )}
+                  {email != null && (
+                    <li>
+                      <a className="contacto__enlace" href={`mailto:${email}`}>
+                        {email}
+                      </a>
+                    </li>
+                  )}
+                </ul>
+              </>
+            ) : (
+              <p
+                data-contacto-pendiente
+                className="text-muted"
+                style={{ fontSize: "var(--text-base)" }}
+              >
+                <MarcaPlaceholder>Sin publicar</MarcaPlaceholder>
+                Teléfono y correo del rancho pendientes.
+              </p>
+            )}
+          </div>
+
+          <nav aria-label="Pie" className="pie__nav">
+            <Link href="/">Caballos</Link>
+            <Link href="/contacto">{CONTACTO_ETIQUETA}</Link>
+          </nav>
+        </div>
+
+        <p className="pie__legal">
+          © {ORIGEN} {AÑO} · Monterrey, Nuevo León, México
+        </p>
+      </div>
     </footer>
   );
 }

@@ -35,8 +35,13 @@ const ENLACES = [
 export function BarraNavegacion() {
   const ruta = usePathname();
 
+  // T-23: en la portada la barra va SOBRE la foto del hero, no como franja
+  // aparte encima -- que es como la tiene la referencia. En el resto del sitio
+  // no hay foto detrás, así que se queda sólida sobre el papel cream.
+  const sobreHero = ruta === "/";
+
   return (
-    <header className="barra">
+    <header className={sobreHero ? "barra barra--sobre-hero" : "barra"}>
       <div className="barra__interior mx-auto w-full">
         <Link href="/" className="barra__marca">
           <span className="barra__marca-nombre">{MARCA}</span>

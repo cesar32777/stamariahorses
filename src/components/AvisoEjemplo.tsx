@@ -3,7 +3,8 @@ import { datosDeEjemplo } from "@/data/catalogo";
 // Aviso de datos de ejemplo. Mientras `data/caballos.json` lleve el flag
 // `ejemplo: true`, el sitio muestra nombres, sexo, edad, raza, capa, alzada,
 // peso, padres, registro y contacto de MUESTRA -- valores con el tipo correcto
-// pero sin dato real detrás.
+// pero sin dato real detrás -- y además, desde T-23, el titular del hero y su
+// foto, que es de stock y NO es un caballo del rancho (`public/hero/CREDITO.md`).
 //
 // La prohibición dura del proyecto: "un placeholder tiene que verse como
 // placeholder en pantalla". Un enum (`sexo`) o un número (`alzada`) no puede
@@ -44,7 +45,8 @@ export function AvisoEjemplo() {
           color: "var(--color-foreground)",
         }}
       >
-        Sitio en construcción. Caballos, datos y contacto son de ejemplo, todavía no reales.
+        Sitio en construcción. Los textos, la foto de portada, los caballos y el contacto son de
+        ejemplo, todavía no reales.
       </p>
     </div>
   );

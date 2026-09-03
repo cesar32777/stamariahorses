@@ -141,7 +141,7 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
             <span className="text-foreground">{caballo.nombre}</span>
           </nav>
 
-          <div className="ficha-hero" style={{ marginBlockStart: "var(--space-12)" }}>
+          <div className="ficha-hero" style={{ marginBlockStart: "var(--space-16)" }}>
             <div className="ficha-hero__caja">
               <MarcadorDeFoto
                 bucket={hero.bucket}
@@ -162,7 +162,7 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
                 className="text-foreground"
                 style={{
                   fontSize: "var(--text-2xl)",
-                  marginBlockEnd: filas.length > 0 ? "var(--space-12)" : "0",
+                  marginBlockEnd: filas.length > 0 ? "var(--space-16)" : "0",
                 }}
               >
                 {caballo.nombre}
@@ -200,7 +200,7 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
               <Link
                 href="/contacto"
                 className="enlace-cta"
-                style={{ marginBlockStart: "var(--space-12)" }}
+                style={{ marginBlockStart: "var(--space-16)" }}
               >
                 {CONTACTO_ETIQUETA}
                 <span aria-hidden="true" className="enlace-cta__flecha">

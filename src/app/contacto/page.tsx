@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { CONTACTO_ETIQUETA, ORIGEN, hrefTelefono } from "@/components/Contacto";
+import { CONTACTO_ETIQUETA, Contacto, ORIGEN, hrefTelefono } from "@/components/Contacto";
 import { datosDeEjemplo, vendedor } from "@/data/catalogo";
 
 // T-22 (ADR-0004 §1) -- la página de Contacto, para que el enlace de la barra
@@ -19,8 +19,10 @@ import { datosDeEjemplo, vendedor } from "@/data/catalogo";
 // del sitio. Escritos a mano aquí habría dos sitios que actualizar el día que
 // llegue el dato real, y uno se olvidaría.
 //
-// Esta página NO monta `<Contacto />`: sería mostrar el contacto dos veces en
-// la misma pantalla. Ella es el bloque.
+// Desde T-24 esta página SÍ monta `<Contacto />`: el pie dejó de ser solo el
+// bloque de contacto y pasó a ser cromo del sitio (logotipo, navegación, legal),
+// idéntico en las tres plantillas. El teléfono aparece dos veces -- grande en el
+// cuerpo, chico en el pie -- que es como se comporta cualquier pie.
 //
 // Ancho: `--content-max` (1120), no `--content-wide`. Es la única pantalla con
 // texto de lectura, y a 1920 px una línea de borde a borde es ilegible.
@@ -54,100 +56,102 @@ export default function PaginaContacto() {
   const hayDato = telefono != null || email != null;
 
   return (
-    <main className="flex-1">
-      {/* Alineado a la IZQUIERDA, no centrado: con la barra a ancho completo, un
+    <>
+      <main className="flex-1">
+        {/* Alineado a la IZQUIERDA, no centrado: con la barra a ancho completo, un
           bloque centrado a 1120 arranca en x=208 mientras la marca arranca en
           x=48, y se lee desalineado. El tope de `--content-max` se conserva --
           es lo que protege la medida de lectura a 1920 px -- pero el borde
           izquierdo coincide con el resto del sitio. */}
-      <div
-        className="w-full"
-        style={{
-          maxWidth: "var(--content-max)",
-          paddingInline: "var(--gutter)",
-          paddingBlockStart: "var(--space-12)",
-          paddingBlockEnd: "var(--space-section)",
-        }}
-      >
-        <h1 className="text-foreground" style={{ fontSize: "var(--text-2xl)" }}>
-          {CONTACTO_ETIQUETA}
-        </h1>
-        <span className="regla-acento" aria-hidden="true" />
-
-        <p
-          className="text-muted"
+        <div
+          className="w-full"
           style={{
-            fontSize: "var(--text-lg)",
-            maxWidth: "var(--measure)",
-            marginBlockStart: "var(--space-6)",
+            maxWidth: "var(--content-max)",
+            paddingInline: "var(--gutter)",
+            paddingBlockStart: "var(--space-12)",
+            paddingBlockEnd: "var(--space-section)",
           }}
         >
-          Para preguntar por un caballo del catálogo, marca o escribe directo a {ORIGEN}.
-        </p>
+          <h1 className="text-foreground" style={{ fontSize: "var(--text-2xl)" }}>
+            {CONTACTO_ETIQUETA}
+          </h1>
 
-        <div className="contacto-pagina" style={{ marginBlockStart: "var(--space-16)" }}>
-          <section aria-labelledby="contacto-directo">
-            <h2 id="contacto-directo" className="contacto-pagina__titulo">
-              Teléfono y correo
-            </h2>
+          <p
+            className="text-muted"
+            style={{
+              fontSize: "var(--text-lg)",
+              maxWidth: "var(--measure)",
+              marginBlockStart: "var(--space-6)",
+            }}
+          >
+            Para preguntar por un caballo del catálogo, marca o escribe directo a {ORIGEN}.
+          </p>
 
-            {hayDato ? (
-              <div style={{ marginBlockStart: "var(--space-4)" }}>
-                {datosDeEjemplo && <MarcaPlaceholder>Datos de ejemplo</MarcaPlaceholder>}
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                  {telefono != null && (
-                    <li>
-                      <a className="contacto__enlace" href={hrefTelefono(telefono)}>
-                        {telefono}
-                      </a>
-                    </li>
-                  )}
-                  {email != null && (
-                    <li style={{ marginBlockStart: "var(--space-2)" }}>
-                      <a className="contacto__enlace" href={`mailto:${email}`}>
-                        {email}
-                      </a>
-                    </li>
-                  )}
-                </ul>
-              </div>
-            ) : (
+          <div className="contacto-pagina" style={{ marginBlockStart: "var(--space-16)" }}>
+            <section aria-labelledby="contacto-directo">
+              <h2 id="contacto-directo" className="contacto-pagina__titulo">
+                Teléfono y correo
+              </h2>
+
+              {hayDato ? (
+                <div style={{ marginBlockStart: "var(--space-4)" }}>
+                  {datosDeEjemplo && <MarcaPlaceholder>Datos de ejemplo</MarcaPlaceholder>}
+                  <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                    {telefono != null && (
+                      <li>
+                        <a className="contacto__enlace" href={hrefTelefono(telefono)}>
+                          {telefono}
+                        </a>
+                      </li>
+                    )}
+                    {email != null && (
+                      <li style={{ marginBlockStart: "var(--space-2)" }}>
+                        <a className="contacto__enlace" href={`mailto:${email}`}>
+                          {email}
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              ) : (
+                <p
+                  data-contacto-pendiente
+                  className="text-muted"
+                  style={{ fontSize: "var(--text-base)", marginBlockStart: "var(--space-4)" }}
+                >
+                  <MarcaPlaceholder>Sin publicar</MarcaPlaceholder>
+                  Teléfono y correo del rancho pendientes.
+                </p>
+              )}
+            </section>
+
+            <section aria-labelledby="contacto-donde">
+              <h2 id="contacto-donde" className="contacto-pagina__titulo">
+                Dónde estamos
+              </h2>
               <p
-                data-contacto-pendiente
-                className="text-muted"
+                className="text-foreground"
                 style={{ fontSize: "var(--text-base)", marginBlockStart: "var(--space-4)" }}
               >
-                <MarcaPlaceholder>Sin publicar</MarcaPlaceholder>
-                Teléfono y correo del rancho pendientes.
+                {ORIGEN}
+                <br />
+                {UBICACION}
               </p>
-            )}
-          </section>
-
-          <section aria-labelledby="contacto-donde">
-            <h2 id="contacto-donde" className="contacto-pagina__titulo">
-              Dónde estamos
-            </h2>
-            <p
-              className="text-foreground"
-              style={{ fontSize: "var(--text-base)", marginBlockStart: "var(--space-4)" }}
-            >
-              {ORIGEN}
-              <br />
-              {UBICACION}
-            </p>
-            <p
-              className="text-muted"
-              style={{
-                fontSize: "var(--text-sm)",
-                maxWidth: "var(--measure)",
-                marginBlockStart: "var(--space-3)",
-              }}
-            >
-              Las visitas al rancho se acuerdan por teléfono.
-            </p>
-          </section>
+              <p
+                className="text-muted"
+                style={{
+                  fontSize: "var(--text-sm)",
+                  maxWidth: "var(--measure)",
+                  marginBlockStart: "var(--space-3)",
+                }}
+              >
+                Las visitas al rancho se acuerdan por teléfono.
+              </p>
+            </section>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+      <Contacto />
+    </>
   );
 }

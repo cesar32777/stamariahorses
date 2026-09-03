@@ -63,6 +63,7 @@
      borde con ~15px de margen, no centrado. La barra, la portada y la Ficha
      usan este; `--content-max` queda para el texto de /contacto. */
   --content-wide: 100%;
+  --barra-alto: 64px; /* T-23: el hero se mete debajo de la barra por este alto */
 
   /* --- Esquina viva (ADR-0003). Como el jet y como un catalogo impreso. Una
      sola escala: el mismo radio (0) en controles y en cajas de imagen. --- */
@@ -123,13 +124,172 @@ p {
   text-wrap: pretty;
 }
 
-/* Regla fina bajo la cabecera de portada -- el eco del guioncito del jet. */
-.regla-acento {
-  display: block;
-  inline-size: 2.5rem;
-  block-size: 2px;
+/* --- Hero de portada (T-23). Estructura de la portada de la referencia: foto a
+   sangre, titular serif grande abajo-izquierda, parrafo + 2 botones abajo-derecha.
+   La barra queda ENCIMA, como en la referencia (franja solida, luego la foto).
+
+   Alto: cabe con la barra en el primer viewport a 1440x900 (la banda de aviso y
+   la barra suman ~100px). `dvh`, nunca `vh`: la barra de direcciones de iOS. --- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  inline-size: 100%;
+  min-block-size: max(480px, min(800px, calc(100dvh - 100px)));
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--color-foreground); /* mientras carga la foto, no un flash claro */
+  /* La foto se mete DEBAJO de la barra: se sube el alto de la barra y se
+     devuelve como relleno, asi la posicion del resto de la pagina no se mueve
+     y no hace falta posicionamiento absoluto (que dependeria del alto variable
+     de la banda de aviso). */
+  margin-block-start: calc(-1 * var(--barra-alto));
+  padding-block-start: var(--barra-alto);
+}
+
+.hero__foto {
+  object-fit: cover;
+  object-position: 62% center; /* el caballo vive a la derecha del encuadre */
+  z-index: -2;
+}
+
+/* DOS degradados, no uno: el de izquierda protege el titular y el de abajo
+   protege la columna de la derecha. Con una sola capa el centro claro de la
+   foto se come el texto. Los valores se midieron leyendo el pixel real detras
+   de cada bloque, no se eligieron a ojo. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    /* 1. de arriba: protege la barra, que va sobre la parte clara de la foto.
+       Se disuelve en la imagen, sin linea -- es el separador de la referencia. */
+    linear-gradient(
+      to bottom,
+      rgb(var(--color-scrim) / 0.82) 0%,
+      rgb(var(--color-scrim) / 0) 190px
+    ),
+    /* 2. de izquierda: protege el titular. */
+    linear-gradient(
+        to right,
+        rgb(var(--color-scrim) / 0.82) 0%,
+        rgb(var(--color-scrim) / 0.58) 42%,
+        rgb(var(--color-scrim) / 0.44) 100%
+      ),
+    /* 3. de abajo: protege la columna de la derecha. El 0.80 NO es a ojo: con
+       0.66 el parrafo medido contra el pixel real daba 4.21, bajo AA, sobre un
+       parche amarillo de la foto. */
+    linear-gradient(to top, rgb(var(--color-scrim) / 0.8) 0%, rgb(var(--color-scrim) / 0) 70%);
+  pointer-events: none;
+}
+
+.hero__interior {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  inline-size: 100%;
+  max-inline-size: var(--content-wide);
+  padding-inline: var(--gutter);
+  padding-block: var(--space-16) var(--space-12);
+}
+
+.hero__titular {
+  font-size: var(--text-3xl);
+  color: #fdfbf7;
+  max-inline-size: 16ch;
+  margin: 0;
+}
+
+.hero__marca {
+  font-family: var(--font-text), system-ui, sans-serif;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: #fdfbf7;
+  margin-block-end: var(--space-3);
+}
+
+.hero__entrada {
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: #f0ebe1;
+  max-inline-size: 46ch;
+}
+
+.hero__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block-start: var(--space-8);
+}
+
+/* Boton relleno: el unico del sitio. `--color-on-accent` existia justamente
+   "por si algun dia hay boton relleno" (DESIGN.md). Esquina viva, como todo. */
+.hero__boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: 48px;
+  padding-inline: var(--space-6);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
   background: var(--color-accent);
-  margin-block-start: var(--space-6);
+  color: var(--color-on-accent);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    background-color var(--duration) var(--ease),
+    border-color var(--duration) var(--ease);
+}
+
+.hero__boton:hover,
+.hero__boton:focus-visible {
+  background: var(--color-accent-strong);
+  border-color: var(--color-accent-strong);
+}
+
+.hero__boton--fantasma {
+  background: transparent;
+  border-color: rgb(253 251 247 / 0.6);
+  color: #fdfbf7;
+}
+
+.hero__boton--fantasma:hover,
+.hero__boton--fantasma:focus-visible {
+  background: rgb(253 251 247 / 0.14);
+  border-color: #fdfbf7;
+}
+
+.hero__boton:active {
+  transform: scale(0.98);
+}
+
+/* A partir de 900px las dos columnas, alineadas por abajo como la referencia. */
+@media (min-width: 900px) {
+  .hero__interior {
+    grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.72fr);
+    gap: var(--space-16);
+    align-items: end;
+    padding-block-end: var(--space-16);
+  }
+
+  .hero__titular {
+    max-inline-size: 13ch;
+  }
+}
+
+/* El ancla del CTA secundario: sin esto el grid queda pegado al borde de arriba
+   al saltar. `smooth` solo si el usuario no pidio lo contrario. */
+.catalogo-ancla {
+  scroll-margin-block-start: var(--space-8);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 /* --- Enlace de llamada a la accion (T-20 / T-21). Es el `Consulter la fiche
@@ -180,7 +340,41 @@ p {
   gap: var(--space-4);
   max-inline-size: var(--content-wide);
   padding-inline: var(--gutter);
-  min-block-size: 64px;
+  min-block-size: var(--barra-alto);
+}
+
+/* T-23 -- en la portada la barra va SOBRE la foto: transparente, texto claro y
+   SIN filete (en la referencia el separador es el propio degradado que baja del
+   borde superior, no una linea). El degradado vive en `.hero__scrim`, no aqui:
+   asi cubre el ancho completo de la foto y no depende del alto de la barra. */
+.barra--sobre-hero {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  border-block-end: 0;
+}
+
+.barra--sobre-hero .barra__marca,
+.barra--sobre-hero .barra__marca-nombre {
+  color: #fdfbf7;
+}
+
+.barra--sobre-hero .barra__marca-cola {
+  color: rgb(253 251 247 / 0.72);
+}
+
+.barra--sobre-hero .barra__enlace {
+  color: rgb(253 251 247 / 0.82);
+}
+
+.barra--sobre-hero .barra__enlace[aria-current="page"] {
+  color: #fdfbf7;
+}
+
+.barra--sobre-hero .barra__marca:hover,
+.barra--sobre-hero .barra__enlace:hover,
+.barra--sobre-hero .barra__enlace:focus-visible {
+  color: #ffffff;
 }
 
 .barra__marca {
@@ -335,15 +529,22 @@ p {
 }
 
 @media (min-width: 768px) {
+  /* T-23: proporciones medidas en la captura de la referencia -- imagen 48% del
+     ancho, canal de ~9%, columna de texto 42%. Con `1fr 1fr` y un canal de 64px
+     la columna de texto arrancaba en el 52% y no en el 58% del original. */
   .ficha-hero {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-16);
-  }
-
-  .ficha-hero__caja {
-    aspect-ratio: 1 / 1;
+    grid-template-columns: minmax(0, 1.16fr) minmax(0, 1fr);
+    gap: clamp(2rem, 9vw, 8rem);
   }
 }
+
+/* T-23: la caja pasa de 1:1 a 3:2 en TODOS los anchos, la proporcion de la
+   referencia. Medido sobre el dato: 10 de los 14 heroes son exactamente 3:2, o
+   sea que en 10 fichas la foto llena el marco sin una sola banda, igual que el
+   original. Las otras 4 (2 en 2:3 y 2 en 3:4) cambian banda arriba/abajo por
+   banda a los lados y se ven mas chicas -- pero SIGUEN SIN RECORTE, que es lo
+   que exige RF12. El 1:1 de T-08a era el punto medio entre los dos casos; con
+   la proporcion de la referencia sobre la mesa, el reparto 10/4 lo decide. */
 
 /* El UNICO eyebrow del sitio (DESIGN.md: presupuesto de uno, recomendacion
    cero). Se gasta aqui, sobre el titulo de la Ficha, como el `Light jets` de la
@@ -370,7 +571,7 @@ p {
 .ficha-datos__fila {
   display: flex;
   gap: var(--space-2);
-  padding-block: var(--space-2);
+  padding-block: var(--space-1); /* ~33px por fila: el de la referencia mide 32 */
   font-size: var(--text-sm);
 }
 
@@ -454,9 +655,113 @@ p {
   }
 }
 
-/* --- Contacto (T-10). Pie de la portada y cierre de cada Ficha. Enlaces
-   `tel:`/`mailto:` en el acento -- 5.2:1 sobre el fondo (AA) -- con caja de
-   toque holgada. Sin boton relleno: el CTA del jet es un enlace subrayado. --- */
+/* --- Pie del sitio (T-10, reconstruido en T-24 con la estructura del pie de la
+   referencia): banda de foto con el CTA encima, logotipo gigante a todo el
+   ancho, filete, y fila de abajo. Identico en las tres plantillas. --- */
+.pie {
+  inline-size: 100%;
+}
+
+.pie__banda {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: clamp(200px, 24vw, 340px);
+  overflow: hidden;
+}
+
+.pie__banda-foto {
+  object-fit: cover;
+  object-position: center 58%;
+  z-index: -2;
+}
+
+/* Scrim plano, no degradado: el CTA va centrado, asi que no hay un lado que
+   proteger mas que otro. El valor se midio contra el pixel real de la foto. */
+.pie__banda-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgb(var(--color-scrim) / 0.46);
+  pointer-events: none;
+}
+
+.pie__banda-cta {
+  position: relative;
+}
+
+.pie__cuerpo {
+  max-inline-size: var(--content-wide);
+  padding-inline: var(--gutter);
+  padding-block: var(--space-12) var(--space-8);
+}
+
+/* El logotipo gigante, la firma del pie de la referencia. Es TEXTO, no imagen:
+   escala solo, se selecciona y no pesa. `clamp` calibrado para que llene el
+   canal a 1440 sin desbordar a 390 -- medido, no a ojo. */
+.pie__logotipo {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
+  /* 17vw NO es a ojo: medido, "Santa Maria" en Playfair ocupa 5.18px de ancho
+     por cada px de cuerpo. A 1440 el canal son 1329px -> 256px de cuerpo lo
+     llenaria; a 390 el canal son 350px -> el techo son 67px. 17vw da 245px y
+     66px, o sea 95% del canal arriba y 97% abajo, sin tocar el borde. */
+  font-size: clamp(2.25rem, 17vw, 15.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--color-foreground);
+  margin: 0 0 var(--space-8);
+  text-wrap: nowrap;
+  /* Guarda dura: con `nowrap` el texto se sale de su caja sin que ningun
+     elemento mida mas que el viewport, asi que el chequeo de "ningun elemento
+     mas ancho que el viewport" NO lo detecta -- solo lo caza `scrollWidth`.
+     Paso una vez con `ORIGEN` completo: 380px de desborde. */
+  overflow: clip;
+}
+
+.pie__fila {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-6);
+  border-block-start: 1px solid var(--color-line);
+  padding-block-start: var(--space-6);
+}
+
+.pie__datos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pie__nav {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.pie__nav a {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  padding-block: var(--space-3);
+  transition: color var(--duration) var(--ease);
+}
+
+.pie__nav a:hover,
+.pie__nav a:focus-visible {
+  color: var(--color-accent-strong);
+}
+
+.pie__legal {
+  margin-block-start: var(--space-6);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+}
+
+/* Enlaces `tel:`/`mailto:` en el acento -- 5.1:1 sobre el fondo (AA) -- con caja
+   de toque holgada. Sin boton relleno aqui: el relleno vive en la banda. */
 .contacto__enlace {
   display: inline-block;
   color: var(--color-accent);
@@ -470,29 +775,6 @@ p {
 .contacto__enlace:hover,
 .contacto__enlace:active {
   color: var(--color-accent-strong);
-}
-
-/* --- Pagina de Contacto (T-22). Dos columnas a partir de 768px, una abajo.
-   Sin cajas de tarjeta: se agrupa por filete y espacio, como el resto del
-   sitio (DESIGN.md). --- */
-.contacto-pagina {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-12);
-  border-block-start: 1px solid var(--color-line);
-  padding-block-start: var(--space-8);
-}
-
-@media (min-width: 768px) {
-  .contacto-pagina {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-16);
-  }
-}
-
-.contacto-pagina__titulo {
-  font-size: var(--text-lg);
-  color: var(--color-foreground);
 }
 
 @keyframes tarjeta-entra {
