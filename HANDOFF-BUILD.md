@@ -14,8 +14,9 @@ saber está acá o en los archivos que este documento nombra. No supongas nada q
 
 ### Cargá estas skills, en este orden
 
-0. **`/metodo-tickets`** — el método de construcción: cómo es un ticket, dónde vive el estado, TDD
-   con rojo real, y el protocolo de cierre. Su `references/rol-agente-dev.md` es tu rol completo.
+0. **`/metodo-tickets`** — el método de construcción: cómo es un ticket, dónde vive el estado, y el
+   protocolo de cierre. **Ignorá su parte de TDD**: este proyecto no tiene tests (ver §5).
+   Su `references/rol-agente-dev.md` es tu rol completo.
    Este proyecto corre su **carril secuencial**: un ticket a la vez, sin worktrees ni integrador.
 
 1. **`/design-taste-frontend`** — gobierna toda decisión visual. Los dials ya están razonados y
@@ -38,7 +39,7 @@ saber está acá o en los archivos que este documento nombra. No supongas nada q
 |---|---|
 | `CLAUDE.md` + `docs/tickets/README.md` | **Empieza aquí.** El índice, las 11 decisiones, la plantilla, dónde vive el estado |
 | `docs/tickets/ESTADO.md` | Derivado: qué está hecho y **qué está listo para tomar ahora** |
-| `PLAN-TICKETS.md` | §1 diseño y §3 TDD. **§2 ya no es fuente de verdad**: los tickets viven en `docs/tickets/` |
+| `PLAN-TICKETS.md` | §1 diseño y §3 verificación. **§2 ya no es fuente de verdad**: los tickets viven en `docs/tickets/` |
 | `docs/gotchas.md` | Lo que ya costó tiempo en este entorno. Léelo antes de tocar el navegador |
 | `PRODUCT.md` | Usuarios, propósito, restricciones, 5 principios de producto |
 | `DOCUMENTO-FUNDACIONAL.md` §0 | Hechos **medidos**, incluida la estructura de la página del jet |
@@ -89,7 +90,7 @@ Si creés que alguna está mal, **decílo y seguí**; no la cambies por tu cuent
    alta ejecución. **No agregues secciones.**
 6. **Estructura de la Ficha = la de la página del jet**, con la galería reemplazada y dos
    bloques eliminados. Está detallada en `PLAN-TICKETS.md` §1.5.
-7. **Solo el Seam B tiene tests.** Ver §5 de este documento.
+7. **No hay tests ni TDD.** Ver §5 de este documento.
 8. **Cero em-dash (`—`) en texto visible del sitio.** Guion normal. Es regla dura de la skill y
    se audita en el Pre-Flight.
 
@@ -144,38 +145,42 @@ T-01 → T-02 → T-03 → T-04 → T-05 → T-06 → T-07 → T-08a → T-08b �
 
 ### Stack propuesto, no confirmado
 
-Next.js App Router con generación estática, TypeScript, Tailwind v4, `next/image`, Vitest.
+Next.js App Router con generación estática, TypeScript, Tailwind v4, `next/image`.
 Está propuesto en `PLAN-TICKETS.md` §2, **no verificado en este entorno**. T-01 lo verifica.
 Si algo no funciona, cambialo y dejá escrito por qué.
 
 ---
 
-## 5. TDD — leé esto antes de escribir un test
+## 5. Verificación — no hay tests, y no los escribas
 
-Regla dura de la skill `tdd`: **ningún test se escribe en un seam no acordado con el usuario.**
+**Este proyecto no tiene suite ni runner** (decisión de César, 2026-09-04). La skill `metodo-tickets`
+habla de TDD; **esa parte no aplica acá**. Si te dan ganas de instalar Vitest, no.
 
-**Acordado, y es el único: Seam B.** La función que traduce una foto a su proporción de render
-y su `object-position`. Tres ciclos verticales, todos dentro de T-04:
+Tres redes automáticas, todas restricciones que viven en el build:
 
-| Ciclo | Test rojo | Implementación mínima |
-|---|---|---|
-| 1 | Una foto de ratio 1.4988 se asigna al bucket `3:2` | El mapeo al bucket más cercano |
-| 2 | Ninguna de las 86 fotos sale con proporción fuera de los 5 buckets | El caso límite |
-| 3 | Una foto sin `focus` rinde `center` | El default |
+| Red | Qué caza |
+|---|---|
+| `CatalogoSchema` (T-02) | Dato mal formado o campo obligatorio ausente |
+| Guardas de `src/data/catalogo.ts` (T-03) | Slug vacío o duplicado |
+| `npm run lint:baseline` (T-16) | Regresión de lint sobre el baseline |
 
-**Rojo antes que verde. Uno a la vez.** El ciclo 2 se escribe después de que el 1 esté verde.
-**Prohibido escribir los tres tests primero** (horizontal slicing).
+**Una guarda que nunca viste fallar no está verificada.** Rómpela a propósito una vez y mírala caer.
 
-**Fuente de verdad:** `data/caballos.json` ya trae `bucket` y `recorte_pct` **medidos antes de
-que existiera el código de render**. Ese archivo es el valor esperado. **No recalcules el bucket
-del lado del test**: eso es tautológico y pasa por construcción.
+Todo lo demás lo verifican los ojos, midiendo el DOM del sitio corriendo (`getComputedStyle`,
+`getBoundingClientRect`) a los anchos que fije el campo `Verificación:` del ticket. El screenshot
+sirve para juzgar si algo **se ve** bien; la medición, para saber si está donde debe.
 
-**Los seams A y C NO están acordados. No escribas tests ahí.** Su verificación es manual y está
-en la condición de terminado de T-03 y T-09. En particular, T-03 exige navegar la URL directa de
-un caballo `retirado` y ver un 404. Hacelo a mano, cada vez que toques el filtro.
+Dos verificaciones manuales son obligatorias y se repiten, no se dan por hechas:
 
-**Vocabulario:** los nombres de test usan las palabras de `CONTEXT.md` (Catálogo, Ficha, Galería,
-Foto, bucket, `focus`). No "item", no "record", no "entity".
+- **RF1** — navegá la URL directa de un caballo `retirado` y confirmá el 404. Cada vez que toques el
+  filtro, y otra vez en T-15 antes de publicar. Es la única falla silenciosa y costosa del sistema.
+- **RF11/RF13** — el bucket de cada foto. `data/caballos.json` trae el `bucket` **medido antes de que
+  existiera el código de render**: ese archivo es el valor esperado, y `/prueba-imagen` renderiza las
+  86 de una vez para compararlas. **No recalcules el bucket con la misma fórmula que estás
+  comprobando**: es tautológico y pasa por construcción.
+
+**Vocabulario:** usá las palabras de `CONTEXT.md` (Catálogo, Ficha, Galería, Foto, bucket, `focus`).
+No "item", no "record", no "entity".
 
 ---
 

@@ -1,7 +1,7 @@
 # Documento Fundacional — Santa María Performance Horses
 
 Estado: **ABIERTO — en extracción**. Nada se implementa hasta que su sección esté cerrada.
-Última actualización: 2026-08-29 (ronda 3: tipografía sans y seams de TDD cerrados)
+Última actualización: 2026-09-04 (TDD retirado; ver decisión 8)
 
 ---
 
@@ -279,9 +279,9 @@ otro casi nada.
 ## 6b. Plan de ejecución
 
 El plan de tickets, el análisis de diseño (Design Read, dials, la decisión de tipografía) y la
-estrategia TDD viven en [`PLAN-TICKETS.md`](PLAN-TICKETS.md). Estado: **propuesta, no acordado**.
-Sus dos preguntas abiertas (serif contra sans, y los tres seams) bloquean el primer build de UI
-y el primer test respectivamente.
+estrategia de verificación viven en [`PLAN-TICKETS.md`](PLAN-TICKETS.md). Estado: **propuesta, no
+acordado**. Sus dos preguntas abiertas (serif contra sans, y dónde va la verificación) bloquean el
+primer build de UI.
 
 ## 7. Registro de Decisiones (ADR)
 
@@ -319,6 +319,9 @@ Decisiones registradas sin ADR propio (no cumplen el umbral: reversibles y sin s
 8. ~~¿Dónde van los tests?~~ **Cerrada 2026-08-29:** solo el seam de bucket de ratio y `focus`.
    Los seams de RF1 (Catálogo excluye Retirados) y RF5 (campo ausente desaparece) quedan **sin
    tests**, con verificación manual en su lugar. Ver `PLAN-TICKETS.md` §3.
+   **REVERTIDA 2026-09-04:** César retira TDD del proyecto. La suite del bucket y Vitest se
+   borraron; **no queda ningún test**. La verificación pasa a ser constraint-driven —restricciones
+   en el build y juicio visual sobre el sitio corriendo— y §3 se reescribió entera.
 
 ### Sigue abierto
 

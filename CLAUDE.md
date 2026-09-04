@@ -4,8 +4,9 @@ Catálogo web de venta de caballos de **Rancho Santa María**, Monterrey MX. Rea
 sin CMS (ADR-0001). No hay Shopify, no hay Figma: el diseño se decide aquí y la fuente del dato es
 `data/caballos.json`.
 
-El método de construcción —tickets, estado derivado, TDD, roles, worktrees— vive en la skill
-**`metodo-tickets`**, que se carga sola. Aquí solo va lo propio de este proyecto.
+El método de construcción —tickets, estado derivado, roles, worktrees— vive en la skill
+**`metodo-tickets`**, que se carga sola. **Su parte de TDD no aplica: este proyecto no tiene
+tests** (retirados el 2026-09-04, ver `PLAN-TICKETS.md` §3). Aquí solo va lo propio de este proyecto.
 
 **Este archivo no lleva datos con fecha.** Lo que caduca vive en `docs/BITACORA.md` y en el campo
 `Estado:` de cada ticket. **Commitea todos los archivos tocados al terminar cada sesión** — es el
@@ -23,7 +24,7 @@ El método de construcción —tickets, estado derivado, TDD, roles, worktrees�
 | Saber qué pasó antes | `docs/BITACORA.md` — append-only, lee el final |
 | Escribir CSS o tocar el navegador | `docs/gotchas.md` — lo que ya costó tiempo aquí · skill `modern-css` |
 | Decidir cualquier cosa visual | `PLAN-TICKETS.md` §1 · skill `design-taste-frontend` (dials **ya cerrados**, no los recalcules) |
-| Escribir un test | `PLAN-TICKETS.md` §3 · skill `tdd`. **Solo el Seam B está acordado** |
+| Verificar un ticket | `PLAN-TICKETS.md` §3. **No hay suite de tests: es el build o son los ojos** |
 | Usar una palabra del dominio | `CONTEXT.md` — el glosario manda en el código y en los tests |
 | Saber por qué algo se decidió así | `docs/adr/` · `PLAN-TICKETS.md` §4 · `DOCUMENTO-FUNDACIONAL.md` |
 | Ver la forma ya validada de la Ficha | `prototipo/ficha-proto.html` — ábrelo. **No es código a portar** |
@@ -64,8 +65,10 @@ llevar es lo que todavía no está escrito en el repo; **lo que ya está en un t
 - **No extraigas las fotos del PDF ni las uses.** 0 de 88 llegan a 1200 px.
 - **`Origen: PROPIO` + lógica ⇒ el ticket se detiene y se escala a César.** No se improvisa
   mecanismo.
-- **Ningún test en un seam no acordado.** Solo el Seam B (T-04). Los seams A y C se verifican a mano
-  y esa verificación está en el `Hecho cuando:` de T-03 y T-09.
+- **No escribas tests ni instales un runner.** El proyecto no tiene suite (decisión de César,
+  2026-09-04). Las redes automáticas son el esquema y las guardas de build y `lint:baseline`; el
+  resto se verifica mirando el sitio corriendo, y esa verificación vive en el `Hecho cuando:` de
+  cada ticket.
 - **No reabras las decisiones cerradas** de `docs/tickets/README.md`. Si crees que una está mal,
   **dilo y sigue**; no la cambies por tu cuenta.
 - **No edites `docs/tickets/ESTADO.md` a mano.**
@@ -86,10 +89,11 @@ integración de GitHub al repo `github.com/cesar32777/stamariahorses`. **Rama de
 - **Mide leyendo el DOM** (`getComputedStyle`, `getBoundingClientRect`), no mirando screenshots. El
   screenshot es para juzgar si algo **se ve** bien; con `overflow: hidden` una sección rota se ve
   limpia y vacía, no desbordada.
-- **Rojo antes que verde, de a uno.** Una prueba que nunca estuvo roja no prueba nada. Y antes de
-  dar una por buena: **¿qué escenario la pondría en rojo?** Si no sabes contestarlo, no mide nada.
-- **`git status` limpio ANTES de decir "terminado"**, y las suites re-corridas contra el árbol ya
-  limpio. Un número medido contra un árbol que ya no existe no es un número.
+- **Una guarda que nunca viste fallar no está verificada.** Rómpela a propósito una vez —dato
+  inválido, slug duplicado, error de lint— y mírala caer. Y antes de dar por buena cualquier
+  comprobación: **¿qué escenario la haría fallar?** Si no sabes contestarlo, no mide nada.
+- **`git status` limpio ANTES de decir "terminado"**, y el build y `lint:baseline` re-corridos
+  contra el árbol ya limpio. Un número medido contra un árbol que ya no existe no es un número.
 - **Di explícitamente qué NO verificaste.** Un ticket con un hueco declarado es utilizable; uno que
   se declara completo sin serlo obliga a revisarlo entero.
 - **`prefers-reduced-motion` es obligatorio** en todo lo que tenga `Animación: sí`. Ni axe ni el

@@ -27,7 +27,7 @@ const path = require('path');
 const AMBITOS = ['T'];
 
 // Campos obligatorios en la cabecera de cada ticket, antes del `---`.
-const CAMPOS = ['Origen', 'Fuente', 'Fase', 'Referencia', 'Estado', 'Depende de', 'Animación', 'Tests', 'Datos', 'Hecho cuando'];
+const CAMPOS = ['Origen', 'Fuente', 'Fase', 'Referencia', 'Estado', 'Depende de', 'Animación', 'Verificación', 'Datos', 'Hecho cuando'];
 
 // Ejes del campo `Estado:`. Formato esperado: `Estado: móvil ✅ · escritorio ⬜`.
 // El PRIMER eje es el que gobierna los conteos y la coherencia de dependencias.

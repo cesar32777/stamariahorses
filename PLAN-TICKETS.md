@@ -1,7 +1,8 @@
 # Plan de ejecución — Santa Maria Performance Horses
 
 Estado: **PARCIALMENTE ACORDADO** (2026-08-29). Cerrado por César: **sans display de licencia
-libre** (§1.3, ADR-0002) y **solo el Seam B** de TDD (§3). El resto sigue siendo propuesta.
+libre** (§1.3, ADR-0002 — luego reemplazado por ADR-0003). §3 se reescribió el 2026-09-04: **no hay
+TDD**. El resto sigue siendo propuesta.
 Fecha: 2026-08-29
 Depende de: `PRODUCT.md`, `DOCUMENTO-FUNDACIONAL.md`, `CONTEXT.md`, `docs/adr/`.
 Para construir: [`HANDOFF-BUILD.md`](HANDOFF-BUILD.md) y el prototipo en `prototipo/ficha-proto.html`.
@@ -10,7 +11,7 @@ Tres partes, en el orden en que hay que resolverlas:
 
 1. **Análisis de diseño** — qué se ve y por qué. Bloquea el primer build de UI.
 2. **Tickets de ejecución** — qué se construye, en qué orden, con qué condición de terminado.
-3. **Estrategia TDD** — dónde van los tests. Bloquea el primer test.
+3. **Estrategia de verificación** — qué caza el build y qué cazan los ojos.
 
 En §4 está el registro de las dos preguntas, ya respondidas, y lo que queda abierto.
 
@@ -403,7 +404,7 @@ Fundacional. Validación en tiempo de build (Zod o equivalente) para que un `dat
 malformado rompa el build en vez de romper la página.
 **Terminado:** el build falla con mensaje legible si se le quita `nombre` a un caballo, y pasa
 con el archivo actual. Probado corriendo el build con el archivo roto a propósito.
-**Nota TDD:** sin test. La validación de esquema en build es la red, no un test unitario.
+**Nota:** la validación de esquema en build es la red. No hay suite.
 
 ### T-03 · Capa de acceso al Catálogo
 
@@ -411,8 +412,8 @@ La función que lee `data/caballos.json` y devuelve el Catálogo. Filtra `estado
 Resuelve el slug de cada caballo.
 **Terminado:** con un caballo marcado `retirado` en los datos, no aparece en la portada ni
 tiene ruta propia accesible. Verificado navegando la URL directa del retirado y viendo un 404.
-**Nota TDD:** el Seam A quedó **no acordado**. No hay test automático acá. La verificación es
-la de arriba, a mano, y se repite en T-15 antes de publicar. RF1.
+**Nota:** no hay red automática acá. La verificación es la de arriba, a mano, y se repite en
+T-15 antes de publicar. RF1.
 
 ## Fase B — el sistema de imagen (lo más riesgoso, primero)
 
@@ -423,7 +424,8 @@ Los 5 buckets (`2:3 · 3:4 · 1:1 · 4:3 · 3:2`) a `aspect-ratio`. El campo `fo
 **Terminado:** una página de prueba renderiza las 86 fotos con su bucket asignado y ninguna
 tiene `aspect-ratio` fuera de los 5 permitidos. Verificado leyendo el DOM renderizado, no el
 código fuente.
-**Nota TDD:** **Seam B, acordado.** Es el único seam con tests. RF11, RF13. Ver §3.
+**Nota:** tuvo suite de Vitest hasta el 2026-09-04; se retiró. Hoy se verifica mirando
+`/prueba-imagen`. RF11, RF13. Ver §3.
 
 ### T-05 · Marcador de posición en color sólido
 
@@ -488,8 +490,7 @@ guion, ni una etiqueta huérfana, ni un hueco de espaciado. La edad se calcula d
 **Terminado:** un caballo con solo `nombre` renderiza una ficha sin huecos ni etiquetas
 sueltas, al lado de uno con los ocho campos, y las dos se ven intencionales. Verificado
 mirando las dos fichas juntas.
-**Nota TDD:** el Seam C quedó **no acordado**. Sin test. La verificación es la de arriba,
-mirando las dos fichas juntas. RF5.
+**Nota:** sin red automática. La verificación es la de arriba, mirando las dos fichas juntas. RF5.
 
 ### T-10 · Contacto
 
@@ -573,109 +574,51 @@ construye y se evalúa sin una sola foto real. Sin él, el proyecto queda espera
 
 ---
 
-# 3. Estrategia TDD
+# 3. Estrategia de verificación
 
-Método: skill `tdd`. Dos reglas suyas gobiernan todo lo de abajo.
+**No hay TDD en este proyecto, ni suite de tests. Retirado el 2026-09-04 por decisión de César.**
+La verificación es *constraint-driven*: las restricciones que puede sostener una máquina viven en
+el build, y todo lo demás se verifica mirando el sitio corriendo.
 
-**Regla 1 — ningún test se escribe en un seam no acordado.** Textual: _"Test only at
-pre-agreed seams. Before writing any test, write down the seams under test and confirm them
-with the user. No test is written at an unconfirmed seam."_
+## Las tres redes automáticas — todas son restricciones, ninguna es un test
 
-**Resuelto 2026-08-29. César acordó solo el Seam B.** Los seams A y C quedan **no acordados**,
-y por lo tanto **no se testean**. No es un pendiente: es una decisión, y abajo está su costo.
+| Red | Qué caza | Cómo falla |
+|---|---|---|
+| `CatalogoSchema` en build (T-02) | Dato mal formado o campo obligatorio ausente | `next build` sale con código 1 y nombra caballo + campo |
+| Guardas de `src/data/catalogo.ts` (T-03) | Slug vacío o duplicado | `throw` en build, nombra los caballos |
+| `npm run lint:baseline` (T-16) | Regresión de lint sobre el baseline | Código 1, nombra archivo + regla |
 
-**Regla 2 — nada de horizontal slicing.** No se escriben todos los tests primero. Rebanadas
-verticales: un test → una implementación → repetir. Cada test es una bala trazadora que
-responde a lo que enseñó el ciclo anterior.
+Ninguna se escribe primero ni se escribe en rojo por método. Se escriben cuando hacen falta, y se
+comprueban **rompiendo el dato a propósito una vez** y viendo el build caer. Ese gesto —provocar el
+fallo antes de creerle a la red— es lo único que sobrevive del ciclo rojo/verde, y sigue siendo
+obligatorio: una guarda que nunca falló no está verificada.
 
-Además: los tests leen `CONTEXT.md`, para que su vocabulario sea el del dominio. Los nombres de
-test se escriben con las palabras del glosario — Catálogo, Ficha, Galería, Disponible,
-Retirado — no con "item", "record" ni "entity".
+## Todo lo demás lo verifican los ojos
 
-## Estado de los tres seams
+El criterio del proyecto es visual, y el instrumento es el DOM del sitio corriendo, no un
+screenshot: `getComputedStyle` y `getBoundingClientRect` a los anchos que fije el `Verificación:`
+del ticket. El screenshot sirve para juzgar si algo **se ve** bien; la medición, para saber si está
+donde debe. Con `overflow: hidden` una sección rota se ve limpia y vacía.
 
-| Seam  | Qué cubre                                  | Estado                      |
-| ----- | ------------------------------------------ | --------------------------- |
-| A     | El Catálogo excluye a los Retirados (RF1)  | **No acordado. Sin tests.** |
-| **B** | **Bucket de ratio y `focus` (RF11, RF13)** | **ACORDADO. Se testea.**    |
-| C     | Un campo ausente desaparece (RF5)          | **No acordado. Sin tests.** |
+Esto cubre el layout, el estilo, el render de los componentes, el contraste, el CLS y la
+proporción de cada caja de foto.
 
-### Seam B — la asignación de bucket y el respeto de `focus` (el único acordado)
+## El precio, escrito para que nadie lo descubra después
 
-**Interfaz pública:** la función que traduce una foto a su proporción de render y su
-`object-position`.
+- **RF1 — un Retirado publicado** es la única falla del sistema visible para un tercero, costosa y
+  **silenciosa**: nadie se entera hasta que suena el teléfono. Compensación: la condición de
+  terminado de T-03 exige navegar la URL directa de un Retirado y ver un 404, y **T-15 lo vuelve a
+  exigir antes de cada publicación**. Si el filtro se toca, esa verificación se repite a mano.
+- **RF11/RF13 — el bucket de una foto** es la única aritmética real del proyecto (78 ratios
+  comprimidos a 5 buckets sobre 86 fotos) y el único error que **no se ve como error**: se ve como
+  una foto un poco rara. Tuvo una suite hasta el 2026-09-04; ya no. Compensación: `/prueba-imagen`
+  renderiza las 86 de una vez y `data/caballos.json` trae el `bucket` medido antes de que existiera
+  el código de render, así que la discrepancia se puede mirar — pero hay que ir a mirarla.
+- **RF5 — un campo huérfano** se ve al abrir la ficha. Cubierto por el `Hecho cuando:` de T-09.
 
-**Por qué es el correcto para ser el único.** Es la única lógica con aritmética real del
-proyecto: 78 ratios distintos comprimidos a 5 buckets, sobre 86 fotos. Es también el único
-lugar donde el error **no se ve como error**: se ve como una foto un poco rara, y con 86 fotos
-nadie las revisa todas a mano. Los seams A y C fallan de formas que un humano detecta mirando
-una pantalla; el B no.
+Ninguna de estas compensaciones equivale a una red automática, y no se debe escribir como si lo
+fuera. Son verificación manual repetible: más barata de acordar, más fácil de olvidar.
 
-**Comportamiento a especificar:**
-
-- Una foto se asigna al bucket más cercano de los 5 (`2:3 · 3:4 · 1:1 · 4:3 · 3:2`).
-- Ninguna foto sale con una proporción fuera de esos 5.
-- El `focus` de la foto se respeta; ausente, es `center`.
-
-**Fuente de verdad independiente:** `data/caballos.json` ya trae `bucket` y `recorte_pct`
-**calculados y medidos** en la sesión de análisis, antes de que exista una línea de código de
-render. Ese archivo es el valor esperado, que es exactamente lo que la skill pide: un valor que
-viene de afuera y **puede discrepar** del código. Esto es lo que impide el anti-patrón
-tautológico: el test no puede recalcular el bucket como lo hace la implementación, porque el
-esperado ya estaba escrito antes.
-
-**Vocabulario:** los nombres de test usan las palabras de `CONTEXT.md` (Foto, Galería, bucket,
-`focus`), no "item" ni "record".
-
-## Costo de dejar A y C sin tests
-
-No es un pendiente, es una decisión, y tiene precio. Se escribe para que nadie lo descubra
-después:
-
-- **Seam A sin test = RF1 sin red.** Publicar un caballo ya vendido es la única falla del
-  sistema que es visible para un tercero, costosa, y **silenciosa**: nadie se entera hasta que
-  suena el teléfono. La compensación es humana y hay que respetarla: la condición de terminado
-  de T-03 exige navegar la URL directa de un Retirado y ver un 404, y T-15 lo vuelve a exigir
-  antes de cada publicación. Si en algún momento el filtro se toca, esa verificación se repite
-  a mano.
-- **Seam C sin test = RF5 sin red.** El riesgo es menor: un campo huérfano se ve al abrir la
-  ficha. Se detecta mirando. La condición de terminado de T-09 lo cubre.
-
-**Ninguna de las dos compensaciones es equivalente a un test**, y no se debe escribir como si
-lo fuera. Son verificación manual repetible, que es más barata de acordar y más fácil de
-olvidar.
-
-## Lo que explícitamente NO se testea
-
-Decirlo importa tanto como decir qué sí:
-
-- **El layout.** Que el grid se vea bien es criterio de ojo, no de aserción. Un test de
-  snapshot de un grid de ratio mixto se rompe en cada ajuste de diseño sin haber detectado
-  nunca un bug real. Eso es el anti-patrón _implementation-coupled_ de la skill.
-- **El estilo.** Ningún test toca clases de Tailwind ni valores de CSS.
-- **El renderizado de componentes.** Con 5 bloques y cero interactividad, los tests de
-  componente costarían más de lo que informan.
-- **Que las fotos existan.** Eso lo verifica el build, no un test.
-
-## Runner propuesto
-
-Vitest. Razón: es lo que corre nativo en un proyecto Vite/Next moderno sin configuración
-propia, y el Seam B es una función pura sin DOM. Con un solo seam acordado, la infraestructura
-de test que hace falta es mínima: un runner y nada más. Sin jsdom, sin testing-library, sin
-mocks.
-
-## Ciclo, ticket por ticket
-
-Con un solo seam acordado, el ciclo es corto. Tres rebanadas verticales, todas dentro de T-04:
-
-| Ciclo | Test rojo                                                              | Implementación mínima          |
-| ----- | ---------------------------------------------------------------------- | ------------------------------ |
-| 1     | Una foto de ratio 1.4988 se asigna al bucket `3:2`                     | El mapeo al bucket más cercano |
-| 2     | Ninguna de las 86 fotos sale con una proporción fuera de los 5 buckets | El caso límite                 |
-| 3     | Una foto sin `focus` rinde `center`                                    | El default                     |
-
-Uno a la vez. El ciclo 2 se escribe **después** de que el 1 esté verde, no antes. Rojo antes que
-verde, y solo el código necesario para pasar cada test.
 
 # 4. Registro de decisiones y lo que queda abierto
 
@@ -690,8 +633,8 @@ _Registro:_ esta decisión estuvo unas horas cerrada al revés, en serif. Se rev
 antes de que existiera código. El argumento a favor de serif queda documentado en §1.3 y en
 ADR-0002 por si el set de fotos lo reabre.
 
-**Seams de TDD: solo el B.** A y C sin tests, con verificación manual en su lugar. Costo escrito
-arriba.
+**TDD: retirado el 2026-09-04** por decisión de César — la verificación del proyecto es visual y
+de build. La suite del bucket (único seam que llegó a tener tests) se borró. Costo en §3.
 
 ## Sigue abierto
 
@@ -716,5 +659,5 @@ Fiel a la forma de trabajo del proyecto, lo que **no** se comprobó por ejecuci�
   Con serif no lo habría sido, y esa asimetría es parte de por qué se eligió sans.
 - **Los tokens de color** no se calibraron. Calibrar contra los recortes de 200 px del PDF sería
   calibrar contra ruido.
-- **El stack** (Next.js + Tailwind v4 + Vitest) es propuesta razonada, no verificada en este
+- **El stack** (Next.js + Tailwind v4) es propuesta razonada, no verificada en este
   entorno. T-01 lo verifica desplegando.

@@ -1,6 +1,7 @@
 import { caballos as todosLosCaballos, catalogo, type Caballo } from "./caballos";
 
-// Capa de acceso al Catálogo (T-03, Seam A — sin tests, se verifica a mano).
+// Capa de acceso al Catálogo (T-03). Sin red automática: el 404 de un Retirado
+// se comprueba a mano, en T-03 y otra vez en T-15.
 //
 // El Catálogo es lo Disponible, no el histórico (PRODUCT.md Principio 3): un
 // Retirado no aparece en la portada NI tiene ruta propia. Filtrar aquí, en un

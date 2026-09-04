@@ -138,7 +138,7 @@ también se retira porque el dueño lo sacó de venta o porque sus fotos no sirv
 
 ## Plan de ejecución
 
-Tickets, análisis de diseño (Design Read, dials `7/4/3`, tipografía) y estrategia TDD en
+Tickets, análisis de diseño (Design Read, dials `7/4/3`, tipografía) y estrategia de verificación en
 [`PLAN-TICKETS.md`](PLAN-TICKETS.md).
 
 ## Product Principles

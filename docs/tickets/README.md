@@ -4,7 +4,8 @@ Un ticket por archivo. **Este README es el índice y las reglas; el estado vivo 
 en su propio archivo.**
 
 Generado el 2026-08-30 desde `PLAN-TICKETS.md` §2 (tickets), §1.2 (movimiento permitido) y §3
-(seams de TDD). El método es la skill **`metodo-tickets`**, destilada de un proyecto anterior de 50
+(verificación). El método es la skill **`metodo-tickets`** — **menos su parte de TDD, retirada del
+proyecto el 2026-09-04**, destilada de un proyecto anterior de 50
 tickets; **todo lo que dice se ganó rompiendo algo**.
 
 **Estado derivado: [`ESTADO.md`](ESTADO.md)** — generado, nunca a mano.
@@ -30,8 +31,9 @@ Cerradas antes de generar los tickets. **No re-litigar sin César.** Si crees qu
 6. **Sin CMS** (ADR-0001). Catálogo estático desde `data/caballos.json`.
 7. **Estructura de la Ficha = la de la página del jet**, con la galería reemplazada y dos bloques
    eliminados. Detallada en `PLAN-TICKETS.md` §1.5.
-8. **Solo el Seam B tiene tests.** Los seams A y C se verifican a mano, y esa verificación vive en
-   el `Hecho cuando:` de T-03 y T-09. **Ningún test en un seam no acordado.**
+8. **No hay tests ni TDD** (decisión de César, 2026-09-04). Las únicas redes automáticas son el
+   esquema y las guardas de build, y `lint:baseline`; todo lo demás se verifica mirando el sitio
+   corriendo. **No escribas una suite.** Ver `PLAN-TICKETS.md` §3.
 9. **Cero em-dash (`—`) en texto visible del sitio.** Guion normal. Se audita en T-14.
 10. **Lo que no existe no se fabrica.** Nombres, sexo, nacimiento, raza, capa, alzada, descripción,
     teléfono, correo, fotos utilizables, testimonios, premios, precios. **Un placeholder tiene que
@@ -53,7 +55,7 @@ Referencia: PLAN §1.2 · skill `design-taste-frontend` §7
 Estado: móvil ⬜ · escritorio ⬜
 Depende de: T-03 · T-05 · T-06
 Animación: sí
-Tests: capa 2 → medición del DOM a 375, 768 y 1440 px
+Verificación: medición del DOM a 375, 768 y 1440 px
 Datos: placeholder
 Hecho cuando: las 14 tarjetas correctas a los tres anchos, sin desborde horizontal
 ```
@@ -73,7 +75,7 @@ sesión que lo re-deriva se equivoca distinto que la anterior.
 | `Estado:` | **La única fuente de verdad.** Dos columnas a propósito: cuando llegue el eje de escritorio **no se abren tickets nuevos, se llena la segunda columna** |
 | `Depende de:` | IDs reales. Es lo que el script cruza para detectar incoherencias y para decir qué está listo para tomar |
 | `Animación:` | `sí` obliga `prefers-reduced-motion` en la definición de hecho. **Ni axe ni el linter lo detectan** |
-| `Tests:` | Qué capa toca. `—` cuando el seam no está acordado, con la verificación manual en `Hecho cuando:` |
+| `Verificación:` | Cómo se comprueba: qué medir del DOM, a qué anchos, o qué guarda de build romper a propósito. **Nunca una suite** |
 | `Datos:` | `real` / `placeholder` / `bloqueado`. **Un ticket verificado contra datos de mentira no está verificado** — este campo es lo que hace visible esa deuda antes de la semana de lanzar |
 | `Hecho cuando:` | Verificable **por ejecución**, no por lectura. Un fix que nunca corriste no está verificado |
 
@@ -158,7 +160,7 @@ scroll de la galería en móvil (5711 px en el caballo 08).
 - [`ESTADO.md`](ESTADO.md) — derivado. **Nunca a mano.**
 - `../BITACORA.md` — append-only. Qué pasó y cuándo.
 - `../gotchas.md` — lo que ya costó tiempo en este entorno.
-- `../../PLAN-TICKETS.md` — §1 diseño · §3 TDD · §4 decisiones. **§2 ya no lleva estado: vive aquí.**
+- `../../PLAN-TICKETS.md` — §1 diseño · §3 verificación · §4 decisiones. **§2 ya no lleva estado: vive aquí.**
 - `../../PRODUCT.md` · `../../CONTEXT.md` · `../../DOCUMENTO-FUNDACIONAL.md` · `../adr/`
 - `../../HANDOFF-BUILD.md` — brief de arranque en frío.
-- Skills: `metodo-tickets` (el método), `design-taste-frontend`, `modern-css`, `tdd`.
+- Skills: `metodo-tickets` (el método, **sin su parte de TDD**), `design-taste-frontend`, `modern-css`.

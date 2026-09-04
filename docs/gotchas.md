@@ -64,7 +64,7 @@ medido en este proyecto (`HANDOFF-BUILD.md` §6).
   revés: hay defectos —un icono claro sobre fondo claro— que **solo** el screenshot detecta.
 - **Un verde heredado no es evidencia de tu ticket.** Por cada capa que reportes, di cuál de sus
   pruebas ejercita tu cambio. Si la respuesta es "ninguna", es **no-regresión**, no prueba.
-- **No testees contra un valor que el propio test calcula.** `data/caballos.json` trae `bucket` y
+- **No verifiques contra un valor que tú mismo calculas.** `data/caballos.json` trae `bucket` y
   `recorte_pct` medidos **antes** de que existiera el código de render: ese archivo es el esperado.
   Derivarlo otra vez con la misma fórmula pasa por construcción y no mide nada.
 
@@ -82,13 +82,14 @@ medido en este proyecto (`HANDOFF-BUILD.md` §6).
   devolvió "General Sans" en vez de "Satoshi" — sin error, sin aviso. Pedir cada familia en su
   propia llamada evita el problema.
 
-## Seam B — asignación de bucket (T-04)
+## Asignación de bucket (T-04)
 
 - **El bucket se asigna por distancia logarítmica, no lineal.** Medido: con distancia lineal
   entre ratios, 2 de las 86 fotos (ratio ~0.708) caen en `2:3` cuando `data/caballos.json` dice
   `3:4`. El dato original se midió con la frontera en la **media geométrica** de dos buckets
-  (`Math.abs(Math.log(ratioBucket) - Math.log(ratioFoto))`). Si tocas `bucketDeRatio`, el ciclo 2
-  del test (86 fotos vs el dato) es el que lo caza.
+  (`Math.abs(Math.log(ratioBucket) - Math.log(ratioFoto))`). Si tocas `bucketDeRatio`, **nada lo
+  caza solo**: la suite que lo cubría se borró el 2026-09-04. Compará las 86 fotos contra el
+  `bucket` del dato en `/prueba-imagen`.
 
 ## Datos de este proyecto
 

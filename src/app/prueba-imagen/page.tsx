@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { caballos } from "@/data/caballos";
 import { aspectRatioDeBucket, bucketDeRatio, objectPositionDeFoto } from "@/data/imagen";
 
-// Página de prueba de T-04 (Seam B). No es una pantalla del sitio: renderiza
+// Página de prueba de T-04. No es una pantalla del sitio: renderiza
 // las 86 Fotos del Catálogo como marcadores en el `aspect-ratio` de su bucket
 // asignado, para verificar LEYENDO EL DOM que ninguna sale con una proporción
 // fuera de los 5 buckets permitidos. Sin fotos reales (no existen): cada hueco

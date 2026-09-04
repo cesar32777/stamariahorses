@@ -32,13 +32,13 @@ Derivado leyendo `docs/tickets/*.md`. Para actualizarlo: `node scripts/estado-ti
 | [`T-09`](T-09.md) | Ficha: datos, con borrado de campos vacíos | ✅ | ✅ |
 | [`T-16`](T-16.md) | Gate del baseline del linter | ✅ | ✅ |
 | [`T-17`](T-17.md) | Reskin a la identidad del catálogo impreso | ✅ | ✅ |
-| [`T-18`](T-18.md) | (sin título) | ✅ | ✅ |
-| [`T-19`](T-19.md) | (sin título) | ✅ | ✅ |
-| [`T-20`](T-20.md) | (sin título) | ✅ | ✅ |
-| [`T-21`](T-21.md) | (sin título) | ✅ | ✅ |
-| [`T-22`](T-22.md) | (sin título) | ✅ | ✅ |
-| [`T-23`](T-23.md) | (sin título) | ✅ | ✅ |
-| [`T-24`](T-24.md) | (sin título) | ✅ | ✅ |
+| [`T-18`](T-18.md) | Catálogo de muestra poblado: nombres y ficha técnica | ✅ | ✅ |
+| [`T-19`](T-19.md) | Barra de navegación | ✅ | ✅ |
+| [`T-20`](T-20.md) | Portada a todo el ancho, con la barra en el primer viewport | ✅ | ✅ |
+| [`T-21`](T-21.md) | Ficha al patrón del jet: miga de tres niveles, eyebrow, bloque de datos y cierre | ✅ | ✅ |
+| [`T-22`](T-22.md) | Página de Contacto | ✅ | ✅ |
+| [`T-23`](T-23.md) | Hero de portada con foto a sangre | ✅ | ✅ |
+| [`T-24`](T-24.md) | Pie del sitio con la estructura de la referencia | ✅ | ✅ |
 
 ## En curso
 

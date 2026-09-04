@@ -1,8 +1,8 @@
-// Seam B (RF11, RF13 · PLAN-TICKETS.md §3): traduce una Foto a su proporción de
-// render y su `object-position`. Es la única lógica con aritmética real del
-// proyecto — 78 ratios distintos comprimidos a 5 buckets sobre 86 fotos — y el
-// único sitio donde un error no se ve como error, sino como una foto un poco
-// rara que nadie revisa. Por eso es el seam con tests.
+// RF11, RF13 (PLAN-TICKETS.md §3): traduce una Foto a su proporción de render y
+// su `object-position`. Es la única lógica con aritmética real del proyecto —
+// 78 ratios distintos comprimidos a 5 buckets sobre 86 fotos — y el único sitio
+// donde un error no se ve como error, sino como una foto un poco rara que nadie
+// revisa. Tuvo tests hasta el 2026-09-04; hoy se mira en `/prueba-imagen`.
 
 /** Los 5 buckets del Catálogo, del más vertical al más apaisado (CONTEXT.md). */
 export const BUCKETS = ["2:3", "3:4", "1:1", "4:3", "3:2"] as const;
