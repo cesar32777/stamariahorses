@@ -58,6 +58,7 @@ llevar es lo que todavía no está escrito en el repo; **lo que ya está en un t
 
 ## Prohibiciones duras
 
+- **Cero cuentas de terceros.** La ÚNICA cuenta autorizada para commits, Git y Vercel en este proyecto es César Muñiz (`cesarmunizce32@gmail.com` / GitHub `cesar32777` / Vercel `cesarmunizce32-8387`). Queda estrictamente prohibido usar o asociar `smartshops`, `holasmartshops@gmail.com`, `desarrollo-4632` o cualquier cuenta ajena (ADR-0005).
 - **Lo que no existe no se fabrica.** Nombres de caballos, sexo, nacimiento, raza, capa, alzada,
   descripción, teléfono, correo, testimonios, premios, precios, cualquier número. **Un placeholder
   tiene que verse como placeholder en pantalla**, y si una sección necesita un dato que no existe,
