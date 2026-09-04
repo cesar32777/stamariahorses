@@ -354,15 +354,6 @@ p {
   border-block-end: 0;
 }
 
-.barra--sobre-hero .barra__marca,
-.barra--sobre-hero .barra__marca-nombre {
-  color: #fdfbf7;
-}
-
-.barra--sobre-hero .barra__marca-cola {
-  color: rgb(253 251 247 / 0.72);
-}
-
 .barra--sobre-hero .barra__enlace {
   color: rgb(253 251 247 / 0.82);
 }
@@ -371,7 +362,6 @@ p {
   color: #fdfbf7;
 }
 
-.barra--sobre-hero .barra__marca:hover,
 .barra--sobre-hero .barra__enlace:hover,
 .barra--sobre-hero .barra__enlace:focus-visible {
   color: #ffffff;
@@ -379,36 +369,37 @@ p {
 
 .barra__marca {
   display: flex;
-  align-items: baseline;
-  gap: 0.5em;
-  font-family: var(--font-text), system-ui, sans-serif;
-  font-size: var(--text-sm);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  line-height: 1.2;
-  color: var(--color-foreground);
-  white-space: nowrap;
-  transition: color var(--duration) var(--ease);
+  align-items: center;
+  text-decoration: none;
+  transition: opacity var(--duration) var(--ease), transform var(--duration) var(--ease);
 }
 
-.barra__marca:hover {
-  color: var(--color-accent-strong);
+.barra__marca:hover,
+.barra__marca:focus-visible {
+  opacity: 0.82;
 }
 
-.barra__marca-cola {
-  font-weight: 500;
-  font-size: var(--text-xs);
-  color: var(--color-muted);
+.barra__marca:active {
+  transform: scale(0.98);
 }
 
-/* Abajo de 640px la cola no cabe junto a los dos enlaces sin partir la barra
-   en dos lineas, que la skill marca como roto. Se oculta la cola, no se
-   encoge la fuente: a 13px con 0.1em de tracking ya esta en el piso. */
-@media (max-width: 639.98px) {
-  .barra__marca-cola {
-    display: none;
-  }
+.barra__logo {
+  display: block;
+  block-size: clamp(38px, 4vw, 44px);
+  inline-size: auto;
+  object-fit: contain;
+}
+
+.barra__logo--light {
+  display: none;
+}
+
+.barra--sobre-hero .barra__logo--dark {
+  display: none;
+}
+
+.barra--sobre-hero .barra__logo--light {
+  display: block;
 }
 
 .barra__nav {

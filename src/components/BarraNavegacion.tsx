@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -24,8 +25,7 @@ import { CONTACTO_ETIQUETA } from "@/components/Contacto";
 // la skill, y el sitio ya tiene tres sitios donde aparece (barra, CTA de
 // portada, pie).
 
-const MARCA = "Santa María";
-const MARCA_COLA = "Performance Horses";
+const NOMBRE_SITIO = "Santa María Performance Horses";
 
 const ENLACES = [
   { href: "/", etiqueta: "Caballos" },
@@ -43,9 +43,27 @@ export function BarraNavegacion() {
   return (
     <header className={sobreHero ? "barra barra--sobre-hero" : "barra"}>
       <div className="barra__interior mx-auto w-full">
-        <Link href="/" className="barra__marca">
-          <span className="barra__marca-nombre">{MARCA}</span>
-          <span className="barra__marca-cola">{MARCA_COLA}</span>
+        <Link
+          href="/"
+          className="barra__marca"
+          aria-label={`${NOMBRE_SITIO} — Inicio`}
+        >
+          <Image
+            src="/marca/logo.png"
+            alt={NOMBRE_SITIO}
+            width={76}
+            height={46}
+            priority
+            className="barra__logo barra__logo--dark"
+          />
+          <Image
+            src="/marca/logo-hero.png"
+            alt={NOMBRE_SITIO}
+            width={76}
+            height={46}
+            priority
+            className="barra__logo barra__logo--light"
+          />
         </Link>
 
         <nav aria-label="Principal">
