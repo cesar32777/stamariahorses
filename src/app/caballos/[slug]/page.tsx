@@ -5,6 +5,7 @@ import { CONTACTO_ETIQUETA, Contacto } from "@/components/Contacto";
 import { Galeria } from "@/components/Galeria";
 import { MarcadorDeFoto } from "@/components/MarcadorDeFoto";
 import { datosDeEjemplo, getCaballoPorSlug, slugsPublicos } from "@/data/catalogo";
+import { rutaDeFoto } from "@/data/imagen";
 import type { Caballo } from "@/data/schema";
 
 // Ficha del Caballo (T-03 la enrutó; T-08a le pone cuerpo). Este ticket
@@ -146,6 +147,8 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
               <MarcadorDeFoto
                 bucket={hero.bucket}
                 focus={hero.focus}
+                src={rutaDeFoto(caballo.id, hero.archivo)}
+                alt={`Foto de ${caballo.nombre}`}
                 sizes="(min-width: 768px) 50vw, 100vw"
                 style={contener}
               />
@@ -210,7 +213,12 @@ export default async function FichaCaballo({ params }: PageProps<"/caballos/[slu
             </div>
           </div>
 
-          <Galeria fotos={caballo.fotos} hero={hero} />
+          <Galeria
+            fotos={caballo.fotos}
+            hero={hero}
+            caballoId={caballo.id}
+            nombreCaballo={caballo.nombre}
+          />
         </div>
       </main>
       <Contacto />

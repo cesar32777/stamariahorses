@@ -56,3 +56,28 @@ export function objectPositionDeFoto(focus: string | null | undefined): string {
   const valor = focus?.trim();
   return valor ? valor : "center";
 }
+
+/** IDs de caballos que cuentan con fotos reales en /public/caballos/ */
+export const CABALLOS_CON_FOTO_REAL = new Set([
+  "01",
+  "02",
+  "03",
+  "05",
+  "06",
+  "07",
+  "08",
+  "09",
+  "10",
+  "11",
+]);
+
+/**
+ * Resuelve la ruta pública de una foto si el caballo cuenta con fotos reales.
+ * Retorna `null` si el caballo todavía no tiene fotos escaladas (mantiene el placeholder).
+ */
+export function rutaDeFoto(caballoId: string, archivo: string | null | undefined): string | null {
+  if (!archivo || !CABALLOS_CON_FOTO_REAL.has(caballoId)) {
+    return null;
+  }
+  return `/caballos/${archivo}`;
+}

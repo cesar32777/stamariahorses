@@ -1,4 +1,5 @@
 import { MarcadorDeFoto } from "@/components/MarcadorDeFoto";
+import { rutaDeFoto } from "@/data/imagen";
 import type { Foto } from "@/data/schema";
 
 // T-08b — la Galería de la Ficha. El único bloque sin equivalente en la página
@@ -21,9 +22,11 @@ type GaleriaProps = {
   /** Todas las Fotos del Caballo. El hero se excluye aquí (ya va en T-08a). */
   fotos: readonly Foto[];
   hero: Foto;
+  caballoId?: string;
+  nombreCaballo?: string;
 };
 
-export function Galeria({ fotos, hero }: GaleriaProps) {
+export function Galeria({ fotos, hero, caballoId, nombreCaballo }: GaleriaProps) {
   const resto = fotos.filter((foto) => foto !== hero);
 
   if (resto.length === 0) {
@@ -48,6 +51,8 @@ export function Galeria({ fotos, hero }: GaleriaProps) {
             <MarcadorDeFoto
               bucket={foto.bucket}
               focus={foto.focus}
+              src={caballoId ? rutaDeFoto(caballoId, foto.archivo) : null}
+              alt={nombreCaballo ? `Foto de ${nombreCaballo} (${i + 1})` : "Foto del caballo"}
               sizes="(min-width: 1200px) 30vw, (min-width: 768px) 45vw, 82vw"
             />
           </div>

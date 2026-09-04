@@ -30,3 +30,6 @@ docs/tickets/*-wip.md
 # Python del prototipo
 __pycache__/
 *.pyc
+
+# Fotos crudas de trabajo (430MB en PNGs de Magnific)
+extraidas/

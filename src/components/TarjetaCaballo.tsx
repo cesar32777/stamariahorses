@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { MarcadorDeFoto } from "@/components/MarcadorDeFoto";
 import type { CaballoPublico } from "@/data/catalogo";
+import { rutaDeFoto } from "@/data/imagen";
 
 // Una tarjeta del grid del Catálogo (T-07, reskin T-17). Estética de la página
 // de flota de jetmonde: foto grande en caja 3:2 con el nombre del caballo en
@@ -20,6 +21,8 @@ export function TarjetaCaballo({ caballo }: { caballo: CaballoPublico }) {
       <MarcadorDeFoto
         bucket={portada.bucket}
         focus={portada.focus}
+        src={rutaDeFoto(caballo.id, portada.archivo)}
+        alt={`Foto de ${caballo.nombre}`}
         ratio="3 / 2"
         sizes="(min-width: 768px) 50vw, 92vw"
       />
