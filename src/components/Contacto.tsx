@@ -27,10 +27,6 @@ import { datosDeEjemplo, vendedor } from "@/data/catalogo";
 /** El Vendedor es el rancho, no una persona (CONTEXT.md). */
 export const ORIGEN = "Rancho Santa María";
 
-/** La marca corta, la misma de la barra. El logotipo del pie usa esta: con
- *  `ORIGEN` completo el texto desbordaba 380px a 1440 (medido). */
-const MARCA = "Santa María";
-
 /** La única etiqueta de la intención de contacto en todo el sitio. */
 export const CONTACTO_ETIQUETA = "Contacto";
 
@@ -88,11 +84,19 @@ export function Contacto() {
       )}
 
       <div className="pie__cuerpo mx-auto w-full">
-        {/* El logotipo gigante: la firma del pie de la referencia. Es texto, no
-            una imagen: escala solo y se puede seleccionar. */}
-        <p className="pie__logotipo" aria-hidden="true">
-          {MARCA}
-        </p>
+        {/* El logotipo gigante: la firma del pie de la referencia. Es el
+            logotipo oficial completo (marca + hierro + "PERFORMANCE HORSES"),
+            no el texto corto: aqui hay sitio para leerlo entero. Decorativo --
+            el nombre del sitio ya lo dan la barra y el `<h2>` de arriba. */}
+        <Image
+          src="/marca/logo.png"
+          alt=""
+          aria-hidden="true"
+          width={756}
+          height={455}
+          sizes="(max-width: 40rem) 90vw, 640px"
+          className="pie__logotipo"
+        />
 
         <div className="pie__fila">
           <div>

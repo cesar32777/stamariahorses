@@ -51,16 +51,16 @@ export function BarraNavegacion() {
           <Image
             src="/marca/logo.png"
             alt={NOMBRE_SITIO}
-            width={76}
-            height={46}
+            width={206}
+            height={124}
             priority
             className="barra__logo barra__logo--dark"
           />
           <Image
             src="/marca/logo-hero.png"
             alt={NOMBRE_SITIO}
-            width={76}
-            height={46}
+            width={206}
+            height={124}
             priority
             className="barra__logo barra__logo--light"
           />

@@ -63,7 +63,9 @@
      borde con ~15px de margen, no centrado. La barra, la portada y la Ficha
      usan este; `--content-max` queda para el texto de /contacto. */
   --content-wide: 100%;
-  --barra-alto: 64px; /* T-23: el hero se mete debajo de la barra por este alto */
+  --barra-alto: 80px; /* T-23: el hero se mete debajo de la barra por este alto.
+                         Subido de 64 a 80 (el tope de la skill) para que quepa
+                         el logotipo de dos lineas a un tamano legible. */
 
   /* --- Esquina viva (ADR-0003). Como el jet y como un catalogo impreso. Una
      sola escala: el mismo radio (0) en controles y en cajas de imagen. --- */
@@ -325,8 +327,8 @@ p {
 }
 
 /* --- Barra de navegacion (T-19, ADR-0004 §1). Marca a la izquierda, dos
-   enlaces a la derecha, filete de 1px abajo de borde a borde. Alto 64px: el de
-   la referencia mide 57 y el tope de la skill es 80. Sin `position: sticky` --
+   enlaces a la derecha, filete de 1px abajo de borde a borde. Alto 80px: el
+   tope de la skill, para que el logotipo de dos lineas se lea. Sin `sticky` --
    la referencia no la tiene pegada y en movil comeria alto. --- */
 .barra {
   border-block-end: 1px solid var(--color-line);
@@ -383,9 +385,12 @@ p {
   transform: scale(0.98);
 }
 
+/* El logotipo es un bloque de DOS lineas mas el hierro (756x455): a 44px de
+   alto la linea de "PERFORMANCE HORSES" era ilegible. Sube a 62px en escritorio
+   dentro de una barra de 80px -- quedan 9px de aire arriba y abajo. */
 .barra__logo {
   display: block;
-  block-size: clamp(38px, 4vw, 44px);
+  block-size: clamp(48px, 5.6vw, 62px);
   inline-size: auto;
   object-fit: contain;
 }
@@ -689,27 +694,23 @@ p {
   padding-block: var(--space-12) var(--space-8);
 }
 
-/* El logotipo gigante, la firma del pie de la referencia. Es TEXTO, no imagen:
-   escala solo, se selecciona y no pesa. `clamp` calibrado para que llene el
-   canal a 1440 sin desbordar a 390 -- medido, no a ojo. */
+/* El logotipo gigante, la firma del pie de la referencia. Desde 2026-09-05 es
+   el logotipo oficial (imagen), no el texto "Santa Maria" en Playfair: el pie
+   es donde la marca completa -- las dos lineas, el hierro y "PERFORMANCE
+   HORSES" -- tiene sitio para leerse.
+
+   Se dimensiona por ANCHO, no por alto, porque el bloque es apaisado (756x455,
+   1.66:1). `min(100%, 40rem)` = 640px de tope en escritorio (-> 385px de alto)
+   y el canal completo en movil (350px a 390 -> 211px de alto). El `100%` es la
+   guarda de desborde: nunca puede pasar del ancho de su contenedor, que es el
+   fallo que tuvo la version de texto (380px de desborde con `nowrap`). */
 .pie__logotipo {
-  font-family: var(--font-display), Georgia, serif;
-  font-weight: 500;
-  /* 17vw NO es a ojo: medido, "Santa Maria" en Playfair ocupa 5.18px de ancho
-     por cada px de cuerpo. A 1440 el canal son 1329px -> 256px de cuerpo lo
-     llenaria; a 390 el canal son 350px -> el techo son 67px. 17vw da 245px y
-     66px, o sea 95% del canal arriba y 97% abajo, sin tocar el borde. */
-  font-size: clamp(2.25rem, 17vw, 15.5rem);
-  line-height: 0.92;
-  letter-spacing: -0.02em;
-  color: var(--color-foreground);
-  margin: 0 0 var(--space-8);
-  text-wrap: nowrap;
-  /* Guarda dura: con `nowrap` el texto se sale de su caja sin que ningun
-     elemento mida mas que el viewport, asi que el chequeo de "ningun elemento
-     mas ancho que el viewport" NO lo detecta -- solo lo caza `scrollWidth`.
-     Paso una vez con `ORIGEN` completo: 380px de desborde. */
-  overflow: clip;
+  display: block;
+  inline-size: min(100%, 40rem);
+  block-size: auto;
+  /* Centrado en el canal (pedido de Cesar, 2026-09-05): el `auto` de los lados
+     es lo que lo centra; el pie de la referencia lo tenia a la izquierda. */
+  margin: 0 auto var(--space-8);
 }
 
 .pie__fila {
